@@ -2,10 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
-<meta name="mobile-web-app-capable" content="yes">
-<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="css/leaflet.css">
 <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
@@ -15,127 +12,153 @@
 <link rel="stylesheet" href="css/leaflet.photon.css">
 
 <style>
-html, body, #map {
+html, body {
     width: 100%;
     height: 100%;
-    padding: 0;
     margin: 0;
+    padding: 0;
 }
 
-/* ===============================
-   SIDE PANEL STYLE (TAMBAHAN SAHAJA)
-================================= */
-#sidePanel {
+/* ================= GOOGLE STYLE LAYERS BUTTON ================= */
+
+#gmLayersBtn {
     position: absolute;
-    top: 20px;
-    left: 20px;
-    width: 320px;
-    z-index: 1200;
-    font-family: 'Segoe UI', sans-serif;
-}
-
-.card {
-    background: linear-gradient(145deg, #1e2430, #141922);
-    border-radius: 18px;
-    padding: 20px;
-    margin-bottom: 18px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-    color: #a5ffb2;
-}
-
-.card h3 {
-    margin: 0 0 15px 0;
-    font-size: 14px;
-    color: #7CFC98;
-}
-
-.card input {
-    width: 100%;
-    padding: 12px;
-    border-radius: 10px;
-    border: none;
-    background: #0e1117;
-    color: white;
-    font-size: 15px;
-    margin-bottom: 15px;
-}
-
-.btn {
-    width: 100%;
-    padding: 14px;
-    border-radius: 12px;
-    border: none;
-    font-size: 15px;
+    bottom: 30px;
+    right: 20px;
+    width: 110px;
+    height: 85px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
     cursor: pointer;
-    font-weight: bold;
-    margin-bottom: 10px;
+    overflow: hidden;
+    z-index: 1002;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
 }
 
-.btn-green { background: #2e7d32; color: white; }
-.btn-red { background: #c62828; color: white; }
-.btn-blue { background: #1976d2; color: white; }
+#gmLayersBtn:hover {
+    transform: scale(1.05);
+}
 
-.info-value {
-    font-size: 20px;
+#gmLayersBtn img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+#gmLayersBtn span {
+    position: relative;
+    z-index: 1;
+    background: rgba(255,255,255,0.95);
+    text-align: center;
     font-weight: bold;
-    color: #7CFC98;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+/* ================= VIDEO HEADER ================= */
+#header {
+    position: relative;
+    width: 100%;
+    height: 110px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    z-index: 1001;
+}
+
+/* Video background */
+#header video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: -2;
+}
+
+/* Dark overlay */
+#header::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+/* Logo */
+#header img {
+    height: 160px;
+    margin-right: 40px;
+    transition: transform 0.4s ease;
+}
+
+#header img:hover {
+    transform: scale(1.15);
+}
+
+/* Title */
+#header h1 {
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px rgba(255,255,255,0.8);
+    animation: fadeIn 2s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* ================= MAP ================= */
+#map {
+    position: absolute;
+    top: 110px;
+    bottom: 0;
+    width: 100%;
 }
 </style>
 
-<title>Peta Lot PUO</title>
+<title>TAMAN SAUJANA PUTRA</title>
 </head>
 
 <body>
 
-<div id="map"></div>
+<!-- ================= HEADER WITH VIDEO ================= -->
+<div id="header">
 
-<!-- ===============================
-     SIDE PANEL (TAMBAHAN SAHAJA)
-================================= -->
-<div id="sidePanel">
+    <video autoplay muted loop playsinline>
+        <source src="VIDEO 1.mp4" type="video/mp4">
+    </video>
 
-    <div class="card">
-        <h3>🔎 LOT OPACITY</h3>
-        <input type="range" min="0" max="1" step="0.1" value="1"
-               id="opacitySlider">
-    </div>
+    <!-- ✅ LOGO DIKEMASKINI -->
+    <img src="PUO.png" alt="Logo PUO">
 
-    <div class="card">
-        <h3>🌍 LAND EXPLORER</h3>
-        <input type="text" id="lotSearch" placeholder="Masukkan No Lot">
-        <button class="btn btn-green" onclick="findLot()">Find Lot</button>
-        <button class="btn btn-red" onclick="resetLot()">Reset Lot</button>
-    </div>
-
-    <div class="card">
-        <div>TOTAL LOT</div>
-        <div class="info-value">67</div>
-    </div>
-
-    <div class="card">
-        <div>NO LOT</div>
-        <div class="info-value" id="noLot">-</div>
-    </div>
-
-    <div class="card">
-        <div>OWNER</div>
-        <div class="info-value" id="ownerName">-</div>
-    </div>
-
-    <div class="card">
-        <div>AREA</div>
-        <div class="info-value" id="areaLot">-</div>
-    </div>
-
-    <button class="btn btn-blue" onclick="generatePDF()">
-        📄 Generate PDF Lot
-    </button>
+    <h1>TAMAN SAUJANA PUTRA</h1>
 
 </div>
 
-<!-- ===============================
-     SCRIPT ASAL ANDA (TIDAK DIUBAH)
-================================= -->
+<div id="map"></div>
+
+<!-- GOOGLE STYLE LAYERS BUTTON -->
+<div id="gmLayersBtn">
+    <img src="https://mt1.google.com/vt/lyrs=s&x=210000&y=120000&z=17" alt="Layers">
+    <span>Layers</span>
+</div>
 
 <script src="js/qgis2web_expressions.js"></script>
 <script src="js/leaflet.js"></script>
@@ -154,10 +177,6 @@ html, body, #map {
 
 <script>
 
-// ===============================
-// INITIAL MAP (ASAL)
-// ===============================
-
 var map = L.map('map', {
     zoomControl:false, 
     maxZoom:28, 
@@ -167,33 +186,50 @@ var map = L.map('map', {
 
 var hash = new L.Hash(map);
 
-// OpenStreetMap
-var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap contributors'
+/* ================= GOOGLE BASE MAP ================= */
+
+var street = L.tileLayer(
+    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap'
 }).addTo(map);
 
-// Google Satellite
 var satellite = L.tileLayer(
     'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
     attribution: '&copy; Google'
 });
 
-var baseMaps = {
-    "OpenStreetMap": osm,
-    "Satelit": satellite
+var terrain = L.tileLayer(
+    'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
+    attribution: '&copy; Google Terrain'
+});
+
+document.getElementById("gmLayersBtn").onclick = function() {
+    var panel = document.querySelector('.leaflet-control-layers');
+    if (panel.style.display === "none") {
+        panel.style.display = "block";
+    } else {
+        panel.style.display = "none";
+    }
 };
 
-L.control.layers(baseMaps, null, {
-    position: 'topright'
-}).addTo(map);
+/* ================= GOOGLE MAP DETAILS ================= */
 
-L.control.zoom({
-    position: 'topleft'
-}).addTo(map);
+var traffic = L.tileLayer(
+    'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}', {
+    attribution: '&copy; Google Traffic'
+});
 
-// ===============================
-// LOT LAYER (ASAL)
-// ===============================
+var transit = L.tileLayer(
+    'https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}', {
+    attribution: '&copy; Google Transit'
+});
+
+var bicycling = L.tileLayer(
+    'https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}', {
+    attribution: '&copy; Google Biking'
+});
+
+/* ================= LOT STYLE ================= */
 
 function style_LOTFINAL_0() {
     return {
@@ -208,73 +244,55 @@ var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0, {
     style: style_LOTFINAL_0
 }).addTo(map);
 
-// ===============================
-// TAMBAHAN FUNCTION PANEL SAHAJA
-// ===============================
-
-// OPACITY
-document.getElementById("opacitySlider")
-.addEventListener("input", function(e) {
-    layer_LOTFINAL_0.setStyle({
-        fillOpacity: e.target.value
-    });
-});
-
-// FIND LOT
-function findLot() {
-
-    var lotNumber = document.getElementById("lotSearch").value;
-
-    layer_LOTFINAL_0.eachLayer(function(layer) {
-
-        if(layer.feature.properties.NO_LOT == lotNumber) {
-
-            layer.setStyle({ fillColor: '#00ff00' });
-            map.fitBounds(layer.getBounds());
-
-            document.getElementById("noLot").innerHTML =
-                layer.feature.properties.NO_LOT;
-
-            document.getElementById("ownerName").innerHTML =
-                layer.feature.properties.OWNER || "-";
-
-            document.getElementById("areaLot").innerHTML =
-                (layer.feature.properties.AREA || 0) + " m²";
-        }
-    });
-}
-
-// RESET
-function resetLot() {
-    layer_LOTFINAL_0.setStyle({ fillColor: '#a47158' });
-    document.getElementById("noLot").innerHTML = "-";
-    document.getElementById("ownerName").innerHTML = "-";
-    document.getElementById("areaLot").innerHTML = "-";
-}
-
-// GENERATE FILE
-function generatePDF() {
-
-    var lot = document.getElementById("noLot").innerHTML;
-
-    if(lot == "-") {
-        alert("Sila pilih lot dahulu.");
-        return;
+function style_Tanda() {
+    return {
+        radius: 4,
+        color: '#232323',
+        fillColor: '#d5b43c',
+        fillOpacity: 1
     }
-
-    var content =
-        "No Lot: " + document.getElementById("noLot").innerHTML + "\n" +
-        "Owner: " + document.getElementById("ownerName").innerHTML + "\n" +
-        "Area: " + document.getElementById("areaLot").innerHTML;
-
-    var blob = new Blob([content], { type: "text/plain" });
-    var link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "Lot_" + lot + ".txt";
-    link.click();
 }
+
+var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
+    pointToLayer: function (feature, latlng) {
+        return L.circleMarker(latlng, style_Tanda());
+    }
+}).addTo(map);
+
+/* ================= LAYER CONTROL ================= */
+
+var layerControl = L.control.layers(
+    {
+        "Street Map": street,
+        "Satellite": satellite,
+        "Terrain": terrain
+    },
+    {
+        "Traffic": traffic,
+        "Transit": transit,
+        "Bicycling": bicycling,
+        "Lot Final": layer_LOTFINAL_0,
+        "Tanda Sempadan": tandaLayer
+    },
+    {
+        position: 'topright',
+        collapsed: false
+    }
+);
+
+layerControl.addTo(map);
+
+// Hide default control
+document.querySelector('.leaflet-control-layers').style.display = "none";
+
+/* ================= SEARCH ================= */
+
+map.addControl(new L.Control.Search({
+    layer: layer_LOTFINAL_0,
+    propertyName: 'NO_LOT',
+    hideMarkerOnCollapse: true,
+    initial: false
+}));
 
 </script>
 
-</body>
-</html>
