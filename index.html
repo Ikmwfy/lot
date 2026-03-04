@@ -14,6 +14,78 @@ html, body {
     padding: 0;
 }
 
+/* ================= LEFT DASHBOARD ================= */
+
+#menuBtn {
+    position: absolute;
+    top: 130px;
+    left: 15px;
+    background: #5a3e2b;
+    color: white;
+    padding: 10px 14px;
+    border-radius: 8px;
+    cursor: pointer;
+    z-index: 6000;
+    font-weight: bold;
+}
+
+#dashboard {
+    position: absolute;
+    top: 110px;
+    left: -320px;
+    width: 300px;
+    bottom: 35px;
+    background: white;
+    z-index: 5500;
+    padding: 18px;
+    overflow-y: auto;
+    box-shadow: 4px 0 15px rgba(0,0,0,0.3);
+    transition: 0.3s;
+    font-family: Arial;
+}
+
+#dashboard.active {
+    left: 0;
+}
+
+#dashboard h2 {
+    margin: 0;
+    color: #5a3e2b;
+}
+
+#dashboard hr {
+    margin: 10px 0;
+}
+
+.dashboard-section {
+    margin-bottom: 18px;
+}
+
+.dashboard-section label {
+    font-weight: bold;
+}
+
+.dashboard-section input,
+.dashboard-section button {
+    width: 100%;
+    padding: 6px;
+    margin-top: 5px;
+}
+
+.dashboard-section button {
+    background: #8b5e3c;
+    color: white;
+    border: none;
+    cursor: pointer;
+}
+
+.dashboard-info {
+    background: #f3f3f3;
+    padding: 8px;
+    margin-top: 8px;
+    font-size: 14px;
+}
+
 /* ================= FOOTER ================= */
 
 #footer {
@@ -162,6 +234,43 @@ html, body {
 </div>
 
 <div id="map"></div>
+    
+<!-- MENU BUTTON -->
+<div id="menuBtn">☰ Menu</div>
+
+<!-- DASHBOARD -->
+<div id="dashboard">
+
+<h2>DASHBOARD</h2>
+<br>
+<hr>
+
+<div class="dashboard-section">
+    <label>Total Lot</label>
+    <div id="totalLot" class="dashboard-info"></div>
+</div>
+
+<div class="dashboard-section">
+    <label>Lot Opacity</label>
+    <input type="range" id="opacitySlider" min="0" max="1" step="0.1" value="1">
+</div>
+
+<div class="dashboard-section">
+    <label>Land Explorer</label>
+    <input type="text" id="searchLot" placeholder="Masukkan No Lot">
+    <button id="findLot">Find Lot</button>
+    <button id="resetLot">Reset Lot</button>
+</div>
+
+<div class="dashboard-section">
+    <label>Maklumat Lot Dipilih</label>
+    <div id="lotInfo" class="dashboard-info">
+        Tiada lot dipilih
+    </div>
+    <button id="generatePDF">Generate PDF Lot</button>
+</div>
+
+</div>
 
 <!-- Layers Button -->
 <div id="gmLayersBtn">
@@ -202,6 +311,118 @@ html, body {
 <script src="data/TandaSempadanGabung_1.js"></script>
 
 <script>
+
+/* ================= DASHBOARD FUNCTION ================= */
+
+var dashboard = document.getElementById("dashboard");
+var menuBtn = document.getElementById("menuBtn");
+
+menuBtn.onclick = function() {
+    dashboard.classList.toggle("active");
+};
+
+/* ================= TOTAL LOT ================= */
+
+document.getElementById("totalLot").innerHTML =
+    layer_LOTFINAL_0.getLayers().length;
+
+/* ================= LOT OPACITY ================= */
+
+document.getElementById("opacitySlider").oninput = function() {
+    var value = this.value;
+    layer_LOTFINAL_0.eachLayer(function(layer){
+        layer.setStyle({ fillOpacity: value });
+    });
+};
+
+/* ================= LAND EXPLORER ================= */
+
+document.getElementById("findLot").onclick = function() {
+
+    var searchValue = document.getElementById("searchLot").value;
+
+    layer_LOTFINAL_0.eachLayer(function(layer){
+
+        if(layer.feature.properties["NO_LOT"] == searchValue){
+
+            map.fitBounds(layer.getBounds());
+
+            if (selectedLayer) {
+                selectedLayer.setStyle(style_LOTFINAL_0());
+            }
+
+            selectedLayer = layer;
+            layer.setStyle(highlightStyle());
+
+            updateLotInfo(layer.feature.properties);
+        }
+    });
+};
+
+document.getElementById("resetLot").onclick = function(){
+
+    document.getElementById("searchLot").value = "";
+
+    layer_LOTFINAL_0.eachLayer(function(layer){
+        layer.setStyle(style_LOTFINAL_0());
+    });
+
+    selectedLayer = null;
+
+    document.getElementById("lotInfo").innerHTML =
+        "Tiada lot dipilih";
+};
+
+/* ================= UPDATE INFO PANEL ================= */
+
+function updateLotInfo(properties){
+
+    document.getElementById("lotInfo").innerHTML = `
+        <b>No PA:</b> ${properties["tsp — _1"]}<br>
+        <b>No Lot:</b> ${properties["NO_LOT"]}<br>
+        <b>Keluasan:</b> ${parseFloat(properties["AREA"]).toFixed(3)} m²<br>
+        <b>Pemilik:</b> ${properties["tsp — pe"]}
+    `;
+}
+
+/* Modify popup click supaya update dashboard juga */
+
+layer_LOTFINAL_0.eachLayer(function(layer){
+
+    layer.on("click", function(){
+
+        updateLotInfo(layer.feature.properties);
+
+    });
+
+});
+
+/* ================= GENERATE PDF ================= */
+
+document.getElementById("generatePDF").onclick = function(){
+
+    if(!selectedLayer){
+        alert("Sila pilih lot dahulu.");
+        return;
+    }
+
+    var prop = selectedLayer.feature.properties;
+
+    var content = `
+        Maklumat Lot
+
+        No PA: ${prop["tsp — _1"]}
+        No Lot: ${prop["NO_LOT"]}
+        Keluasan: ${parseFloat(prop["AREA"]).toFixed(3)} m²
+        Pemilik: ${prop["tsp — pe"]}
+    `;
+
+    var blob = new Blob([content], { type: "application/pdf" });
+    var link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "Maklumat_Lot.pdf";
+    link.click();
+};
 
 /* ================= MAP SETTING ================= */
 
