@@ -581,7 +581,7 @@ layer_LOTFINAL_0.eachLayer(function(layer){
 
 });
 
-/* ================= GENERATE PDF BARU ================= */
+/* ================= GENERATE PDF A4 ================= */
 
 document.getElementById("generatePDF").onclick = function(){
 
@@ -592,35 +592,77 @@ return;
 
 var prop = selectedLayer.feature.properties;
 
+/* capture map */
 html2canvas(document.getElementById("map")).then(function(canvas){
 
 const { jsPDF } = window.jspdf;
 
-var pdf = new jsPDF("landscape");
+/* A4 size */
+var pdf = new jsPDF("portrait","mm","a4");
 
+/* convert map to image */
 var imgData = canvas.toDataURL("image/png");
 
+/* ===== TAJUK ===== */
+
 pdf.setFont("helvetica","bold");
-pdf.setFontSize(20);
-pdf.text("MAKLUMAT LOT TANAH", 140, 20, {align:"center"});
+pdf.setFontSize(18);
+pdf.text("TAMAN SAUJANA PUTRA",105,15,{align:"center"});
 
-/* GAMBAR MAP */
-pdf.addImage(imgData,'PNG',15,30,260,120);
+pdf.setFontSize(14);
+pdf.text("SISTEM MAKLUMAT LOT TANAH",105,23,{align:"center"});
 
-/* MAKLUMAT LOT */
+/* ===== LINE ===== */
+
+pdf.line(10,28,200,28);
+
+/* ===== GAMBAR MAP ===== */
+
+pdf.addImage(imgData,'PNG',15,35,180,100);
+
+/* ===== LINE ===== */
+
+pdf.line(10,140,200,140);
+
+/* ===== TAJUK MAKLUMAT ===== */
+
+pdf.setFontSize(14);
+pdf.text("Maklumat Lot",15,150);
+
+/* ===== MAKLUMAT LOT ===== */
+
 pdf.setFontSize(12);
 
-pdf.text("No PA : " + prop["tsp — _1"],20,170);
-pdf.text("No Lot : " + prop["NO_LOT"],20,180);
-pdf.text("Keluasan : " + parseFloat(prop["AREA"]).toFixed(3) + " m²",20,190);
-pdf.text("Pemilik : " + prop["tsp — pe"],20,200);
+pdf.text("No PA      : " + prop["tsp — _1"],20,160);
 
-pdf.save("Maklumat_Lot.pdf");
+pdf.text("No Lot     : " + prop["NO_LOT"],20,170);
+
+pdf.text(
+"Keluasan   : " +
+parseFloat(prop["AREA"]).toFixed(3) + " m²",
+20,
+180
+);
+
+pdf.text("Pemilik    : " + prop["tsp — pe"],20,190);
+
+/* ===== FOOTER ===== */
+
+pdf.setFontSize(10);
+pdf.text(
+"Politeknik Ungku Omar | Hak Cipta 2026",
+105,
+285,
+{align:"center"}
+);
+
+/* SAVE */
+
+pdf.save("Maklumat_Lot_Taman_Saujana_Putra.pdf");
 
 });
 
 };
-
 
 </script>
 
