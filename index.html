@@ -5,11 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="css/leaflet.css">
-<link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
-<link rel="stylesheet" href="css/qgis2web.css">
-<link rel="stylesheet" href="css/fontawesome-all.min.css">
-<link rel="stylesheet" href="css/leaflet-search.css">
-<link rel="stylesheet" href="css/leaflet.photon.css">
 
 <style>
 html, body {
@@ -17,9 +12,67 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+    font-family: Arial, sans-serif;
 }
 
-/* ================= GOOGLE STYLE LAYERS BUTTON ================= */
+/* ================= HEADER ================= */
+
+#header {
+    position: relative;
+    width: 100%;
+    height: 110px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+    z-index: 1001;
+}
+
+#header video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: -2;
+}
+
+#header::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    z-index: -1;
+}
+
+#header img {
+    height: 160px;
+    margin-right: 40px;
+}
+
+#header h1 {
+    color: white;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 3px;
+}
+
+/* ================= MAP ================= */
+
+#map {
+    position: absolute;
+    top: 110px;
+    bottom: 0;
+    width: 100%;
+}
+
+/* ================= GOOGLE LAYERS BUTTON ================= */
 
 #gmLayersBtn {
     position: absolute;
@@ -32,15 +85,10 @@ html, body {
     box-shadow: 0 6px 18px rgba(0,0,0,0.3);
     cursor: pointer;
     overflow: hidden;
-    z-index: 1002;
-    transition: all 0.3s ease;
+    z-index: 2000;
     display: flex;
     flex-direction: column;
     justify-content: flex-end;
-}
-
-#gmLayersBtn:hover {
-    transform: scale(1.05);
 }
 
 #gmLayersBtn img {
@@ -48,88 +96,87 @@ html, body {
     width: 100%;
     height: 100%;
     object-fit: cover;
-    z-index: 0;
 }
 
 #gmLayersBtn span {
-    position: relative;
-    z-index: 1;
     background: rgba(255,255,255,0.95);
     text-align: center;
     font-weight: bold;
     padding: 6px 0;
     font-size: 14px;
+    z-index: 2;
 }
 
-/* ================= VIDEO HEADER ================= */
-#header {
-    position: relative;
-    width: 100%;
-    height: 110px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    padding: 0 40px;
-    z-index: 1001;
-}
+/* ================= GOOGLE PANEL ================= */
 
-/* Video background */
-#header video {
+#gmPanel {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    transform: translate(-50%, -50%);
+    bottom: 130px;
+    right: 20px;
+    width: 270px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    padding: 20px;
+    z-index: 3000;
+    display: none;
+}
+
+#gmPanel h3 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+.gmGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.gmItem {
+    text-align: center;
+    cursor: pointer;
+}
+
+.gmItem img {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
     object-fit: cover;
-    z-index: -2;
+    transition: 0.3s;
 }
 
-/* Dark overlay */
-#header::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    top: 0;
-    left: 0;
-    z-index: -1;
+.gmItem img:hover {
+    transform: scale(1.1);
 }
 
-/* Logo */
-#header img {
-    height: 160px;
-    margin-right: 40px;
-    transition: transform 0.4s ease;
+.gmItem span {
+    display: block;
+    font-size: 13px;
+    margin-top: 5px;
 }
 
-#header img:hover {
-    transform: scale(1.15);
+.gmMapType {
+    display: flex;
+    justify-content: space-between;
 }
 
-/* Title */
-#header h1 {
-    color: white;
-    font-size: 32px;
-    font-weight: bold;
-    margin: 0;
-    letter-spacing: 3px;
-    text-shadow: 0 0 15px rgba(255,255,255,0.8);
-    animation: fadeIn 2s ease;
+.gmMapType div {
+    text-align: center;
+    cursor: pointer;
 }
 
-@keyframes fadeIn {
-    from { opacity: 0; transform: translateY(-20px); }
-    to { opacity: 1; transform: translateY(0); }
+.gmMapType img {
+    width: 95px;
+    height: 70px;
+    border-radius: 14px;
+    object-fit: cover;
+    border: 3px solid transparent;
 }
 
-/* ================= MAP ================= */
-#map {
-    position: absolute;
-    top: 110px;
-    bottom: 0;
-    width: 100%;
+.gmMapType img.active {
+    border: 3px solid #1a73e8;
 }
 </style>
 
@@ -138,161 +185,130 @@ html, body {
 
 <body>
 
-<!-- ================= HEADER WITH VIDEO ================= -->
+<!-- HEADER -->
 <div id="header">
-
     <video autoplay muted loop playsinline>
         <source src="VIDEO 1.mp4" type="video/mp4">
     </video>
 
-    <!-- ✅ LOGO DIKEMASKINI -->
-    <img src="PUO.png" alt="Logo PUO">
-
+    <img src="PUO.png" alt="Logo">
     <h1>TAMAN SAUJANA PUTRA</h1>
-
 </div>
 
 <div id="map"></div>
 
-<!-- GOOGLE STYLE LAYERS BUTTON -->
+<!-- GOOGLE STYLE BUTTON -->
 <div id="gmLayersBtn">
-    <img src="https://mt1.google.com/vt/lyrs=s&x=210000&y=120000&z=17" alt="Layers">
+    <img src="https://mt1.google.com/vt/lyrs=s&x=210000&y=120000&z=17">
     <span>Layers</span>
 </div>
 
-<script src="js/qgis2web_expressions.js"></script>
+<!-- GOOGLE STYLE PANEL -->
+<div id="gmPanel">
+
+    <h3>Map details</h3>
+
+    <div class="gmGrid">
+        <div class="gmItem" onclick="toggleTraffic()">
+            <img src="https://maps.gstatic.com/tactile/layers/traffic.png">
+            <span>Traffic</span>
+        </div>
+
+        <div class="gmItem" onclick="toggleTransit()">
+            <img src="https://maps.gstatic.com/tactile/layers/transit.png">
+            <span>Transit</span>
+        </div>
+
+        <div class="gmItem" onclick="toggleBike()">
+            <img src="https://maps.gstatic.com/tactile/layers/bicycling.png">
+            <span>Biking</span>
+        </div>
+    </div>
+
+    <h3>Map type</h3>
+
+    <div class="gmMapType">
+        <div onclick="setStreet()">
+            <img id="streetImg"
+            src="https://mt1.google.com/vt/lyrs=m&x=210000&y=120000&z=17"
+            class="active">
+            <span>Default</span>
+        </div>
+
+        <div onclick="setSatellite()">
+            <img id="satImg"
+            src="https://mt1.google.com/vt/lyrs=s&x=210000&y=120000&z=17">
+            <span>Satellite</span>
+        </div>
+    </div>
+
+</div>
+
 <script src="js/leaflet.js"></script>
-<script src="js/L.Control.Layers.Tree.min.js"></script>
-<script src="js/leaflet.rotatedMarker.js"></script>
-<script src="js/leaflet.pattern.js"></script>
-<script src="js/leaflet-hash.js"></script>
-<script src="js/Autolinker.min.js"></script>
-<script src="js/rbush.min.js"></script>
-<script src="js/labelgun.min.js"></script>
-<script src="js/labels.js"></script>
-<script src="js/leaflet.photon.js"></script>
-<script src="js/leaflet-search.js"></script>
-<script src="data/LOTFINAL_0.js"></script>
-<script src="data/TandaSempadanGabung_1.js"></script>
 
 <script>
 
-var map = L.map('map', {
-    zoomControl:false, 
-    maxZoom:28, 
-    minZoom:1
-}).fitBounds([[2.10309049233999,102.52084635053448],
-              [2.1044455032659752,102.52331439237805]]);
+/* ================= MAP ================= */
 
-var hash = new L.Hash(map);
-
-/* ================= GOOGLE BASE MAP ================= */
+var map = L.map('map').setView([2.1037, 102.5220], 17);
 
 var street = L.tileLayer(
-    'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution: '&copy; OpenStreetMap'
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
+attribution:'&copy; OpenStreetMap'
 }).addTo(map);
 
 var satellite = L.tileLayer(
-    'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
-    attribution: '&copy; Google'
-});
-
-var terrain = L.tileLayer(
-    'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
-    attribution: '&copy; Google Terrain'
-});
-
-document.getElementById("gmLayersBtn").onclick = function() {
-    var panel = document.querySelector('.leaflet-control-layers');
-    if (panel.style.display === "none") {
-        panel.style.display = "block";
-    } else {
-        panel.style.display = "none";
-    }
-};
-
-/* ================= GOOGLE MAP DETAILS ================= */
-
-var traffic = L.tileLayer(
-    'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}', {
-    attribution: '&copy; Google Traffic'
-});
-
-var transit = L.tileLayer(
-    'https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}', {
-    attribution: '&copy; Google Transit'
-});
-
-var bicycling = L.tileLayer(
-    'https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}', {
-    attribution: '&copy; Google Biking'
-});
-
-/* ================= LOT STYLE ================= */
-
-function style_LOTFINAL_0() {
-    return {
-        color: '#232323',
-        weight: 1,
-        fillColor: '#a47158',
-        fillOpacity: 1
-    }
-}
-
-var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0, {
-    style: style_LOTFINAL_0
-}).addTo(map);
-
-function style_Tanda() {
-    return {
-        radius: 4,
-        color: '#232323',
-        fillColor: '#d5b43c',
-        fillOpacity: 1
-    }
-}
-
-var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
-    pointToLayer: function (feature, latlng) {
-        return L.circleMarker(latlng, style_Tanda());
-    }
-}).addTo(map);
-
-/* ================= LAYER CONTROL ================= */
-
-var layerControl = L.control.layers(
-    {
-        "Street Map": street,
-        "Satellite": satellite,
-        "Terrain": terrain
-    },
-    {
-        "Traffic": traffic,
-        "Transit": transit,
-        "Bicycling": bicycling,
-        "Lot Final": layer_LOTFINAL_0,
-        "Tanda Sempadan": tandaLayer
-    },
-    {
-        position: 'topright',
-        collapsed: false
-    }
+'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
 );
 
-layerControl.addTo(map);
+var traffic = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}'
+);
 
-// Hide default control
-document.querySelector('.leaflet-control-layers').style.display = "none";
+var transit = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}'
+);
 
-/* ================= SEARCH ================= */
+var bicycling = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}'
+);
 
-map.addControl(new L.Control.Search({
-    layer: layer_LOTFINAL_0,
-    propertyName: 'NO_LOT',
-    hideMarkerOnCollapse: true,
-    initial: false
-}));
+/* ================= BUTTON ================= */
+
+document.getElementById("gmLayersBtn").onclick = function() {
+    var panel = document.getElementById("gmPanel");
+    panel.style.display = (panel.style.display === "block") ? "none" : "block";
+};
+
+/* ================= FUNCTIONS ================= */
+
+function setStreet(){
+    map.addLayer(street);
+    map.removeLayer(satellite);
+    streetImg.classList.add("active");
+    satImg.classList.remove("active");
+}
+
+function setSatellite(){
+    map.addLayer(satellite);
+    map.removeLayer(street);
+    satImg.classList.add("active");
+    streetImg.classList.remove("active");
+}
+
+function toggleTraffic(){
+    map.hasLayer(traffic) ? map.removeLayer(traffic) : map.addLayer(traffic);
+}
+
+function toggleTransit(){
+    map.hasLayer(transit) ? map.removeLayer(transit) : map.addLayer(transit);
+}
+
+function toggleBike(){
+    map.hasLayer(bicycling) ? map.removeLayer(bicycling) : map.addLayer(bicycling);
+}
 
 </script>
 
+</body>
+</html>
