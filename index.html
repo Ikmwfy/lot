@@ -312,118 +312,6 @@ html, body {
 
 <script>
 
-/* ================= DASHBOARD FUNCTION ================= */
-
-var dashboard = document.getElementById("dashboard");
-var menuBtn = document.getElementById("menuBtn");
-
-menuBtn.onclick = function() {
-    dashboard.classList.toggle("active");
-};
-
-/* ================= TOTAL LOT ================= */
-
-document.getElementById("totalLot").innerHTML =
-    layer_LOTFINAL_0.getLayers().length;
-
-/* ================= LOT OPACITY ================= */
-
-document.getElementById("opacitySlider").oninput = function() {
-    var value = this.value;
-    layer_LOTFINAL_0.eachLayer(function(layer){
-        layer.setStyle({ fillOpacity: value });
-    });
-};
-
-/* ================= LAND EXPLORER ================= */
-
-document.getElementById("findLot").onclick = function() {
-
-    var searchValue = document.getElementById("searchLot").value;
-
-    layer_LOTFINAL_0.eachLayer(function(layer){
-
-        if(layer.feature.properties["NO_LOT"] == searchValue){
-
-            map.fitBounds(layer.getBounds());
-
-            if (selectedLayer) {
-                selectedLayer.setStyle(style_LOTFINAL_0());
-            }
-
-            selectedLayer = layer;
-            layer.setStyle(highlightStyle());
-
-            updateLotInfo(layer.feature.properties);
-        }
-    });
-};
-
-document.getElementById("resetLot").onclick = function(){
-
-    document.getElementById("searchLot").value = "";
-
-    layer_LOTFINAL_0.eachLayer(function(layer){
-        layer.setStyle(style_LOTFINAL_0());
-    });
-
-    selectedLayer = null;
-
-    document.getElementById("lotInfo").innerHTML =
-        "Tiada lot dipilih";
-};
-
-/* ================= UPDATE INFO PANEL ================= */
-
-function updateLotInfo(properties){
-
-    document.getElementById("lotInfo").innerHTML = `
-        <b>No PA:</b> ${properties["tsp — _1"]}<br>
-        <b>No Lot:</b> ${properties["NO_LOT"]}<br>
-        <b>Keluasan:</b> ${parseFloat(properties["AREA"]).toFixed(3)} m²<br>
-        <b>Pemilik:</b> ${properties["tsp — pe"]}
-    `;
-}
-
-/* Modify popup click supaya update dashboard juga */
-
-layer_LOTFINAL_0.eachLayer(function(layer){
-
-    layer.on("click", function(){
-
-        updateLotInfo(layer.feature.properties);
-
-    });
-
-});
-
-/* ================= GENERATE PDF ================= */
-
-document.getElementById("generatePDF").onclick = function(){
-
-    if(!selectedLayer){
-        alert("Sila pilih lot dahulu.");
-        return;
-    }
-
-    var prop = selectedLayer.feature.properties;
-
-    var content = `
-        Maklumat Lot
-
-        No PA: ${prop["tsp — _1"]}
-        No Lot: ${prop["NO_LOT"]}
-        Keluasan: ${parseFloat(prop["AREA"]).toFixed(3)} m²
-        Pemilik: ${prop["tsp — pe"]}
-    `;
-
-    var blob = new Blob([content], { type: "application/pdf" });
-    var link = document.createElement("a");
-    link.href = URL.createObjectURL(blob);
-    link.download = "Maklumat_Lot.pdf";
-    link.click();
-};
-
 /* ================= MAP SETTING ================= */
 
 var map = L.map('map', {
@@ -577,6 +465,119 @@ this.checked?map.addLayer(layer_LOTFINAL_0):map.removeLayer(layer_LOTFINAL_0);
 document.getElementById("tandaCheck").onchange=function(){
 this.checked?map.addLayer(tandaLayer):map.removeLayer(tandaLayer);
 };
+
+/* ================= DASHBOARD FUNCTION ================= */
+
+var dashboard = document.getElementById("dashboard");
+var menuBtn = document.getElementById("menuBtn");
+
+menuBtn.onclick = function() {
+    dashboard.classList.toggle("active");
+};
+
+/* ================= TOTAL LOT ================= */
+
+document.getElementById("totalLot").innerHTML =
+    layer_LOTFINAL_0.getLayers().length;
+
+/* ================= LOT OPACITY ================= */
+
+document.getElementById("opacitySlider").oninput = function() {
+    var value = this.value;
+    layer_LOTFINAL_0.eachLayer(function(layer){
+        layer.setStyle({ fillOpacity: value });
+    });
+};
+
+/* ================= LAND EXPLORER ================= */
+
+document.getElementById("findLot").onclick = function() {
+
+    var searchValue = document.getElementById("searchLot").value;
+
+    layer_LOTFINAL_0.eachLayer(function(layer){
+
+        if(layer.feature.properties["NO_LOT"] == searchValue){
+
+            map.fitBounds(layer.getBounds());
+
+            if (selectedLayer) {
+                selectedLayer.setStyle(style_LOTFINAL_0());
+            }
+
+            selectedLayer = layer;
+            layer.setStyle(highlightStyle());
+
+            updateLotInfo(layer.feature.properties);
+        }
+    });
+};
+
+document.getElementById("resetLot").onclick = function(){
+
+    document.getElementById("searchLot").value = "";
+
+    layer_LOTFINAL_0.eachLayer(function(layer){
+        layer.setStyle(style_LOTFINAL_0());
+    });
+
+    selectedLayer = null;
+
+    document.getElementById("lotInfo").innerHTML =
+        "Tiada lot dipilih";
+};
+
+/* ================= UPDATE INFO PANEL ================= */
+
+function updateLotInfo(properties){
+
+    document.getElementById("lotInfo").innerHTML = `
+        <b>No PA:</b> ${properties["tsp — _1"]}<br>
+        <b>No Lot:</b> ${properties["NO_LOT"]}<br>
+        <b>Keluasan:</b> ${parseFloat(properties["AREA"]).toFixed(3)} m²<br>
+        <b>Pemilik:</b> ${properties["tsp — pe"]}
+    `;
+}
+
+/* Modify popup click supaya update dashboard juga */
+
+layer_LOTFINAL_0.eachLayer(function(layer){
+
+    layer.on("click", function(){
+
+        updateLotInfo(layer.feature.properties);
+
+    });
+
+});
+
+/* ================= GENERATE PDF ================= */
+
+document.getElementById("generatePDF").onclick = function(){
+
+    if(!selectedLayer){
+        alert("Sila pilih lot dahulu.");
+        return;
+    }
+
+    var prop = selectedLayer.feature.properties;
+
+    var content = `
+        Maklumat Lot
+
+        No PA: ${prop["tsp — _1"]}
+        No Lot: ${prop["NO_LOT"]}
+        Keluasan: ${parseFloat(prop["AREA"]).toFixed(3)} m²
+        Pemilik: ${prop["tsp — pe"]}
+    `;
+
+    var blob = new Blob([content], { type: "application/pdf" });
+    var link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "Maklumat_Lot.pdf";
+    link.click();
+};
+
 
 </script>
 
