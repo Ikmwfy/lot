@@ -19,6 +19,48 @@ html, body {
     padding: 0;
 }
 
+/* ================= GOOGLE STYLE LAYERS BUTTON ================= */
+
+#gmLayersBtn {
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
+    width: 110px;
+    height: 85px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1002;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#gmLayersBtn:hover {
+    transform: scale(1.05);
+}
+
+#gmLayersBtn img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+#gmLayersBtn span {
+    position: relative;
+    z-index: 1;
+    background: rgba(255,255,255,0.95);
+    text-align: center;
+    font-weight: bold;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
 /* ================= VIDEO HEADER ================= */
 #header {
     position: relative;
@@ -112,6 +154,12 @@ html, body {
 
 <div id="map"></div>
 
+<!-- GOOGLE STYLE LAYERS BUTTON -->
+<div id="gmLayersBtn">
+    <img src="https://mt1.google.com/vt/lyrs=s&x=210000&y=120000&z=17" alt="Layers">
+    <span>Layers</span>
+</div>
+
 <script src="js/qgis2web_expressions.js"></script>
 <script src="js/leaflet.js"></script>
 <script src="js/L.Control.Layers.Tree.min.js"></script>
@@ -154,6 +202,15 @@ var terrain = L.tileLayer(
     'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', {
     attribution: '&copy; Google Terrain'
 });
+
+document.getElementById("gmLayersBtn").onclick = function() {
+    var panel = document.querySelector('.leaflet-control-layers');
+    if (panel.style.display === "none") {
+        panel.style.display = "block";
+    } else {
+        panel.style.display = "none";
+    }
+};
 
 /* ================= GOOGLE MAP DETAILS ================= */
 
@@ -204,7 +261,7 @@ var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
 
 /* ================= LAYER CONTROL ================= */
 
-L.control.layers(
+var layerControl = L.control.layers(
     {
         "Street Map": street,
         "Satellite": satellite,
@@ -221,9 +278,12 @@ L.control.layers(
         position: 'topright',
         collapsed: false
     }
-).addTo(map);
+);
 
-L.control.zoom({ position: 'topleft' }).addTo(map);
+layerControl.addTo(map);
+
+// Hide default control
+document.querySelector('.leaflet-control-layers').style.display = "none";
 
 /* ================= SEARCH ================= */
 
