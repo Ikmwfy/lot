@@ -289,9 +289,9 @@ function onEachFeature_LOTFINAL_0(feature, layer) {
 <div style="font-family: Arial; font-size:14px;">
     <h4 style="margin:0; color:#5a3e2b;">Maklumat Lot</h4>
     <hr style="margin:6px 0;">
-    <b>No PA:</b> ${feature.properties["tsp —_1"]}
+    <b>No PA:</b> ${feature.properties["tsp — _1"]}<br>
     <b>No Lot:</b> ${feature.properties["NO_LOT"]}<br>
-    <b>Keluasan:</b> ${feature.properties["AREA"]} m²<br>
+    <b>Keluasan:</b> ${parseFloat(feature.properties["AREA"]).toFixed(3)} m²<br>
     <b>Pemilik:</b> ${feature.properties["tsp — pe"]}
 </div>
 `;
