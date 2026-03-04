@@ -2,172 +2,102 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-
-<title>Peta Lot PUO</title>
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<meta name="viewport" content="initial-scale=1,user-scalable=no,maximum-scale=1,width=device-width">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-capable" content="yes">
 
 <link rel="stylesheet" href="css/leaflet.css">
 <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+<link rel="stylesheet" href="css/qgis2web.css">
+<link rel="stylesheet" href="css/fontawesome-all.min.css">
+<link rel="stylesheet" href="css/leaflet-search.css">
+<link rel="stylesheet" href="css/leaflet.photon.css">
 
 <style>
+html, body, #map {
+    width: 100%;
+    height: 100%;
+    padding: 0;
+    margin: 0;
+}
 
 /* ===============================
-   BODY & MAP
+   SIDE PANEL STYLE (TAMBAHAN SAHAJA)
 ================================= */
-html, body {
-    margin:0;
-    padding:0;
-    height:100%;
+#sidePanel {
+    position: absolute;
+    top: 20px;
+    left: 20px;
+    width: 320px;
+    z-index: 1200;
     font-family: 'Segoe UI', sans-serif;
 }
 
-#map {
-    position:absolute;
-    top:120px;
-    bottom:0;
-    width:100%;
-}
-
-/* ===============================
-   HEADER WITH VIDEO
-================================= */
-header {
-    position:absolute;
-    top:0;
-    width:100%;
-    height:120px;
-    overflow:hidden;
-    z-index:1000;
-}
-
-header video {
-    position:absolute;
-    width:100%;
-    height:100%;
-    object-fit:cover;
-}
-
-header .overlay {
-    position:absolute;
-    width:100%;
-    height:100%;
-    background:rgba(0,0,0,0.6);
-    display:flex;
-    align-items:center;
-    padding-left:30px;
-}
-
-header img {
-    height:90px;
-    margin-right:20px;
-}
-
-header h1 {
-    color:white;
-    font-size:28px;
-    letter-spacing:2px;
-}
-
-/* ===============================
-   SIDE PANEL
-================================= */
-#sidePanel {
-    position:absolute;
-    top:140px;
-    left:20px;
-    width:320px;
-    z-index:1200;
-}
-
 .card {
-    background:linear-gradient(145deg,#1e2430,#141922);
-    border-radius:18px;
-    padding:20px;
-    margin-bottom:18px;
-    box-shadow:0 10px 25px rgba(0,0,0,0.4);
-    color:#a5ffb2;
+    background: linear-gradient(145deg, #1e2430, #141922);
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.4);
+    color: #a5ffb2;
 }
 
 .card h3 {
-    margin:0 0 15px 0;
-    font-size:14px;
-    color:#7CFC98;
+    margin: 0 0 15px 0;
+    font-size: 14px;
+    color: #7CFC98;
 }
 
 .card input {
-    width:100%;
-    padding:12px;
-    border-radius:10px;
-    border:none;
-    background:#0e1117;
-    color:white;
-    font-size:15px;
-    margin-bottom:15px;
+    width: 100%;
+    padding: 12px;
+    border-radius: 10px;
+    border: none;
+    background: #0e1117;
+    color: white;
+    font-size: 15px;
+    margin-bottom: 15px;
 }
 
 .btn {
-    width:100%;
-    padding:14px;
-    border-radius:12px;
-    border:none;
-    font-size:15px;
-    cursor:pointer;
-    font-weight:bold;
-    margin-bottom:10px;
-    transition:0.3s;
+    width: 100%;
+    padding: 14px;
+    border-radius: 12px;
+    border: none;
+    font-size: 15px;
+    cursor: pointer;
+    font-weight: bold;
+    margin-bottom: 10px;
 }
 
-.btn-green { background:#2e7d32; color:white; }
-.btn-green:hover { background:#43a047; }
-
-.btn-red { background:#c62828; color:white; }
-.btn-red:hover { background:#e53935; }
-
-.btn-blue { background:#1976d2; color:white; }
-.btn-blue:hover { background:#2196f3; }
+.btn-green { background: #2e7d32; color: white; }
+.btn-red { background: #c62828; color: white; }
+.btn-blue { background: #1976d2; color: white; }
 
 .info-value {
-    font-size:20px;
-    font-weight:bold;
-    color:#7CFC98;
+    font-size: 20px;
+    font-weight: bold;
+    color: #7CFC98;
 }
-
-.range-slider {
-    width:100%;
-}
-
 </style>
+
+<title>Peta Lot PUO</title>
 </head>
 
 <body>
 
-<!-- ===============================
-     HEADER VIDEO
-================================= -->
-<header>
-    <video autoplay muted loop>
-        <source src="VIDEO.mp4" type="video/mp4">
-    </video>
-    <div class="overlay">
-        <img src="PUO.PNG">
-        <h1>SISTEM PETA LOT PUO</h1>
-    </div>
-</header>
-
-<!-- ===============================
-     MAP
-================================= -->
 <div id="map"></div>
 
 <!-- ===============================
-     SIDE PANEL
+     SIDE PANEL (TAMBAHAN SAHAJA)
 ================================= -->
 <div id="sidePanel">
 
     <div class="card">
         <h3>🔎 LOT OPACITY</h3>
         <input type="range" min="0" max="1" step="0.1" value="1"
-               class="range-slider" id="opacitySlider">
+               id="opacitySlider">
     </div>
 
     <div class="card">
@@ -204,79 +134,109 @@ header h1 {
 </div>
 
 <!-- ===============================
-     SCRIPTS
+     SCRIPT ASAL ANDA (TIDAK DIUBAH)
 ================================= -->
+
+<script src="js/qgis2web_expressions.js"></script>
 <script src="js/leaflet.js"></script>
+<script src="js/L.Control.Layers.Tree.min.js"></script>
+<script src="js/leaflet.rotatedMarker.js"></script>
+<script src="js/leaflet.pattern.js"></script>
+<script src="js/leaflet-hash.js"></script>
+<script src="js/Autolinker.min.js"></script>
+<script src="js/rbush.min.js"></script>
+<script src="js/labelgun.min.js"></script>
+<script src="js/labels.js"></script>
+<script src="js/leaflet.photon.js"></script>
+<script src="js/leaflet-search.js"></script>
 <script src="data/LOTFINAL_0.js"></script>
+<script src="data/TandaSempadanGabung_1.js"></script>
 
 <script>
 
 // ===============================
-// MAP INIT
+// INITIAL MAP (ASAL)
 // ===============================
-var map = L.map('map').setView([2.1038,102.522],17);
 
-L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-    attribution:'© OpenStreetMap'
+var map = L.map('map', {
+    zoomControl:false, 
+    maxZoom:28, 
+    minZoom:1
+}).fitBounds([[2.10309049233999,102.52084635053448],
+              [2.1044455032659752,102.52331439237805]]);
+
+var hash = new L.Hash(map);
+
+// OpenStreetMap
+var osm = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; OpenStreetMap contributors'
+}).addTo(map);
+
+// Google Satellite
+var satellite = L.tileLayer(
+    'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', {
+    attribution: '&copy; Google'
+});
+
+var baseMaps = {
+    "OpenStreetMap": osm,
+    "Satelit": satellite
+};
+
+L.control.layers(baseMaps, null, {
+    position: 'topright'
+}).addTo(map);
+
+L.control.zoom({
+    position: 'topleft'
 }).addTo(map);
 
 // ===============================
-// LOT LAYER
+// LOT LAYER (ASAL)
 // ===============================
-function styleLot() {
+
+function style_LOTFINAL_0() {
     return {
-        color:'#232323',
-        weight:1,
-        fillColor:'#a47158',
-        fillOpacity:1
+        color: '#232323',
+        weight: 1,
+        fillColor: '#a47158',
+        fillOpacity: 1
     }
 }
 
-var layer_LOTFINAL_0 = L.geoJson(json_LOTFINAL_0,{
-    style:styleLot,
-    onEachFeature:function(feature,layer){
-        layer.on('click',function(){
-            document.getElementById("noLot").innerHTML =
-                feature.properties.NO_LOT;
-
-            document.getElementById("ownerName").innerHTML =
-                feature.properties.OWNER || "Tiada Data";
-
-            document.getElementById("areaLot").innerHTML =
-                (feature.properties.AREA || 0) + " m²";
-        });
-    }
+var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0, {
+    style: style_LOTFINAL_0
 }).addTo(map);
 
 // ===============================
-// OPACITY CONTROL
+// TAMBAHAN FUNCTION PANEL SAHAJA
 // ===============================
+
+// OPACITY
 document.getElementById("opacitySlider")
-.addEventListener("input",function(e){
+.addEventListener("input", function(e) {
     layer_LOTFINAL_0.setStyle({
-        fillOpacity:e.target.value
+        fillOpacity: e.target.value
     });
 });
 
-// ===============================
 // FIND LOT
-// ===============================
-function findLot(){
+function findLot() {
 
     var lotNumber = document.getElementById("lotSearch").value;
 
-    layer_LOTFINAL_0.eachLayer(function(layer){
+    layer_LOTFINAL_0.eachLayer(function(layer) {
 
-        if(layer.feature.properties.NO_LOT == lotNumber){
+        if(layer.feature.properties.NO_LOT == lotNumber) {
 
-            layer.setStyle({ fillColor:'#00ff00' });
+            layer.setStyle({ fillColor: '#00ff00' });
             map.fitBounds(layer.getBounds());
 
             document.getElementById("noLot").innerHTML =
                 layer.feature.properties.NO_LOT;
 
             document.getElementById("ownerName").innerHTML =
-                layer.feature.properties.OWNER || "Tiada Data";
+                layer.feature.properties.OWNER || "-";
 
             document.getElementById("areaLot").innerHTML =
                 (layer.feature.properties.AREA || 0) + " m²";
@@ -284,39 +244,33 @@ function findLot(){
     });
 }
 
-// ===============================
 // RESET
-// ===============================
-function resetLot(){
-    layer_LOTFINAL_0.setStyle({ fillColor:'#a47158' });
-
-    document.getElementById("noLot").innerHTML="-";
-    document.getElementById("ownerName").innerHTML="-";
-    document.getElementById("areaLot").innerHTML="-";
+function resetLot() {
+    layer_LOTFINAL_0.setStyle({ fillColor: '#a47158' });
+    document.getElementById("noLot").innerHTML = "-";
+    document.getElementById("ownerName").innerHTML = "-";
+    document.getElementById("areaLot").innerHTML = "-";
 }
 
-// ===============================
-// GENERATE PDF (Simple Export)
-// ===============================
-function generatePDF(){
+// GENERATE FILE
+function generatePDF() {
 
     var lot = document.getElementById("noLot").innerHTML;
 
-    if(lot=="-"){
+    if(lot == "-") {
         alert("Sila pilih lot dahulu.");
         return;
     }
 
     var content =
-        "LOT INFORMATION\n\n"+
-        "No Lot: "+document.getElementById("noLot").innerHTML+"\n"+
-        "Owner: "+document.getElementById("ownerName").innerHTML+"\n"+
-        "Area: "+document.getElementById("areaLot").innerHTML;
+        "No Lot: " + document.getElementById("noLot").innerHTML + "\n" +
+        "Owner: " + document.getElementById("ownerName").innerHTML + "\n" +
+        "Area: " + document.getElementById("areaLot").innerHTML;
 
-    var blob = new Blob([content], {type:"text/plain"});
+    var blob = new Blob([content], { type: "text/plain" });
     var link = document.createElement("a");
     link.href = URL.createObjectURL(blob);
-    link.download = "Lot_"+lot+".txt";
+    link.download = "Lot_" + lot + ".txt";
     link.click();
 }
 
