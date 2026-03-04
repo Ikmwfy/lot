@@ -15,6 +15,7 @@ html, body {
 }
 
 /* ================= FOOTER ================= */
+
 #footer {
     position: fixed;
     bottom: 0;
@@ -27,60 +28,11 @@ html, body {
     z-index: 5000;
 }
 
-/* ================= LEFT SIDEBAR ================= */
-
-#leftMenuBtn{
-position:absolute;
-top:35px;
-left:320px;
-z-index:6000;
-background:white;
-padding:8px 14px;
-border-radius:6px;
-box-shadow:0 3px 8px rgba(0,0,0,0.3);
-cursor:pointer;
-font-weight:bold;
-}
-
-#leftSidebar{
-position:fixed;
-top:110px;
-left:-320px;
-width:300px;
-height:calc(100% - 145px);
-background:white;
-box-shadow:3px 0 15px rgba(0,0,0,0.3);
-padding:20px;
-transition:0.3s;
-z-index:5500;
-overflow-y:auto;
-font-family:Arial;
-}
-
-#leftSidebar.active{
-left:0;
-}
-
-#leftSidebar input,
-#leftSidebar button{
-width:100%;
-padding:8px;
-margin-top:8px;
-margin-bottom:15px;
-}
-
-#leftSidebar button{
-background:#6f4e37;
-color:white;
-border:none;
-cursor:pointer;
-}
-
 /* ================= LAYERS BUTTON ================= */
 
 #gmLayersBtn {
     position: absolute;
-    bottom: 60px;
+    bottom: 60px; /* dinaikkan supaya tak ganggu footer */
     right: 20px;
     width: 110px;
     height: 85px;
@@ -124,6 +76,19 @@ cursor:pointer;
     z-index: 2000;
     padding: 18px;
     display: none;
+    font-family: Arial, sans-serif;
+}
+
+.gmOption {
+    display: flex;
+    align-items: center;
+    margin-bottom: 8px;
+}
+
+.gmDivider {
+    height: 1px;
+    background: #ddd;
+    margin: 12px 0;
 }
 
 /* ================= HEADER ================= */
@@ -155,6 +120,8 @@ cursor:pointer;
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
 }
 
 #header img {
@@ -166,6 +133,7 @@ cursor:pointer;
 #header h1 {
     color: white;
     font-size: 32px;
+    font-weight: bold;
     margin: 0;
     z-index: 2;
 }
@@ -175,7 +143,7 @@ cursor:pointer;
 #map {
     position: absolute;
     top: 110px;
-    bottom: 35px;
+    bottom: 35px; /* ruang untuk footer */
     width: 100%;
 }
 </style>
@@ -193,125 +161,149 @@ cursor:pointer;
     <h1>TAMAN SAUJANA PUTRA</h1>
 </div>
 
-<!-- LEFT MENU BUTTON -->
-<div id="leftMenuBtn">☰ Explorer</div>
-
-<!-- LEFT SIDEBAR -->
-<div id="leftSidebar">
-<h3>Land Explorer</h3>
-
-<label>Lot Opacity</label>
-<input type="range" min="0" max="1" step="0.1" value="1" id="lotOpacity">
-
-<label>Cari No Lot</label>
-<input type="text" id="lotSearch" placeholder="Masukkan No Lot">
-<button onclick="searchLot()">Cari Lot</button>
-
-<button onclick="generateLotPDF()">Generate PDF Lot</button>
-</div>
-
 <div id="map"></div>
 
+<!-- Layers Button -->
 <div id="gmLayersBtn">
     <img src="MAPS.png">
     <span>Layers</span>
 </div>
 
-<div id="gmPanel"></div>
+<!-- Panel -->
+<div id="gmPanel">
 
+<h3>Map Type</h3>
+<div class="gmOption"><input type="radio" name="basemap" id="streetRadio" checked>Street</div>
+<div class="gmOption"><input type="radio" name="basemap" id="satRadio">Satellite</div>
+<div class="gmOption"><input type="radio" name="basemap" id="terrainRadio">Terrain</div>
+
+<div class="gmDivider"></div>
+
+<h3>Map Details</h3>
+<div class="gmOption"><input type="checkbox" id="trafficCheck">Traffic</div>
+<div class="gmOption"><input type="checkbox" id="transitCheck">Transit</div>
+<div class="gmOption"><input type="checkbox" id="bikeCheck">Bicycling</div>
+
+<div class="gmDivider"></div>
+
+<h3>Data Layer</h3>
+<div class="gmOption"><input type="checkbox" id="lotCheck" checked>Lot Final</div>
+<div class="gmOption"><input type="checkbox" id="tandaCheck" checked>Tanda Sempadan</div>
+
+</div>
+
+<!-- FOOTER -->
 <div id="footer">
-Hak Cipta Terpelihara 2026 @ Ikmwfy | Politeknik Ungku Omar
+    Hak Cipta Terpelihara 2026 @ Ikmwfy | Politeknik Ungku Omar
 </div>
 
 <script src="js/leaflet.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 <script src="data/LOTFINAL_0.js"></script>
 <script src="data/TandaSempadanGabung_1.js"></script>
 
 <script>
 
-var map = L.map('map',{
-zoomControl:true,
-maxZoom:22,
-minZoom:5
+/* ================= MAP SETTING ================= */
+
+var map = L.map('map', {
+    zoomControl: true,
+    maxZoom: 22,
+    minZoom: 5
 }).fitBounds([
 [2.10309049233999,102.52084635053448],
 [2.1044455032659752,102.52331439237805]
 ]);
 
-var street=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:22}).addTo(map);
+/* ================= BASEMAP ================= */
 
-function style_LOTFINAL_0(){
-return{
-color:'#5a3e2b',
-weight:1,
-fillColor:'#a47148',
+var street = L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{ maxZoom: 22 }).addTo(map);
+
+var satellite = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+var terrain = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+var traffic = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+var transit = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+var bicycling = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+/* ================= LOT FINAL WARNA COKLAT ================= */
+
+function style_LOTFINAL_0() {
+    return {
+        color: '#5a3e2b',
+        weight: 1,
+        fillColor: '#a47148',
+        fillOpacity: 1
+    };
+}
+
+var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0, {
+    style: style_LOTFINAL_0
+}).addTo(map);
+
+var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1,{
+pointToLayer:function(feature,latlng){
+return L.circleMarker(latlng,{
+radius:4,
+color:'#232323',
+fillColor:'#d5b43c',
 fillOpacity:1
+});
+}}).addTo(map);
+
+/* ================= PANEL FUNCTION ================= */
+
+var gmPanel=document.getElementById("gmPanel");
+
+document.getElementById("gmLayersBtn").onclick=function(){
+gmPanel.style.display=gmPanel.style.display==="block"?"none":"block";
 };
-}
 
-var layer_LOTFINAL_0=new L.geoJson(json_LOTFINAL_0,{style:style_LOTFINAL_0}).addTo(map);
-
-var selectedLotLayer=null;
-
-/* ===== SIDEBAR TOGGLE ===== */
-document.getElementById("leftMenuBtn").onclick=function(){
-document.getElementById("leftSidebar").classList.toggle("active");
+document.getElementById("streetRadio").onclick=function(){
+map.removeLayer(satellite); map.removeLayer(terrain); map.addLayer(street);
 };
 
-/* ===== OPACITY ===== */
-document.getElementById("lotOpacity").addEventListener("input",function(e){
-var value=e.target.value;
-layer_LOTFINAL_0.eachLayer(function(layer){
-layer.setStyle({fillOpacity:value});
-});
-});
+document.getElementById("satRadio").onclick=function(){
+map.removeLayer(street); map.removeLayer(terrain); map.addLayer(satellite);
+};
 
-/* ===== SEARCH LOT ===== */
-function searchLot(){
-var val=document.getElementById("lotSearch").value.trim();
-selectedLotLayer=null;
+document.getElementById("terrainRadio").onclick=function(){
+map.removeLayer(street); map.removeLayer(satellite); map.addLayer(terrain);
+};
 
-layer_LOTFINAL_0.eachLayer(function(layer){
-if(layer.feature.properties.No_Lot==val ||
-layer.feature.properties.lot_no==val){
+document.getElementById("trafficCheck").onchange=function(){
+this.checked?map.addLayer(traffic):map.removeLayer(traffic);
+};
 
-selectedLotLayer=layer;
-layer.setStyle({fillColor:"yellow",color:"#000",weight:2});
-map.fitBounds(layer.getBounds());
-}
-});
+document.getElementById("transitCheck").onchange=function(){
+this.checked?map.addLayer(transit):map.removeLayer(transit);
+};
 
-if(!selectedLotLayer){
-alert("Lot tidak dijumpai");
-}
-}
+document.getElementById("bikeCheck").onchange=function(){
+this.checked?map.addLayer(bicycling):map.removeLayer(bicycling);
+};
 
-/* ===== GENERATE PDF ===== */
-function generateLotPDF(){
+document.getElementById("lotCheck").onchange=function(){
+this.checked?map.addLayer(layer_LOTFINAL_0):map.removeLayer(layer_LOTFINAL_0);
+};
 
-if(!selectedLotLayer){
-alert("Sila pilih lot dahulu");
-return;
-}
-
-var lotNo=
-selectedLotLayer.feature.properties.No_Lot ||
-selectedLotLayer.feature.properties.lot_no ||
-"Tidak Diketahui";
-
-const { jsPDF } = window.jspdf;
-var doc=new jsPDF();
-
-doc.setFontSize(18);
-doc.text("MAKLUMAT LOT",20,20);
-doc.setFontSize(12);
-doc.text("No Lot: "+lotNo,20,40);
-doc.text("Tarikh: "+new Date().toLocaleDateString(),20,50);
-doc.text("Hak Cipta Terpelihara 2026 @ Ikmwfy | Politeknik Ungku Omar",20,70);
-
-doc.save("Lot_"+lotNo+".pdf");
-}
+document.getElementById("tandaCheck").onchange=function(){
+this.checked?map.addLayer(tandaLayer):map.removeLayer(tandaLayer);
+};
 
 </script>
 
