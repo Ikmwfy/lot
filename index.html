@@ -579,54 +579,36 @@ layer_LOTFINAL_0.eachLayer(function(layer){
 
 /* ================= GENERATE PDF ================= */
 
-document.getElementById("generatePDF").onclick = async function(){
+document.getElementById("generatePDF").onclick = function(){
 
     if(!selectedLayer){
         alert("Sila pilih lot dahulu.");
         return;
     }
 
-    const { jsPDF } = window.jspdf;
-    var pdf = new jsPDF("p", "mm", "a4");
-
     var prop = selectedLayer.feature.properties;
 
-    /* ================= SNAPSHOT MAP ================= */
-    var canvas = await html2canvas(document.getElementById("map"));
-    var imgData = canvas.toDataURL("image/png");
+    var content = `
+        Maklumat Lot
 
-    /* ================= HEADER ================= */
+        No PA: ${prop["tsp — _1"]}
+        No Lot: ${prop["NO_LOT"]}
+        Keluasan: ${parseFloat(prop["AREA"]).toFixed(3)} m²
+        Pemilik: ${prop["tsp — pe"]}
+    `;
 
-    pdf.addImage("PUO.png", "PNG", 10, 10, 25, 25);
-
-    pdf.setFontSize(16);
-    pdf.text("MAKLUMAT LOT TAMAN SAUJANA PUTRA", 45, 20);
-
-    pdf.setFontSize(12);
-    pdf.text("Politeknik Ungku Omar", 45, 28);
-
-    /* ================= LOT INFO ================= */
-
-    pdf.setFontSize(13);
-    pdf.text("Maklumat Lot:", 10, 50);
-
-    pdf.setFontSize(12);
-    pdf.text("No PA: " + prop["tsp — _1"], 10, 60);
-    pdf.text("No Lot: " + prop["NO_LOT"], 10, 68);
-    pdf.text("Keluasan: " + parseFloat(prop["AREA"]).toFixed(3) + " m²", 10, 76);
-    pdf.text("Pemilik: " + prop["tsp — pe"], 10, 84);
-
-    /* ================= MAP IMAGE ================= */
-
-    pdf.addImage(imgData, "PNG", 10, 95, 190, 90);
-
-    pdf.save("Maklumat_Lot.pdf");
+    var blob = new Blob([content], { type: "application/pdf" });
+    var link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "Maklumat_Lot.pdf";
+    link.click();
 };
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 </script>
 
 </body>
 </html>
+
+
+
