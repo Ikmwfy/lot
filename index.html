@@ -17,7 +17,7 @@ html, body {
 /* ================= ZOOM POSITION ================= */
 
 .leaflet-top.leaflet-left {
-    top: 120px;   /* laras kalau nak lagi bawah */
+    top: 100px;   /* laras kalau nak lagi bawah */
 }
 
 /* ================= LEFT DASHBOARD ================= */
@@ -247,7 +247,14 @@ html, body {
 <!-- DASHBOARD -->
 <div id="dashboard">
 
-<h2>DASHBOARD</h2>
+<div style="display:flex; justify-content:space-between; align-items:center;">
+    <h2 style="margin:0;">DASHBOARD</h2>
+    <button id="closeDashboard"
+        style="background:#5a3e2b;color:white;border:none;
+        padding:5px 10px;border-radius:6px;cursor:pointer;">
+        ✖
+    </button>
+</div>
 <br>
 <hr>
 
@@ -480,9 +487,18 @@ this.checked?map.addLayer(tandaLayer):map.removeLayer(tandaLayer);
 
 var dashboard = document.getElementById("dashboard");
 var menuBtn = document.getElementById("menuBtn");
+var closeBtn = document.getElementById("closeDashboard");
 
+/* BUKA MENU */
 menuBtn.onclick = function() {
-    dashboard.classList.toggle("active");
+    dashboard.classList.add("active");
+    menuBtn.style.display = "none";
+};
+
+/* TUTUP MENU */
+closeBtn.onclick = function() {
+    dashboard.classList.remove("active");
+    menuBtn.style.display = "block";
 };
 
 /* ================= TOTAL LOT ================= */
