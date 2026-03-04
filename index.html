@@ -14,11 +14,25 @@ html, body {
     padding: 0;
 }
 
+/* ================= FOOTER ================= */
+
+#footer {
+    position: fixed;
+    bottom: 0;
+    width: 100%;
+    background: rgba(0,0,0,0.75);
+    color: white;
+    text-align: center;
+    padding: 8px 0;
+    font-size: 14px;
+    z-index: 5000;
+}
+
 /* ================= LAYERS BUTTON ================= */
 
 #gmLayersBtn {
     position: absolute;
-    bottom: 30px;
+    bottom: 60px; /* dinaikkan supaya tak ganggu footer */
     right: 20px;
     width: 110px;
     height: 85px;
@@ -53,7 +67,7 @@ html, body {
 
 #gmPanel {
     position: absolute;
-    bottom: 130px;
+    bottom: 150px;
     right: 20px;
     width: 260px;
     background: white;
@@ -124,10 +138,12 @@ html, body {
     z-index: 2;
 }
 
+/* ================= MAP ================= */
+
 #map {
     position: absolute;
     top: 110px;
-    bottom: 0;
+    bottom: 35px; /* ruang untuk footer */
     width: 100%;
 }
 </style>
@@ -176,6 +192,11 @@ html, body {
 
 </div>
 
+<!-- FOOTER -->
+<div id="footer">
+    Hak Cipta Terpelihara 2026 @ Ikmwfy | Politeknik Ungku Omar
+</div>
+
 <script src="js/leaflet.js"></script>
 <script src="data/LOTFINAL_0.js"></script>
 <script src="data/TandaSempadanGabung_1.js"></script>
@@ -219,9 +240,8 @@ var bicycling = L.tileLayer(
 'https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}',
 { maxZoom: 22 });
 
-/* ================= DATA LAYER ================= */
+/* ================= LOT FINAL WARNA COKLAT ================= */
 
-/* 🔥 Lot Final Warna COKLAT */
 function style_LOTFINAL_0() {
     return {
         color: '#5a3e2b',
