@@ -5,8 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="css/leaflet.css">
+<link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+<link rel="stylesheet" href="css/qgis2web.css">
+<link rel="stylesheet" href="css/fontawesome-all.min.css">
 <link rel="stylesheet" href="css/leaflet-search.css">
+<link rel="stylesheet" href="css/leaflet.photon.css">
 
+<!-- PDF Library -->
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
@@ -14,9 +19,47 @@ html, body {
     width: 100%;
     height: 100%;
     margin: 0;
+    padding: 0;
 }
 
-/* ================= HEADER ================= */
+/* ================= GOOGLE STYLE LAYERS BUTTON ================= */
+#gmLayersBtn {
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
+    width: 110px;
+    height: 85px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1002;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#gmLayersBtn:hover { transform: scale(1.05); }
+
+#gmLayersBtn img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#gmLayersBtn span {
+    position: relative;
+    background: rgba(255,255,255,0.95);
+    text-align: center;
+    font-weight: bold;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+/* ================= VIDEO HEADER ================= */
 #header {
     position: relative;
     width: 100%;
@@ -45,18 +88,26 @@ html, body {
     width: 100%;
     height: 100%;
     background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    z-index: -1;
 }
 
 #header img {
-    height: 120px;
-    margin-right: 30px;
-    z-index: 2;
+    height: 160px;
+    margin-right: 40px;
+    transition: transform 0.4s ease;
 }
+
+#header img:hover { transform: scale(1.15); }
 
 #header h1 {
     color: white;
-    font-size: 28px;
-    z-index: 2;
+    font-size: 32px;
+    font-weight: bold;
+    margin: 0;
+    letter-spacing: 3px;
+    text-shadow: 0 0 15px rgba(255,255,255,0.8);
 }
 
 /* ================= MAP ================= */
@@ -67,63 +118,27 @@ html, body {
     width: 100%;
 }
 
-/* ================= GOOGLE STYLE BUTTON ================= */
-#gmLayersBtn {
+/* ================= LEFT FEATURE MENU ================= */
+#leftMenu {
     position: absolute;
-    bottom: 30px;
-    right: 20px;
-    width: 110px;
-    height: 85px;
+    top: 130px;
+    left: 20px;
+    width: 250px;
     background: white;
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-    cursor: pointer;
-    overflow: hidden;
-    z-index: 1002;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-
-#gmLayersBtn img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-#gmLayersBtn span {
-    background: rgba(255,255,255,0.95);
-    text-align: center;
-    font-weight: bold;
-    padding: 6px 0;
-    font-size: 14px;
-}
-
-/* ================= FEATURE MENU ================= */
-#featureMenu {
-    position: absolute;
-    top: 140px;
-    right: 20px;
-    width: 230px;
-    background: white;
-    padding: 15px;
+    padding: 18px;
     border-radius: 12px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.3);
     z-index: 1002;
     font-family: Arial;
 }
 
-#featureMenu h3 {
-    font-size: 14px;
-    margin: 8px 0;
-}
+#leftMenu h3 { margin: 10px 0 5px; font-size: 14px; }
 
-#featureMenu select,
-#featureMenu input,
-#featureMenu button {
+#leftMenu select,
+#leftMenu input,
+#leftMenu button {
     width: 100%;
-    margin-bottom: 10px;
+    margin-bottom: 12px;
 }
 
 #generatePDF {
@@ -132,8 +147,14 @@ html, body {
     border: none;
     padding: 8px;
     border-radius: 6px;
+    cursor: pointer;
 }
+
+#generatePDF:hover { background: #388E3C; }
+
 </style>
+
+<title>TAMAN SAUJANA PUTRA</title>
 </head>
 
 <body>
@@ -142,7 +163,7 @@ html, body {
     <video autoplay muted loop playsinline>
         <source src="VIDEO 1.mp4" type="video/mp4">
     </video>
-    <img src="PUO.png">
+    <img src="PUO.png" alt="Logo PUO">
     <h1>TAMAN SAUJANA PUTRA</h1>
 </div>
 
@@ -153,31 +174,46 @@ html, body {
     <span>Layers</span>
 </div>
 
-<div id="featureMenu">
-    <h3>Land Explorer</h3>
+<!-- ================= LEFT MENU ================= -->
+<div id="leftMenu">
+    <h3>LAND EXPLORER</h3>
     <select id="lotSelect">
         <option value="">-- Select Lot --</option>
     </select>
 
-    <h3>Lot Opacity</h3>
+    <h3>LOT OPACITY</h3>
     <input type="range" id="opacitySlider" min="0" max="1" step="0.1" value="1">
 
     <button id="generatePDF">Generate PDF</button>
 </div>
 
+<script src="js/qgis2web_expressions.js"></script>
 <script src="js/leaflet.js"></script>
+<script src="js/L.Control.Layers.Tree.min.js"></script>
+<script src="js/leaflet.rotatedMarker.js"></script>
+<script src="js/leaflet.pattern.js"></script>
+<script src="js/leaflet-hash.js"></script>
+<script src="js/Autolinker.min.js"></script>
+<script src="js/rbush.min.js"></script>
+<script src="js/labelgun.min.js"></script>
+<script src="js/labels.js"></script>
+<script src="js/leaflet.photon.js"></script>
 <script src="js/leaflet-search.js"></script>
 <script src="data/LOTFINAL_0.js"></script>
 <script src="data/TandaSempadanGabung_1.js"></script>
 
 <script>
 
-var map = L.map('map').fitBounds([
-[2.10309049233999,102.52084635053448],
-[2.1044455032659752,102.52331439237805]
-]);
+/* ================= ORIGINAL MAP CODE (UNCHANGED) ================= */
 
-/* ================= BASE MAP ================= */
+var map = L.map('map', {
+    zoomControl:false, 
+    maxZoom:28, 
+    minZoom:1
+}).fitBounds([[2.10309049233999,102.52084635053448],
+              [2.1044455032659752,102.52331439237805]]);
+
+var hash = new L.Hash(map);
 
 var street = L.tileLayer(
 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
@@ -203,9 +239,7 @@ var bicycling = L.tileLayer(
 'https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}'
 );
 
-/* ================= LOT LAYER ================= */
-
-function styleLot() {
+function style_LOTFINAL_0() {
     return {
         color: '#232323',
         weight: 1,
@@ -214,17 +248,15 @@ function styleLot() {
     }
 }
 
-var layer_LOTFINAL_0 = L.geoJson(json_LOTFINAL_0, {
-    style: styleLot
+var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0, {
+    style: style_LOTFINAL_0
 }).addTo(map);
 
-var tandaLayer = L.geoJson(json_TandaSempadanGabung_1).addTo(map);
-
-/* ================= LAYER CONTROL ================= */
+var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1).addTo(map);
 
 var layerControl = L.control.layers(
 {
-    "Street": street,
+    "Street Map": street,
     "Satellite": satellite,
     "Terrain": terrain
 },
@@ -232,9 +264,10 @@ var layerControl = L.control.layers(
     "Traffic": traffic,
     "Transit": transit,
     "Bicycling": bicycling,
-    "Lot": layer_LOTFINAL_0,
-    "Boundary": tandaLayer
-}
+    "Lot Final": layer_LOTFINAL_0,
+    "Tanda Sempadan": tandaLayer
+},
+{ position:'topright', collapsed:false }
 ).addTo(map);
 
 document.querySelector('.leaflet-control-layers').style.display="none";
@@ -244,9 +277,9 @@ var panel=document.querySelector('.leaflet-control-layers');
 panel.style.display=(panel.style.display==="none")?"block":"none";
 };
 
-/* ================= LAND EXPLORER ================= */
+/* ================= NEW FEATURE ADDITION ================= */
 
-var selectedLotLayer=null;
+var selectedLotLayer = null;
 
 json_LOTFINAL_0.features.forEach(function(feature){
 var option=document.createElement("option");
@@ -275,24 +308,17 @@ weight:3
 selectedLotLayer=layer;
 map.fitBounds(layer.getBounds());
 }
-
 });
 };
-
-/* ================= OPACITY ================= */
 
 document.getElementById("opacitySlider").oninput=function(){
-layer_LOTFINAL_0.setStyle({
-fillOpacity:this.value
-});
+layer_LOTFINAL_0.setStyle({ fillOpacity:this.value });
 };
-
-/* ================= PDF ================= */
 
 document.getElementById("generatePDF").onclick=function(){
 
 if(!selectedLotLayer){
-alert("Select lot first!");
+alert("Please select a lot first!");
 return;
 }
 
@@ -310,7 +336,6 @@ doc.text("Lot Number: "+lotNo,20,40);
 doc.text("Area: "+area,20,50);
 
 doc.save("Lot_"+lotNo+".pdf");
-
 };
 
 </script>
