@@ -285,7 +285,10 @@ function onEachFeature_LOTFINAL_0(feature, layer) {
             layer.bringToFront();
 
             // Popup maklumat (ubah ikut attribute dalam file LOTFINAL_0.js)
-            var popupContent = "<b>Maklumat Lot</b><br>";
+            var popupContent = 
+"<b>No Lot:</b> " + feature.properties.NO_LOT + "<br>" +
+"<b>Keluasan:</b> " + feature.properties.KELUASAN + " m²<br>" +
+"<b>Pemilik:</b> " + feature.properties.PEMILIK;
 
             for (var key in feature.properties) {
                 popupContent += key + ": " + feature.properties[key] + "<br>";
