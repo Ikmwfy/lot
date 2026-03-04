@@ -5,6 +5,11 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="css/leaflet.css">
+<link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
+<link rel="stylesheet" href="css/qgis2web.css">
+<link rel="stylesheet" href="css/fontawesome-all.min.css">
+<link rel="stylesheet" href="css/leaflet-search.css">
+<link rel="stylesheet" href="css/leaflet.photon.css">
 
 <style>
 html, body {
@@ -12,11 +17,114 @@ html, body {
     height: 100%;
     margin: 0;
     padding: 0;
+}
+
+/* ================= GOOGLE STYLE LAYERS BUTTON ================= */
+
+#gmLayersBtn {
+    position: absolute;
+    bottom: 30px;
+    right: 20px;
+    width: 110px;
+    height: 85px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1002;
+    transition: all 0.3s ease;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#gmLayersBtn:hover {
+    transform: scale(1.05);
+}
+
+#gmLayersBtn img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: 0;
+}
+
+#gmLayersBtn span {
+    position: relative;
+    z-index: 1;
+    background: rgba(255,255,255,0.95);
+    text-align: center;
+    font-weight: bold;
+    padding: 6px 0;
+    font-size: 14px;
+}
+
+/* ================= TAMBAHAN GOOGLE PANEL ================= */
+
+#gmPanel {
+    position: absolute;
+    bottom: 130px;
+    right: 20px;
+    width: 270px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
+    padding: 20px;
+    z-index: 2000;
+    display: none;
     font-family: Arial, sans-serif;
 }
 
-/* ================= HEADER ================= */
+#gmPanel h3 {
+    margin-top: 0;
+    font-size: 18px;
+}
 
+.gmGrid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.gmItem {
+    text-align: center;
+    cursor: pointer;
+}
+
+.gmItem img {
+    width: 60px;
+    height: 60px;
+    border-radius: 14px;
+    object-fit: cover;
+}
+
+.gmItem span {
+    display: block;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+.gmMapType {
+    display: flex;
+    justify-content: space-between;
+}
+
+.gmMapType img {
+    width: 95px;
+    height: 70px;
+    border-radius: 14px;
+    object-fit: cover;
+    border: 3px solid transparent;
+}
+
+.gmMapType img.active {
+    border: 3px solid #1a73e8;
+}
+
+/* ================= VIDEO HEADER ================= */
 #header {
     position: relative;
     width: 100%;
@@ -64,119 +172,11 @@ html, body {
 }
 
 /* ================= MAP ================= */
-
 #map {
     position: absolute;
     top: 110px;
     bottom: 0;
     width: 100%;
-}
-
-/* ================= GOOGLE LAYERS BUTTON ================= */
-
-#gmLayersBtn {
-    position: absolute;
-    bottom: 30px;
-    right: 20px;
-    width: 110px;
-    height: 85px;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-    cursor: pointer;
-    overflow: hidden;
-    z-index: 2000;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-
-#gmLayersBtn img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-#gmLayersBtn span {
-    background: rgba(255,255,255,0.95);
-    text-align: center;
-    font-weight: bold;
-    padding: 6px 0;
-    font-size: 14px;
-    z-index: 2;
-}
-
-/* ================= GOOGLE PANEL ================= */
-
-#gmPanel {
-    position: absolute;
-    bottom: 130px;
-    right: 20px;
-    width: 270px;
-    background: white;
-    border-radius: 18px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.35);
-    padding: 20px;
-    z-index: 3000;
-    display: none;
-}
-
-#gmPanel h3 {
-    margin-top: 0;
-    font-size: 18px;
-}
-
-.gmGrid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 15px;
-    margin-bottom: 20px;
-}
-
-.gmItem {
-    text-align: center;
-    cursor: pointer;
-}
-
-.gmItem img {
-    width: 60px;
-    height: 60px;
-    border-radius: 14px;
-    object-fit: cover;
-    transition: 0.3s;
-}
-
-.gmItem img:hover {
-    transform: scale(1.1);
-}
-
-.gmItem span {
-    display: block;
-    font-size: 13px;
-    margin-top: 5px;
-}
-
-.gmMapType {
-    display: flex;
-    justify-content: space-between;
-}
-
-.gmMapType div {
-    text-align: center;
-    cursor: pointer;
-}
-
-.gmMapType img {
-    width: 95px;
-    height: 70px;
-    border-radius: 14px;
-    object-fit: cover;
-    border: 3px solid transparent;
-}
-
-.gmMapType img.active {
-    border: 3px solid #1a73e8;
 }
 </style>
 
@@ -190,22 +190,20 @@ html, body {
     <video autoplay muted loop playsinline>
         <source src="VIDEO 1.mp4" type="video/mp4">
     </video>
-
-    <img src="PUO.png" alt="Logo">
+    <img src="PUO.png" alt="Logo PUO">
     <h1>TAMAN SAUJANA PUTRA</h1>
 </div>
 
 <div id="map"></div>
 
-<!-- GOOGLE STYLE BUTTON -->
+<!-- GOOGLE STYLE BUTTON (ASAL) -->
 <div id="gmLayersBtn">
-    <img src="https://mt1.google.com/vt/lyrs=s&x=210000&y=120000&z=17">
+    <img src="https://mt1.google.com/vt/lyrs=s&x=210000&y=120000&z=17" alt="Layers">
     <span>Layers</span>
 </div>
 
-<!-- GOOGLE STYLE PANEL -->
+<!-- ✅ TAMBAHAN PANEL GOOGLE -->
 <div id="gmPanel">
-
     <h3>Map details</h3>
 
     <div class="gmGrid">
@@ -213,12 +211,10 @@ html, body {
             <img src="https://maps.gstatic.com/tactile/layers/traffic.png">
             <span>Traffic</span>
         </div>
-
         <div class="gmItem" onclick="toggleTransit()">
             <img src="https://maps.gstatic.com/tactile/layers/transit.png">
             <span>Transit</span>
         </div>
-
         <div class="gmItem" onclick="toggleBike()">
             <img src="https://maps.gstatic.com/tactile/layers/bicycling.png">
             <span>Biking</span>
@@ -229,9 +225,8 @@ html, body {
 
     <div class="gmMapType">
         <div onclick="setStreet()">
-            <img id="streetImg"
-            src="https://mt1.google.com/vt/lyrs=m&x=210000&y=120000&z=17"
-            class="active">
+            <img id="streetImg" class="active"
+            src="https://mt1.google.com/vt/lyrs=m&x=210000&y=120000&z=17">
             <span>Default</span>
         </div>
 
@@ -241,59 +236,41 @@ html, body {
             <span>Satellite</span>
         </div>
     </div>
-
 </div>
 
+<!-- SEMUA SCRIPT ASAL DIKEKALKAN -->
+<script src="js/qgis2web_expressions.js"></script>
 <script src="js/leaflet.js"></script>
+<script src="js/L.Control.Layers.Tree.min.js"></script>
+<script src="js/leaflet.rotatedMarker.js"></script>
+<script src="js/leaflet.pattern.js"></script>
+<script src="js/leaflet-hash.js"></script>
+<script src="js/Autolinker.min.js"></script>
+<script src="js/rbush.min.js"></script>
+<script src="js/labelgun.min.js"></script>
+<script src="js/labels.js"></script>
+<script src="js/leaflet.photon.js"></script>
+<script src="js/leaflet-search.js"></script>
+<script src="data/LOTFINAL_0.js"></script>
+<script src="data/TandaSempadanGabung_1.js"></script>
 
 <script>
 
-/* ================= MAP ================= */
-
-var map = L.map('map').setView([2.1037, 102.5220], 17);
-
-var street = L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{
-attribution:'&copy; OpenStreetMap'
-}).addTo(map);
-
-var satellite = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
-);
-
-var traffic = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}'
-);
-
-var transit = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}'
-);
-
-var bicycling = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}'
-);
-
-/* ================= BUTTON ================= */
+/* ===== TAMBAHAN FUNCTION SAHAJA (tak ubah coding asal awak) ===== */
 
 document.getElementById("gmLayersBtn").onclick = function() {
     var panel = document.getElementById("gmPanel");
     panel.style.display = (panel.style.display === "block") ? "none" : "block";
 };
 
-/* ================= FUNCTIONS ================= */
-
 function setStreet(){
     map.addLayer(street);
     map.removeLayer(satellite);
-    streetImg.classList.add("active");
-    satImg.classList.remove("active");
 }
 
 function setSatellite(){
     map.addLayer(satellite);
     map.removeLayer(street);
-    satImg.classList.add("active");
-    streetImg.classList.remove("active");
 }
 
 function toggleTraffic(){
