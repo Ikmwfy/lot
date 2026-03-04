@@ -5,11 +5,6 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
 <link rel="stylesheet" href="css/leaflet.css">
-<link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
-<link rel="stylesheet" href="css/qgis2web.css">
-<link rel="stylesheet" href="css/fontawesome-all.min.css">
-<link rel="stylesheet" href="css/leaflet-search.css">
-<link rel="stylesheet" href="css/leaflet.photon.css">
 
 <style>
 html, body {
@@ -39,9 +34,7 @@ html, body {
     justify-content: flex-end;
 }
 
-#gmLayersBtn:hover { 
-    transform: scale(1.05); 
-}
+#gmLayersBtn:hover { transform: scale(1.05); }
 
 #gmLayersBtn img {
     position: absolute;
@@ -75,20 +68,10 @@ html, body {
     font-family: Arial, sans-serif;
 }
 
-#gmPanel h3 {
-    margin: 10px 0 10px;
-    font-size: 16px;
-}
-
 .gmOption {
     display: flex;
     align-items: center;
     margin-bottom: 8px;
-    cursor: pointer;
-}
-
-.gmOption input { 
-    margin-right: 10px; 
 }
 
 .gmDivider {
@@ -167,9 +150,9 @@ html, body {
 
 <div id="map"></div>
 
-<!-- ✅ Layers Button guna gambar MAPS.png -->
+<!-- Layers Button -->
 <div id="gmLayersBtn">
-    <img src="MAPS.png" alt="Layers Preview">
+    <img src="MAPS.png">
     <span>Layers</span>
 </div>
 
@@ -201,28 +184,53 @@ html, body {
 
 <script>
 
-var map = L.map('map').fitBounds([
+/* ================= MAP SETTING (ZOOM UPGRADE) ================= */
+
+var map = L.map('map', {
+    zoomControl: true,
+    maxZoom: 22,   // ✅ boleh zoom lebih dekat
+    minZoom: 5
+}).fitBounds([
 [2.10309049233999,102.52084635053448],
 [2.1044455032659752,102.52331439237805]
 ]);
 
-var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png').addTo(map);
-var satellite = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}');
-var terrain = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}');
-var traffic = L.tileLayer('https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}');
-var transit = L.tileLayer('https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}');
-var bicycling = L.tileLayer('https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}');
+/* ================= BASEMAP ================= */
 
-function style_LOTFINAL_0() {
-    return {color:'#232323',weight:1,fillColor:'#a47158',fillOpacity:1};
-}
+var street = L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{ maxZoom: 22 }).addTo(map);
 
-var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0,{style:style_LOTFINAL_0}).addTo(map);
+var satellite = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+var terrain = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+var traffic = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+var transit = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+var bicycling = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+/* ================= DATA LAYER ================= */
+
+var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0).addTo(map);
 
 var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1,{
 pointToLayer:function(feature,latlng){
-return L.circleMarker(latlng,{radius:4,color:'#232323',fillColor:'#d5b43c',fillOpacity:1});
+return L.circleMarker(latlng,{radius:4});
 }}).addTo(map);
+
+/* ================= PANEL FUNCTION ================= */
 
 var gmPanel=document.getElementById("gmPanel");
 
