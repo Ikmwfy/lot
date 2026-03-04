@@ -14,6 +14,12 @@ html, body {
     padding: 0;
 }
 
+/* ================= ZOOM POSITION ================= */
+
+.leaflet-top.leaflet-left {
+    top: 190px;   /* laras kalau nak lagi bawah */
+}
+
 /* ================= LEFT DASHBOARD ================= */
 
 #menuBtn {
@@ -315,13 +321,17 @@ html, body {
 /* ================= MAP SETTING ================= */
 
 var map = L.map('map', {
-    zoomControl: true,
+    zoomControl: false,
     maxZoom: 22,
     minZoom: 5
 }).fitBounds([
 [2.10309049233999,102.52084635053448],
 [2.1044455032659752,102.52331439237805]
 ]);
+
+L.control.zoom({
+    position: 'topleft'
+}).addTo(map);
 
 /* ================= BASEMAP ================= */
 
