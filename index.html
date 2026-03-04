@@ -242,6 +242,8 @@ var bicycling = L.tileLayer(
 
 /* ================= LOT FINAL WARNA COKLAT ================= */
 
+/* ================= LOT FINAL INTERACTIVE ================= */
+
 function style_LOTFINAL_0() {
     return {
         color: '#5a3e2b',
@@ -251,8 +253,52 @@ function style_LOTFINAL_0() {
     };
 }
 
+/* STYLE BILA LOT DIPILIH */
+function highlightStyle() {
+    return {
+        color: '#000000',
+        weight: 2,
+        fillColor: 'yellow',
+        fillOpacity: 1
+    };
+}
+
+var selectedLayer = null;
+
+function onEachFeature_LOTFINAL_0(feature, layer) {
+
+    layer.on({
+        click: function(e) {
+
+            // Reset lot sebelum ini
+            if (selectedLayer) {
+                selectedLayer.setStyle(style_LOTFINAL_0());
+            }
+
+            // Simpan lot yang dipilih
+            selectedLayer = layer;
+
+            // Tukar warna kuning
+            layer.setStyle(highlightStyle());
+
+            // Pastikan layer berada di atas
+            layer.bringToFront();
+
+            // Popup maklumat (ubah ikut attribute dalam file LOTFINAL_0.js)
+            var popupContent = "<b>Maklumat Lot</b><br>";
+
+            for (var key in feature.properties) {
+                popupContent += key + ": " + feature.properties[key] + "<br>";
+            }
+
+            layer.bindPopup(popupContent).openPopup();
+        }
+    });
+}
+
 var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0, {
-    style: style_LOTFINAL_0
+    style: style_LOTFINAL_0,
+    onEachFeature: onEachFeature_LOTFINAL_0
 }).addTo(map);
 
 var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1,{
