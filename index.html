@@ -4,78 +4,14 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
-<title>Sistem Pengurusan Lot</title>
-
-<link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css"/>
-<script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
-
-<!-- jsPDF -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<link rel="stylesheet" href="css/leaflet.css">
 
 <style>
 html, body {
+    width: 100%;
     height: 100%;
     margin: 0;
-    font-family: Arial, sans-serif;
-}
-
-/* ================= MAP ================= */
-#map {
-    height: 100%;
-    width: 100%;
-}
-
-/* ================= SIDEBAR ================= */
-#sidebar {
-    position: fixed;
-    top: 0;
-    left: -320px;
-    width: 300px;
-    height: 100%;
-    background: #ffffff;
-    box-shadow: 3px 0 15px rgba(0,0,0,0.3);
-    padding: 20px;
-    transition: 0.3s;
-    z-index: 2000;
-    overflow-y: auto;
-}
-
-#sidebar.active {
-    left: 0;
-}
-
-#menuBtn {
-    position: absolute;
-    top: 20px;
-    left: 20px;
-    background: white;
-    padding: 8px 14px;
-    border-radius: 6px;
-    box-shadow: 0 3px 8px rgba(0,0,0,0.3);
-    cursor: pointer;
-    z-index: 2100;
-}
-
-h3 {
-    margin-top: 0;
-}
-
-input, button {
-    width: 100%;
-    padding: 8px;
-    margin-top: 8px;
-    margin-bottom: 15px;
-}
-
-button {
-    background: #6f4e37;
-    color: white;
-    border: none;
-    cursor: pointer;
-}
-
-button:hover {
-    background: #5a3e2b;
+    padding: 0;
 }
 
 /* ================= FOOTER ================= */
@@ -83,151 +19,298 @@ button:hover {
     position: fixed;
     bottom: 0;
     width: 100%;
-    background: rgba(0,0,0,0.7);
+    background: rgba(0,0,0,0.75);
     color: white;
     text-align: center;
+    padding: 8px 0;
+    font-size: 14px;
+    z-index: 5000;
+}
+
+/* ================= LEFT SIDEBAR ================= */
+
+#leftMenuBtn{
+position:absolute;
+top:35px;
+left:320px;
+z-index:6000;
+background:white;
+padding:8px 14px;
+border-radius:6px;
+box-shadow:0 3px 8px rgba(0,0,0,0.3);
+cursor:pointer;
+font-weight:bold;
+}
+
+#leftSidebar{
+position:fixed;
+top:110px;
+left:-320px;
+width:300px;
+height:calc(100% - 145px);
+background:white;
+box-shadow:3px 0 15px rgba(0,0,0,0.3);
+padding:20px;
+transition:0.3s;
+z-index:5500;
+overflow-y:auto;
+font-family:Arial;
+}
+
+#leftSidebar.active{
+left:0;
+}
+
+#leftSidebar input,
+#leftSidebar button{
+width:100%;
+padding:8px;
+margin-top:8px;
+margin-bottom:15px;
+}
+
+#leftSidebar button{
+background:#6f4e37;
+color:white;
+border:none;
+cursor:pointer;
+}
+
+/* ================= LAYERS BUTTON ================= */
+
+#gmLayersBtn {
+    position: absolute;
+    bottom: 60px;
+    right: 20px;
+    width: 110px;
+    height: 85px;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
+    cursor: pointer;
+    overflow: hidden;
+    z-index: 1002;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+}
+
+#gmLayersBtn img {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+#gmLayersBtn span {
+    position: relative;
+    background: rgba(255,255,255,0.95);
+    text-align: center;
+    font-weight: bold;
     padding: 6px 0;
-    font-size: 13px;
-    z-index: 3000;
+    font-size: 14px;
+}
+
+/* ================= PANEL ================= */
+
+#gmPanel {
+    position: absolute;
+    bottom: 150px;
+    right: 20px;
+    width: 260px;
+    background: white;
+    border-radius: 18px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+    z-index: 2000;
+    padding: 18px;
+    display: none;
+}
+
+/* ================= HEADER ================= */
+
+#header {
+    position: relative;
+    width: 100%;
+    height: 110px;
+    overflow: hidden;
+    display: flex;
+    align-items: center;
+    padding: 0 40px;
+}
+
+#header video {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: -2;
+}
+
+#header::after {
+    content: "";
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+}
+
+#header img {
+    height: 160px;
+    margin-right: 40px;
+    z-index: 2;
+}
+
+#header h1 {
+    color: white;
+    font-size: 32px;
+    margin: 0;
+    z-index: 2;
+}
+
+/* ================= MAP ================= */
+
+#map {
+    position: absolute;
+    top: 110px;
+    bottom: 35px;
+    width: 100%;
 }
 </style>
+
+<title>TAMAN SAUJANA PUTRA</title>
 </head>
 
 <body>
 
-<div id="menuBtn">☰ Menu</div>
+<div id="header">
+    <video autoplay muted loop playsinline>
+        <source src="VIDEO 1.mp4" type="video/mp4">
+    </video>
+    <img src="PUO.png">
+    <h1>TAMAN SAUJANA PUTRA</h1>
+</div>
 
-<div id="sidebar">
-    <h3>Land Management</h3>
+<!-- LEFT MENU BUTTON -->
+<div id="leftMenuBtn">☰ Explorer</div>
 
-    <label>Lot Opacity</label>
-    <input type="range" min="0" max="1" step="0.1" value="1" id="opacitySlider">
+<!-- LEFT SIDEBAR -->
+<div id="leftSidebar">
+<h3>Land Explorer</h3>
 
-    <label>Land Explorer (No Lot)</label>
-    <input type="text" id="searchLot" placeholder="Masukkan No Lot">
-    <button onclick="searchLot()">Cari Lot</button>
+<label>Lot Opacity</label>
+<input type="range" min="0" max="1" step="0.1" value="1" id="lotOpacity">
 
-    <button onclick="generatePDF()">Generate PDF Lot</button>
+<label>Cari No Lot</label>
+<input type="text" id="lotSearch" placeholder="Masukkan No Lot">
+<button onclick="searchLot()">Cari Lot</button>
+
+<button onclick="generateLotPDF()">Generate PDF Lot</button>
 </div>
 
 <div id="map"></div>
+
+<div id="gmLayersBtn">
+    <img src="MAPS.png">
+    <span>Layers</span>
+</div>
+
+<div id="gmPanel"></div>
 
 <div id="footer">
 Hak Cipta Terpelihara 2026 @ Ikmwfy | Politeknik Ungku Omar
 </div>
 
+<script src="js/leaflet.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+<script src="data/LOTFINAL_0.js"></script>
+<script src="data/TandaSempadanGabung_1.js"></script>
+
 <script>
 
-// ================= MAP INIT =================
-var map = L.map('map', {
-    maxZoom: 22
-}).setView([2.104, 102.522], 17);
+var map = L.map('map',{
+zoomControl:true,
+maxZoom:22,
+minZoom:5
+}).fitBounds([
+[2.10309049233999,102.52084635053448],
+[2.1044455032659752,102.52331439237805]
+]);
 
-L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{ maxZoom: 22 }
-).addTo(map);
+var street=L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:22}).addTo(map);
 
-// ================= SAMPLE LOT DATA =================
-var selectedLayer = null;
+function style_LOTFINAL_0(){
+return{
+color:'#5a3e2b',
+weight:1,
+fillColor:'#a47148',
+fillOpacity:1
+};
+}
 
-var lotData = {
-"type": "FeatureCollection",
-"features": [
-{
-"type": "Feature",
-"properties": {"lot_no": "101"},
-"geometry": {
-"type": "Polygon",
-"coordinates": [[[102.5221,2.1041],[102.5223,2.1041],[102.5223,2.1043],[102.5221,2.1043],[102.5221,2.1041]]]
-}
-},
-{
-"type": "Feature",
-"properties": {"lot_no": "102"},
-"geometry": {
-"type": "Polygon",
-"coordinates": [[[102.5224,2.1041],[102.5226,2.1041],[102.5226,2.1043],[102.5224,2.1043],[102.5224,2.1041]]]
-}
-}
-]
+var layer_LOTFINAL_0=new L.geoJson(json_LOTFINAL_0,{style:style_LOTFINAL_0}).addTo(map);
+
+var selectedLotLayer=null;
+
+/* ===== SIDEBAR TOGGLE ===== */
+document.getElementById("leftMenuBtn").onclick=function(){
+document.getElementById("leftSidebar").classList.toggle("active");
 };
 
-// ================= STYLE =================
-function lotStyle() {
-    return {
-        color: '#5a3e2b',
-        weight: 1,
-        fillColor: '#a47148',
-        fillOpacity: 1
-    };
-}
-
-var lotLayer = L.geoJSON(lotData, {
-    style: lotStyle,
-    onEachFeature: function (feature, layer) {
-        layer.bindPopup("No Lot: " + feature.properties.lot_no);
-    }
-}).addTo(map);
-
-// ================= MENU TOGGLE =================
-document.getElementById("menuBtn").onclick = function() {
-    document.getElementById("sidebar").classList.toggle("active");
-};
-
-// ================= OPACITY CONTROL =================
-document.getElementById("opacitySlider").addEventListener("input", function(e){
-    var value = e.target.value;
-    lotLayer.eachLayer(function(layer){
-        layer.setStyle({fillOpacity: value});
-    });
+/* ===== OPACITY ===== */
+document.getElementById("lotOpacity").addEventListener("input",function(e){
+var value=e.target.value;
+layer_LOTFINAL_0.eachLayer(function(layer){
+layer.setStyle({fillOpacity:value});
+});
 });
 
-// ================= SEARCH FUNCTION =================
+/* ===== SEARCH LOT ===== */
 function searchLot(){
-    var lotNumber = document.getElementById("searchLot").value;
+var val=document.getElementById("lotSearch").value.trim();
+selectedLotLayer=null;
 
-    lotLayer.eachLayer(function(layer){
+layer_LOTFINAL_0.eachLayer(function(layer){
+if(layer.feature.properties.No_Lot==val ||
+layer.feature.properties.lot_no==val){
 
-        if(selectedLayer){
-            lotLayer.resetStyle(selectedLayer);
-        }
+selectedLotLayer=layer;
+layer.setStyle({fillColor:"yellow",color:"#000",weight:2});
+map.fitBounds(layer.getBounds());
+}
+});
 
-        if(layer.feature.properties.lot_no == lotNumber){
-            selectedLayer = layer;
-
-            layer.setStyle({
-                fillColor: 'yellow'
-            });
-
-            map.fitBounds(layer.getBounds());
-        }
-    });
+if(!selectedLotLayer){
+alert("Lot tidak dijumpai");
+}
 }
 
-// ================= GENERATE PDF =================
-function generatePDF(){
+/* ===== GENERATE PDF ===== */
+function generateLotPDF(){
 
-    if(!selectedLayer){
-        alert("Sila pilih lot dahulu!");
-        return;
-    }
+if(!selectedLotLayer){
+alert("Sila pilih lot dahulu");
+return;
+}
 
-    const { jsPDF } = window.jspdf;
-    var doc = new jsPDF();
+var lotNo=
+selectedLotLayer.feature.properties.No_Lot ||
+selectedLotLayer.feature.properties.lot_no ||
+"Tidak Diketahui";
 
-    var lotNumber = selectedLayer.feature.properties.lot_no;
+const { jsPDF } = window.jspdf;
+var doc=new jsPDF();
 
-    doc.setFontSize(16);
-    doc.text("MAKLUMAT LOT", 20, 20);
+doc.setFontSize(18);
+doc.text("MAKLUMAT LOT",20,20);
+doc.setFontSize(12);
+doc.text("No Lot: "+lotNo,20,40);
+doc.text("Tarikh: "+new Date().toLocaleDateString(),20,50);
+doc.text("Hak Cipta Terpelihara 2026 @ Ikmwfy | Politeknik Ungku Omar",20,70);
 
-    doc.setFontSize(12);
-    doc.text("No Lot: " + lotNumber, 20, 40);
-    doc.text("Tarikh: " + new Date().toLocaleDateString(), 20, 50);
-
-    doc.text("Hak Cipta Terpelihara 2026 @ Ikmwfy | Politeknik Ungku Omar", 20, 70);
-
-    doc.save("Lot_" + lotNumber + ".pdf");
+doc.save("Lot_"+lotNo+".pdf");
 }
 
 </script>
