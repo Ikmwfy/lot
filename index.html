@@ -296,9 +296,6 @@ function onEachFeature_LOTFINAL_0(feature, layer) {
 </div>
 `;
 
-            for (var key in feature.properties) {
-                popupContent += key + ": " + feature.properties[key] + "<br>";
-            }
 
             layer.bindPopup(popupContent).openPopup();
         }
