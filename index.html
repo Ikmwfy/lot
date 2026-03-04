@@ -4,339 +4,321 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 
+<title>Peta Lot PUO</title>
+
 <link rel="stylesheet" href="css/leaflet.css">
 <link rel="stylesheet" href="css/L.Control.Layers.Tree.css">
-<link rel="stylesheet" href="css/qgis2web.css">
-<link rel="stylesheet" href="css/fontawesome-all.min.css">
-<link rel="stylesheet" href="css/leaflet-search.css">
-<link rel="stylesheet" href="css/leaflet.photon.css">
-
-<!-- PDF Library -->
-<script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <style>
+
+/* ===============================
+   BODY & MAP
+================================= */
 html, body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+    margin:0;
+    padding:0;
+    height:100%;
+    font-family: 'Segoe UI', sans-serif;
 }
 
-/* ================= GOOGLE STYLE LAYERS BUTTON ================= */
-#gmLayersBtn {
-    position: absolute;
-    bottom: 30px;
-    right: 20px;
-    width: 110px;
-    height: 85px;
-    background: white;
-    border-radius: 16px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.3);
-    cursor: pointer;
-    overflow: hidden;
-    z-index: 1002;
-    transition: all 0.3s ease;
-    display: flex;
-    flex-direction: column;
-    justify-content: flex-end;
-}
-
-#gmLayersBtn:hover { transform: scale(1.05); }
-
-#gmLayersBtn img {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
-#gmLayersBtn span {
-    position: relative;
-    background: rgba(255,255,255,0.95);
-    text-align: center;
-    font-weight: bold;
-    padding: 6px 0;
-    font-size: 14px;
-}
-
-/* ================= VIDEO HEADER ================= */
-#header {
-    position: relative;
-    width: 100%;
-    height: 110px;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    padding: 0 40px;
-    z-index: 1001;
-}
-
-#header video {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-    z-index: -2;
-}
-
-#header::after {
-    content: "";
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    background: rgba(0,0,0,0.5);
-    top: 0;
-    left: 0;
-    z-index: -1;
-}
-
-#header img {
-    height: 160px;
-    margin-right: 40px;
-    transition: transform 0.4s ease;
-}
-
-#header img:hover { transform: scale(1.15); }
-
-#header h1 {
-    color: white;
-    font-size: 32px;
-    font-weight: bold;
-    margin: 0;
-    letter-spacing: 3px;
-    text-shadow: 0 0 15px rgba(255,255,255,0.8);
-}
-
-/* ================= MAP ================= */
 #map {
-    position: absolute;
-    top: 110px;
-    bottom: 0;
-    width: 100%;
+    position:absolute;
+    top:120px;
+    bottom:0;
+    width:100%;
 }
 
-/* ================= LEFT FEATURE MENU ================= */
-#leftMenu {
-    position: absolute;
-    top: 130px;
-    left: 20px;
-    width: 250px;
-    background: white;
-    padding: 18px;
-    border-radius: 12px;
-    box-shadow: 0 5px 20px rgba(0,0,0,0.3);
-    z-index: 1002;
-    font-family: Arial;
+/* ===============================
+   HEADER WITH VIDEO
+================================= */
+header {
+    position:absolute;
+    top:0;
+    width:100%;
+    height:120px;
+    overflow:hidden;
+    z-index:1000;
 }
 
-#leftMenu h3 { margin: 10px 0 5px; font-size: 14px; }
-
-#leftMenu select,
-#leftMenu input,
-#leftMenu button {
-    width: 100%;
-    margin-bottom: 12px;
+header video {
+    position:absolute;
+    width:100%;
+    height:100%;
+    object-fit:cover;
 }
 
-#generatePDF {
-    background: #4CAF50;
-    color: white;
-    border: none;
-    padding: 8px;
-    border-radius: 6px;
-    cursor: pointer;
+header .overlay {
+    position:absolute;
+    width:100%;
+    height:100%;
+    background:rgba(0,0,0,0.6);
+    display:flex;
+    align-items:center;
+    padding-left:30px;
 }
 
-#generatePDF:hover { background: #388E3C; }
+header img {
+    height:90px;
+    margin-right:20px;
+}
+
+header h1 {
+    color:white;
+    font-size:28px;
+    letter-spacing:2px;
+}
+
+/* ===============================
+   SIDE PANEL
+================================= */
+#sidePanel {
+    position:absolute;
+    top:140px;
+    left:20px;
+    width:320px;
+    z-index:1200;
+}
+
+.card {
+    background:linear-gradient(145deg,#1e2430,#141922);
+    border-radius:18px;
+    padding:20px;
+    margin-bottom:18px;
+    box-shadow:0 10px 25px rgba(0,0,0,0.4);
+    color:#a5ffb2;
+}
+
+.card h3 {
+    margin:0 0 15px 0;
+    font-size:14px;
+    color:#7CFC98;
+}
+
+.card input {
+    width:100%;
+    padding:12px;
+    border-radius:10px;
+    border:none;
+    background:#0e1117;
+    color:white;
+    font-size:15px;
+    margin-bottom:15px;
+}
+
+.btn {
+    width:100%;
+    padding:14px;
+    border-radius:12px;
+    border:none;
+    font-size:15px;
+    cursor:pointer;
+    font-weight:bold;
+    margin-bottom:10px;
+    transition:0.3s;
+}
+
+.btn-green { background:#2e7d32; color:white; }
+.btn-green:hover { background:#43a047; }
+
+.btn-red { background:#c62828; color:white; }
+.btn-red:hover { background:#e53935; }
+
+.btn-blue { background:#1976d2; color:white; }
+.btn-blue:hover { background:#2196f3; }
+
+.info-value {
+    font-size:20px;
+    font-weight:bold;
+    color:#7CFC98;
+}
+
+.range-slider {
+    width:100%;
+}
 
 </style>
-
-<title>TAMAN SAUJANA PUTRA</title>
 </head>
 
 <body>
 
-<div id="header">
-    <video autoplay muted loop playsinline>
-        <source src="VIDEO 1.mp4" type="video/mp4">
+<!-- ===============================
+     HEADER VIDEO
+================================= -->
+<header>
+    <video autoplay muted loop>
+        <source src="VIDEO.mp4" type="video/mp4">
     </video>
-    <img src="PUO.png" alt="Logo PUO">
-    <h1>TAMAN SAUJANA PUTRA</h1>
-</div>
+    <div class="overlay">
+        <img src="PUO.PNG">
+        <h1>SISTEM PETA LOT PUO</h1>
+    </div>
+</header>
 
+<!-- ===============================
+     MAP
+================================= -->
 <div id="map"></div>
 
-<div id="gmLayersBtn">
-    <img src="https://mt1.google.com/vt/lyrs=s&x=210000&y=120000&z=17">
-    <span>Layers</span>
+<!-- ===============================
+     SIDE PANEL
+================================= -->
+<div id="sidePanel">
+
+    <div class="card">
+        <h3>🔎 LOT OPACITY</h3>
+        <input type="range" min="0" max="1" step="0.1" value="1"
+               class="range-slider" id="opacitySlider">
+    </div>
+
+    <div class="card">
+        <h3>🌍 LAND EXPLORER</h3>
+        <input type="text" id="lotSearch" placeholder="Masukkan No Lot">
+        <button class="btn btn-green" onclick="findLot()">Find Lot</button>
+        <button class="btn btn-red" onclick="resetLot()">Reset Lot</button>
+    </div>
+
+    <div class="card">
+        <div>TOTAL LOT</div>
+        <div class="info-value">67</div>
+    </div>
+
+    <div class="card">
+        <div>NO LOT</div>
+        <div class="info-value" id="noLot">-</div>
+    </div>
+
+    <div class="card">
+        <div>OWNER</div>
+        <div class="info-value" id="ownerName">-</div>
+    </div>
+
+    <div class="card">
+        <div>AREA</div>
+        <div class="info-value" id="areaLot">-</div>
+    </div>
+
+    <button class="btn btn-blue" onclick="generatePDF()">
+        📄 Generate PDF Lot
+    </button>
+
 </div>
 
-<!-- ================= LEFT MENU ================= -->
-<div id="leftMenu">
-    <h3>LAND EXPLORER</h3>
-    <select id="lotSelect">
-        <option value="">-- Select Lot --</option>
-    </select>
-
-    <h3>LOT OPACITY</h3>
-    <input type="range" id="opacitySlider" min="0" max="1" step="0.1" value="1">
-
-    <button id="generatePDF">Generate PDF</button>
-</div>
-
-<script src="js/qgis2web_expressions.js"></script>
+<!-- ===============================
+     SCRIPTS
+================================= -->
 <script src="js/leaflet.js"></script>
-<script src="js/L.Control.Layers.Tree.min.js"></script>
-<script src="js/leaflet.rotatedMarker.js"></script>
-<script src="js/leaflet.pattern.js"></script>
-<script src="js/leaflet-hash.js"></script>
-<script src="js/Autolinker.min.js"></script>
-<script src="js/rbush.min.js"></script>
-<script src="js/labelgun.min.js"></script>
-<script src="js/labels.js"></script>
-<script src="js/leaflet.photon.js"></script>
-<script src="js/leaflet-search.js"></script>
 <script src="data/LOTFINAL_0.js"></script>
-<script src="data/TandaSempadanGabung_1.js"></script>
 
 <script>
 
-/* ================= ORIGINAL MAP CODE (UNCHANGED) ================= */
+// ===============================
+// MAP INIT
+// ===============================
+var map = L.map('map').setView([2.1038,102.522],17);
 
-var map = L.map('map', {
-    zoomControl:false, 
-    maxZoom:28, 
-    minZoom:1
-}).fitBounds([[2.10309049233999,102.52084635053448],
-              [2.1044455032659752,102.52331439237805]]);
+L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution:'© OpenStreetMap'
+}).addTo(map);
 
-var hash = new L.Hash(map);
-
-var street = L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'
-).addTo(map);
-
-var satellite = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}'
-);
-
-var terrain = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}'
-);
-
-var traffic = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}'
-);
-
-var transit = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}'
-);
-
-var bicycling = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}'
-);
-
-function style_LOTFINAL_0() {
+// ===============================
+// LOT LAYER
+// ===============================
+function styleLot() {
     return {
-        color: '#232323',
-        weight: 1,
-        fillColor: '#a47158',
-        fillOpacity: 1
+        color:'#232323',
+        weight:1,
+        fillColor:'#a47158',
+        fillOpacity:1
     }
 }
 
-var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0, {
-    style: style_LOTFINAL_0
+var layer_LOTFINAL_0 = L.geoJson(json_LOTFINAL_0,{
+    style:styleLot,
+    onEachFeature:function(feature,layer){
+        layer.on('click',function(){
+            document.getElementById("noLot").innerHTML =
+                feature.properties.NO_LOT;
+
+            document.getElementById("ownerName").innerHTML =
+                feature.properties.OWNER || "Tiada Data";
+
+            document.getElementById("areaLot").innerHTML =
+                (feature.properties.AREA || 0) + " m²";
+        });
+    }
 }).addTo(map);
 
-var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1).addTo(map);
-
-var layerControl = L.control.layers(
-{
-    "Street Map": street,
-    "Satellite": satellite,
-    "Terrain": terrain
-},
-{
-    "Traffic": traffic,
-    "Transit": transit,
-    "Bicycling": bicycling,
-    "Lot Final": layer_LOTFINAL_0,
-    "Tanda Sempadan": tandaLayer
-},
-{ position:'topright', collapsed:false }
-).addTo(map);
-
-document.querySelector('.leaflet-control-layers').style.display="none";
-
-document.getElementById("gmLayersBtn").onclick=function(){
-var panel=document.querySelector('.leaflet-control-layers');
-panel.style.display=(panel.style.display==="none")?"block":"none";
-};
-
-/* ================= NEW FEATURE ADDITION ================= */
-
-var selectedLotLayer = null;
-
-json_LOTFINAL_0.features.forEach(function(feature){
-var option=document.createElement("option");
-option.value=feature.properties.NO_LOT;
-option.text=feature.properties.NO_LOT;
-document.getElementById("lotSelect").appendChild(option);
+// ===============================
+// OPACITY CONTROL
+// ===============================
+document.getElementById("opacitySlider")
+.addEventListener("input",function(e){
+    layer_LOTFINAL_0.setStyle({
+        fillOpacity:e.target.value
+    });
 });
 
-document.getElementById("lotSelect").onchange=function(){
-var selected=this.value;
+// ===============================
+// FIND LOT
+// ===============================
+function findLot(){
 
-layer_LOTFINAL_0.eachLayer(function(layer){
+    var lotNumber = document.getElementById("lotSearch").value;
 
-if(layer.feature.properties.NO_LOT==selected){
+    layer_LOTFINAL_0.eachLayer(function(layer){
 
-if(selectedLotLayer){
-layer_LOTFINAL_0.resetStyle(selectedLotLayer);
+        if(layer.feature.properties.NO_LOT == lotNumber){
+
+            layer.setStyle({ fillColor:'#00ff00' });
+            map.fitBounds(layer.getBounds());
+
+            document.getElementById("noLot").innerHTML =
+                layer.feature.properties.NO_LOT;
+
+            document.getElementById("ownerName").innerHTML =
+                layer.feature.properties.OWNER || "Tiada Data";
+
+            document.getElementById("areaLot").innerHTML =
+                (layer.feature.properties.AREA || 0) + " m²";
+        }
+    });
 }
 
-layer.setStyle({
-fillColor:'yellow',
-fillOpacity:1,
-weight:3
-});
+// ===============================
+// RESET
+// ===============================
+function resetLot(){
+    layer_LOTFINAL_0.setStyle({ fillColor:'#a47158' });
 
-selectedLotLayer=layer;
-map.fitBounds(layer.getBounds());
-}
-});
-};
-
-document.getElementById("opacitySlider").oninput=function(){
-layer_LOTFINAL_0.setStyle({ fillOpacity:this.value });
-};
-
-document.getElementById("generatePDF").onclick=function(){
-
-if(!selectedLotLayer){
-alert("Please select a lot first!");
-return;
+    document.getElementById("noLot").innerHTML="-";
+    document.getElementById("ownerName").innerHTML="-";
+    document.getElementById("areaLot").innerHTML="-";
 }
 
-const { jsPDF } = window.jspdf;
-var doc=new jsPDF();
+// ===============================
+// GENERATE PDF (Simple Export)
+// ===============================
+function generatePDF(){
 
-var lotNo=selectedLotLayer.feature.properties.NO_LOT;
-var area=selectedLotLayer.feature.properties.AREA||"N/A";
+    var lot = document.getElementById("noLot").innerHTML;
 
-doc.setFontSize(18);
-doc.text("LOT REPORT",20,20);
+    if(lot=="-"){
+        alert("Sila pilih lot dahulu.");
+        return;
+    }
 
-doc.setFontSize(14);
-doc.text("Lot Number: "+lotNo,20,40);
-doc.text("Area: "+area,20,50);
+    var content =
+        "LOT INFORMATION\n\n"+
+        "No Lot: "+document.getElementById("noLot").innerHTML+"\n"+
+        "Owner: "+document.getElementById("ownerName").innerHTML+"\n"+
+        "Area: "+document.getElementById("areaLot").innerHTML;
 
-doc.save("Lot_"+lotNo+".pdf");
-};
+    var blob = new Blob([content], {type:"text/plain"});
+    var link = document.createElement("a");
+    link.href = URL.createObjectURL(blob);
+    link.download = "Lot_"+lot+".txt";
+    link.click();
+}
 
 </script>
 
