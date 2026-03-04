@@ -581,7 +581,31 @@ layer_LOTFINAL_0.eachLayer(function(layer){
 
 });
 
-/* ================= GENERATE PDF A4 ================= */
+function getBase64Image(url, callback) {
+
+var img = new Image();
+img.crossOrigin = "Anonymous";
+
+img.onload = function(){
+
+var canvas = document.createElement("canvas");
+canvas.width = img.width;
+canvas.height = img.height;
+
+var ctx = canvas.getContext("2d");
+ctx.drawImage(img,0,0);
+
+var dataURL = canvas.toDataURL("image/png");
+
+callback(dataURL);
+
+};
+
+img.src = url;
+
+}
+
+/* ================= GENERATE PDF A4 + LOGO ================= */
 
 document.getElementById("generatePDF").onclick = function(){
 
@@ -592,16 +616,20 @@ return;
 
 var prop = selectedLayer.feature.properties;
 
-/* capture map */
+/* ambil logo */
+getBase64Image("PUO.png", function(logoData){
+
 html2canvas(document.getElementById("map")).then(function(canvas){
 
 const { jsPDF } = window.jspdf;
 
-/* A4 size */
 var pdf = new jsPDF("portrait","mm","a4");
 
-/* convert map to image */
 var imgData = canvas.toDataURL("image/png");
+
+/* ===== LOGO ===== */
+
+pdf.addImage(logoData,'PNG',10,8,25,25);
 
 /* ===== TAJUK ===== */
 
@@ -614,7 +642,7 @@ pdf.text("SISTEM MAKLUMAT LOT TANAH",105,23,{align:"center"});
 
 /* ===== LINE ===== */
 
-pdf.line(10,28,200,28);
+pdf.line(10,30,200,30);
 
 /* ===== GAMBAR MAP ===== */
 
@@ -624,12 +652,10 @@ pdf.addImage(imgData,'PNG',15,35,180,100);
 
 pdf.line(10,140,200,140);
 
-/* ===== TAJUK MAKLUMAT ===== */
+/* ===== MAKLUMAT ===== */
 
 pdf.setFontSize(14);
 pdf.text("Maklumat Lot",15,150);
-
-/* ===== MAKLUMAT LOT ===== */
 
 pdf.setFontSize(12);
 
@@ -659,6 +685,8 @@ pdf.text(
 /* SAVE */
 
 pdf.save("Maklumat_Lot_Taman_Saujana_Putra.pdf");
+
+});
 
 });
 
