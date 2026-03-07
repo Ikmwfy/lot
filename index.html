@@ -348,6 +348,10 @@ L.control.zoom({
 
 var street = L.tileLayer(
 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{ maxZoom: 22 });
+
+var satellite = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
 { maxZoom: 22 }).addTo(map);
 
 var satellite = L.tileLayer(
@@ -445,7 +449,7 @@ color:'#232323',
 fillColor:'#d5b43c',
 fillOpacity:1
 });
-}}).addTo(map);
+}});
 
 /* ================= PANEL FUNCTION ================= */
 
