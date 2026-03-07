@@ -15,13 +15,11 @@ html, body {
 }
 
 /* ================= ZOOM POSITION ================= */
-
 .leaflet-top.leaflet-left {
-    top: 70px;   /* laras kalau nak lagi bawah */
+    top: 70px;
 }
 
 /* ================= LEFT DASHBOARD ================= */
-
 #menuBtn {
     position: absolute;
     top: 130px;
@@ -45,7 +43,6 @@ html, body {
     z-index: 5500;
     padding: 18px;
     overflow-y: auto;
-    box-shadow: none;
     transition: 0.3s;
     font-family: Arial;
 }
@@ -93,7 +90,6 @@ html, body {
 }
 
 /* ================= FOOTER ================= */
-
 #footer {
     position: fixed;
     bottom: 0;
@@ -107,10 +103,9 @@ html, body {
 }
 
 /* ================= LAYERS BUTTON ================= */
-
 #gmLayersBtn {
     position: absolute;
-    bottom: 60px; /* dinaikkan supaya tak ganggu footer */
+    bottom: 60px;
     right: 20px;
     width: 110px;
     height: 85px;
@@ -142,7 +137,6 @@ html, body {
 }
 
 /* ================= PANEL ================= */
-
 #gmPanel {
     position: absolute;
     bottom: 150px;
@@ -170,7 +164,6 @@ html, body {
 }
 
 /* ================= HEADER ================= */
-
 #header {
     position: relative;
     width: 100%;
@@ -217,28 +210,25 @@ html, body {
 }
 
 #northArrow{
-position:absolute;
-top:130px;
-right:20px;
-width:45px;
-height:45px;
-background:white;
-border-radius:50%;
-box-shadow:0 3px 10px rgba(0,0,0,0.3);
-display:flex;
-align-items:center;
-justify-content:center;
-font-weight:bold;
-font-size:18px;
-z-index:4000;
+    position:absolute;
+    top:130px;
+    right:20px;
+    width:45px;
+    height:45px;
+    background:white;
+    border-radius:50%;
+    box-shadow:0 3px 10px rgba(0,0,0,0.3);
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    z-index:4000;
 }
 
 /* ================= MAP ================= */
-
 #map {
     position: absolute;
     top: 110px;
-    bottom: 35px; /* ruang untuk footer */
+    bottom: 35px;
     width: 100%;
 }
 </style>
@@ -259,83 +249,64 @@ z-index:4000;
 <div id="map"></div>
 
 <div id="northArrow">
-<img src="north.png" width="40">
+    <img src="north.png" width="40">
 </div>
     
-<!-- MENU BUTTON -->
 <div id="menuBtn">☰ Menu</div>
 
-<!-- DASHBOARD -->
 <div id="dashboard">
-
-<div style="display:flex; justify-content:space-between; align-items:center;">
-    <h2 style="margin:0;">DASHBOARD</h2>
-    <button id="closeDashboard"
-        style="background:#5a3e2b;color:white;border:none;
-        padding:5px 10px;border-radius:6px;cursor:pointer;">
-        ✖
-    </button>
-</div>
-<br>
-<hr>
-
-<div class="dashboard-section">
-    <label>Total Lot</label>
-    <div id="totalLot" class="dashboard-info"></div>
-</div>
-
-<div class="dashboard-section">
-    <label>Lot Opacity</label>
-    <input type="range" id="opacitySlider" min="0" max="1" step="0.1" value="1">
-</div>
-
-<div class="dashboard-section">
-    <label>Land Explorer</label>
-    <input type="text" id="searchLot" placeholder="Masukkan No Lot">
-    <button id="findLot">Find Lot</button>
-    <button id="resetLot">Reset Lot</button>
-</div>
-
-<div class="dashboard-section">
-    <label>Maklumat Lot Dipilih</label>
-    <div id="lotInfo" class="dashboard-info">
-        Tiada lot dipilih
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+        <h2 style="margin:0;">DASHBOARD</h2>
+        <button id="closeDashboard" style="background:#5a3e2b;color:white;border:none;padding:5px 10px;border-radius:6px;cursor:pointer;">✖</button>
     </div>
-    <button id="generatePDF">Generate PDF Lot</button>
+    <br>
+    <hr>
+
+    <div class="dashboard-section">
+        <label>Total Lot</label>
+        <div id="totalLot" class="dashboard-info"></div>
+    </div>
+
+    <div class="dashboard-section">
+        <label>Lot Opacity</label>
+        <input type="range" id="opacitySlider" min="0" max="1" step="0.1" value="1">
+    </div>
+
+    <div class="dashboard-section">
+        <label>Land Explorer</label>
+        <input type="text" id="searchLot" placeholder="Masukkan No Lot">
+        <button id="findLot">Find Lot</button>
+        <button id="resetLot">Reset Lot</button>
+    </div>
+
+    <div class="dashboard-section">
+        <label>Maklumat Lot Dipilih</label>
+        <div id="lotInfo" class="dashboard-info">Tiada lot dipilih</div>
+        <button id="generatePDF">Generate PDF Lot</button>
+    </div>
 </div>
 
-</div>
-
-<!-- Layers Button -->
 <div id="gmLayersBtn">
     <img src="MAPS.png">
     <span>Layers</span>
 </div>
 
-<!-- Panel -->
 <div id="gmPanel">
-
-<h3>Map Type</h3>
-<div class="gmOption"><input type="radio" name="basemap" id="streetRadio" checked>Street</div>
-<div class="gmOption"><input type="radio" name="basemap" id="satRadio">Satellite</div>
-<div class="gmOption"><input type="radio" name="basemap" id="terrainRadio">Terrain</div>
-
-<div class="gmDivider"></div>
-
-<h3>Map Details</h3>
-<div class="gmOption"><input type="checkbox" id="trafficCheck">Traffic</div>
-<div class="gmOption"><input type="checkbox" id="transitCheck">Transit</div>
-<div class="gmOption"><input type="checkbox" id="bikeCheck">Bicycling</div>
-
-<div class="gmDivider"></div>
-
-<h3>Data Layer</h3>
-<div class="gmOption"><input type="checkbox" id="lotCheck" checked>Lot Final</div>
-<div class="gmOption"><input type="checkbox" id="tandaCheck" checked>Tanda Sempadan</div>
-
+    <h3>Map Type</h3>
+    <div class="gmOption"><input type="radio" name="basemap" id="streetRadio">Street</div>
+    <div class="gmOption"><input type="radio" name="basemap" id="satRadio" checked>Satellite</div>
+    <div class="gmOption"><input type="radio" name="basemap" id="terrainRadio">Terrain</div>
+    <div class="gmDivider"></div>
+    <h3>Map Details</h3>
+    <div class="gmOption"><input type="checkbox" id="trafficCheck">Traffic</div>
+    <div class="gmOption"><input type="checkbox" id="transitCheck">Transit</div>
+    <div class="gmOption"><input type="checkbox" id="bikeCheck">Bicycling</div>
+    <div class="gmDivider"></div>
+    <h3>Data Layer</h3>
+    <div class="gmOption"><input type="checkbox" id="lotCheck" checked>Lot Final</div>
+    <div class="gmOption"><input type="checkbox" id="tandaCheck" checked>Tanda Sempadan</div>
 </div>
 
-<!-- FOOTER -->
 <div id="footer">
     Hak Cipta Terpelihara 2026 @ Ikmwfy | Politeknik Ungku Omar
 </div>
@@ -344,115 +315,58 @@ z-index:4000;
 <script src="data/LOTFINAL_0.js"></script>
 <script src="data/TandaSempadanGabung_1.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
-
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
-
-
 /* ================= MAP SETTING ================= */
-
 var map = L.map('map', {
     zoomControl: false,
     maxZoom: 22,
     minZoom: 5
 }).fitBounds([
-[2.10309049233999,102.52084635053448],
-[2.1044455032659752,102.52331439237805]
+    [2.10309049233999,102.52084635053448],
+    [2.1044455032659752,102.52331439237805]
 ]);
 
-L.control.zoom({
-    position: 'topleft'
-}).addTo(map);
-
-L.control.scale({
-    metric:true,
-    imperial:false
-}).addTo(map);
+L.control.zoom({ position: 'topleft' }).addTo(map);
+L.control.scale({ metric:true, imperial:false }).addTo(map);
 
 /* ================= BASEMAP ================= */
+var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 22 });
+var satellite = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', { maxZoom: 22 }).addTo(map);
+var terrain = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', { maxZoom: 22 });
+var traffic = L.tileLayer('https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}', { maxZoom: 22 });
+var transit = L.tileLayer('https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}', { maxZoom: 22 });
+var bicycling = L.tileLayer('https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}', { maxZoom: 22 });
 
-var street = L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{ maxZoom: 22 });
-
-var satellite = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-{ maxZoom: 22 }).addTo(map);
-
-var terrain = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
-{ maxZoom: 22 });
-
-var traffic = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}',
-{ maxZoom: 22 });
-
-var transit = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}',
-{ maxZoom: 22 });
-
-var bicycling = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}',
-{ maxZoom: 22 });
-
-/* ================= LOT FINAL WARNA COKLAT ================= */
-
-/* ================= LOT FINAL INTERACTIVE ================= */
-
+/* ================= STYLES ================= */
 function style_LOTFINAL_0() {
-    return {
-        color: '#5a3e2b',
-        weight: 1,
-        fillColor: '#a47148',
-        fillOpacity: 1
-    };
+    return { color: '#5a3e2b', weight: 1, fillColor: '#a47148', fillOpacity: 1 };
 }
-
-/* STYLE BILA LOT DIPILIH */
 function highlightStyle() {
-    return {
-        color: '#000000',
-        weight: 2,
-        fillColor: 'yellow',
-        fillOpacity: 1
-    };
+    return { color: '#000000', weight: 2, fillColor: 'yellow', fillOpacity: 1 };
 }
 
 var selectedLayer = null;
 
 function onEachFeature_LOTFINAL_0(feature, layer) {
-
     layer.on({
         click: function(e) {
-
-            // Reset lot sebelum ini
-            if (selectedLayer) {
-                selectedLayer.setStyle(style_LOTFINAL_0());
-            }
-
+            if (selectedLayer) { selectedLayer.setStyle(style_LOTFINAL_0()); }
             selectedLayer = layer;
-
-layer.setStyle(highlightStyle());
-
-updateLotInfo(feature.properties);
-
-            // Pastikan layer berada di atas
+            layer.setStyle(highlightStyle());
+            updateLotInfo(feature.properties);
             layer.bringToFront();
 
-            // Popup maklumat (ubah ikut attribute dalam file LOTFINAL_0.js)
-           var popupContent = `
-<div style="font-family: Arial; font-size:14px;">
-    <h4 style="margin:0; color:#5a3e2b;">Maklumat Lot</h4>
-    <hr style="margin:6px 0;">
-    <b>No PA:</b> ${feature.properties["tsp — _1"]}<br>
-    <b>No Lot:</b> ${feature.properties["NO_LOT"]}<br>
-    <b>Keluasan:</b> ${parseFloat(feature.properties["AREA"]).toFixed(3)} m²<br>
-    <b>Pemilik:</b> ${feature.properties["tsp — pe"]}
-</div>
-`;
-
-
+            var popupContent = `
+            <div style="font-family: Arial; font-size:14px;">
+                <h4 style="margin:0; color:#5a3e2b;">Maklumat Lot</h4>
+                <hr style="margin:6px 0;">
+                <b>No PA:</b> ${feature.properties["tsp — _1"]}<br>
+                <b>No Lot:</b> ${feature.properties["NO_LOT"]}<br>
+                <b>Keluasan:</b> ${parseFloat(feature.properties["AREA"]).toFixed(3)} m²<br>
+                <b>Pemilik:</b> ${feature.properties["tsp — pe"]}
+            </div>`;
             layer.bindPopup(popupContent).openPopup();
         }
     });
@@ -464,338 +378,165 @@ var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0, {
 }).addTo(map);
 
 var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1,{
-pointToLayer:function(feature,latlng){
-return L.circleMarker(latlng,{
-radius:4,
-color:'#232323',
-fillColor:'#d5b43c',
-fillOpacity:1
+    pointToLayer:function(feature,latlng){
+        return L.circleMarker(latlng,{ radius:4, color:'#232323', fillColor:'#d5b43c', fillOpacity:1 });
+    }
 });
-}});
 
-/* ================= PANEL FUNCTION ================= */
-
-var gmPanel=document.getElementById("gmPanel");
-
+/* ================= UI FUNCTIONS ================= */
 document.getElementById("gmLayersBtn").onclick=function(){
-gmPanel.style.display=gmPanel.style.display==="block"?"none":"block";
+    var gp = document.getElementById("gmPanel");
+    gp.style.display=gp.style.display==="block"?"none":"block";
 };
 
-document.getElementById("streetRadio").onclick=function(){
-map.removeLayer(satellite); map.removeLayer(terrain); map.addLayer(street);
-};
+document.getElementById("streetRadio").onclick=function(){ map.removeLayer(satellite); map.removeLayer(terrain); map.addLayer(street); };
+document.getElementById("satRadio").onclick=function(){ map.removeLayer(street); map.removeLayer(terrain); map.addLayer(satellite); };
+document.getElementById("terrainRadio").onclick=function(){ map.removeLayer(street); map.removeLayer(satellite); map.addLayer(terrain); };
 
-document.getElementById("satRadio").onclick=function(){
-map.removeLayer(street); map.removeLayer(terrain); map.addLayer(satellite);
-};
-
-document.getElementById("terrainRadio").onclick=function(){
-map.removeLayer(street); map.removeLayer(satellite); map.addLayer(terrain);
-};
-
-document.getElementById("trafficCheck").onchange=function(){
-this.checked?map.addLayer(traffic):map.removeLayer(traffic);
-};
-
-document.getElementById("transitCheck").onchange=function(){
-this.checked?map.addLayer(transit):map.removeLayer(transit);
-};
-
-document.getElementById("bikeCheck").onchange=function(){
-this.checked?map.addLayer(bicycling):map.removeLayer(bicycling);
-};
-
-document.getElementById("lotCheck").onchange=function(){
-this.checked?map.addLayer(layer_LOTFINAL_0):map.removeLayer(layer_LOTFINAL_0);
-};
-
-document.getElementById("tandaCheck").onchange=function(){
-this.checked?map.addLayer(tandaLayer):map.removeLayer(tandaLayer);
-};
-
-/* ================= DASHBOARD FUNCTION ================= */
+document.getElementById("trafficCheck").onchange=function(){ this.checked?map.addLayer(traffic):map.removeLayer(traffic); };
+document.getElementById("transitCheck").onchange=function(){ this.checked?map.addLayer(transit):map.removeLayer(transit); };
+document.getElementById("bikeCheck").onchange=function(){ this.checked?map.addLayer(bicycling):map.removeLayer(bicycling); };
+document.getElementById("lotCheck").onchange=function(){ this.checked?map.addLayer(layer_LOTFINAL_0):map.removeLayer(layer_LOTFINAL_0); };
+document.getElementById("tandaCheck").onchange=function(){ this.checked?map.addLayer(tandaLayer):map.removeLayer(tandaLayer); };
 
 var dashboard = document.getElementById("dashboard");
 var menuBtn = document.getElementById("menuBtn");
-var closeBtn = document.getElementById("closeDashboard");
+document.getElementById("menuBtn").onclick = function() { dashboard.classList.add("active"); menuBtn.style.display = "none"; };
+document.getElementById("closeDashboard").onclick = function() { dashboard.classList.remove("active"); menuBtn.style.display = "block"; };
 
-/* BUKA MENU */
-menuBtn.onclick = function() {
-    dashboard.classList.add("active");
-    menuBtn.style.display = "none";
-};
-
-/* TUTUP MENU */
-closeBtn.onclick = function() {
-    dashboard.classList.remove("active");
-    menuBtn.style.display = "block";
-};
-
-/* ================= TOTAL LOT ================= */
-
-document.getElementById("totalLot").innerHTML =
-    layer_LOTFINAL_0.getLayers().length;
-
-/* ================= LOT OPACITY ================= */
-
+document.getElementById("totalLot").innerHTML = layer_LOTFINAL_0.getLayers().length;
 document.getElementById("opacitySlider").oninput = function() {
-    var value = this.value;
-    layer_LOTFINAL_0.eachLayer(function(layer){
-        layer.setStyle({ fillOpacity: value });
-    });
+    var val = this.value;
+    layer_LOTFINAL_0.eachLayer(function(l){ l.setStyle({ fillOpacity: val }); });
 };
-
-/* ================= LAND EXPLORER ================= */
 
 document.getElementById("findLot").onclick = function() {
-
-    var searchValue = document.getElementById("searchLot").value;
-
-    layer_LOTFINAL_0.eachLayer(function(layer){
-
-        if(layer.feature.properties["NO_LOT"] == searchValue){
-
-            map.fitBounds(layer.getBounds());
-            map.invalidateSize();
-
-            if (selectedLayer) {
-                selectedLayer.setStyle(style_LOTFINAL_0());
-            }
-
-            selectedLayer = layer;
-            layer.setStyle(highlightStyle());
-
-            updateLotInfo(layer.feature.properties);
+    var val = document.getElementById("searchLot").value;
+    layer_LOTFINAL_0.eachLayer(function(l){
+        if(l.feature.properties["NO_LOT"] == val){
+            map.fitBounds(l.getBounds());
+            if (selectedLayer) { selectedLayer.setStyle(style_LOTFINAL_0()); }
+            selectedLayer = l;
+            l.setStyle(highlightStyle());
+            updateLotInfo(l.feature.properties);
         }
     });
 };
 
 document.getElementById("resetLot").onclick = function(){
-
     document.getElementById("searchLot").value = "";
-
-    layer_LOTFINAL_0.eachLayer(function(layer){
-        layer.setStyle(style_LOTFINAL_0());
-    });
-
+    layer_LOTFINAL_0.eachLayer(function(l){ l.setStyle(style_LOTFINAL_0()); });
     selectedLayer = null;
-
-    document.getElementById("lotInfo").innerHTML =
-        "Tiada lot dipilih";
+    document.getElementById("lotInfo").innerHTML = "Tiada lot dipilih";
 };
 
-/* ================= UPDATE INFO PANEL ================= */
-
-function updateLotInfo(properties){
-
+function updateLotInfo(props){
     document.getElementById("lotInfo").innerHTML = `
-        <b>No PA:</b> ${properties["tsp — _1"]}<br>
-        <b>No Lot:</b> ${properties["NO_LOT"]}<br>
-        <b>Keluasan:</b> ${parseFloat(properties["AREA"]).toFixed(3)} m²<br>
-        <b>Pemilik:</b> ${properties["tsp — pe"]}
+        <b>No PA:</b> ${props["tsp — _1"]}<br>
+        <b>No Lot:</b> ${props["NO_LOT"]}<br>
+        <b>Keluasan:</b> ${parseFloat(props["AREA"]).toFixed(3)} m²<br>
+        <b>Pemilik:</b> ${props["tsp — pe"]}
     `;
 }
 
-/* Modify popup click supaya update dashboard juga */
-
-layer_LOTFINAL_0.eachLayer(function(layer){
-
-    layer.on("click", function(){
-
-        updateLotInfo(layer.feature.properties);
-
-    });
-
-});
-
 function getBase64Image(url, callback) {
-
-var img = new Image();
-img.crossOrigin = "Anonymous";
-
-img.onload = function(){
-
-var canvas = document.createElement("canvas");
-canvas.width = img.width;
-canvas.height = img.height;
-
-var ctx = canvas.getContext("2d");
-ctx.drawImage(img,0,0);
-
-var dataURL = canvas.toDataURL("image/png");
-
-callback(dataURL);
-
-};
-
-img.src = url;
-
+    var img = new Image();
+    img.crossOrigin = "Anonymous";
+    img.onload = function(){
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width; canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img,0,0);
+        callback(canvas.toDataURL("image/png"));
+    };
+    img.src = url;
 }
 
-/* ================= GENERATE PDF A4 + LOGO ================= */
-
+/* ================= GENERATE PDF FIX ================= */
 document.getElementById("generatePDF").onclick = function(){
+    if(!selectedLayer){ alert("Sila pilih lot dahulu."); return; }
 
-if(!selectedLayer){
-alert("Sila pilih lot dahulu.");
-return;
-}
+    // Memastikan peta stabil sebelum rakaman
+    map.invalidateSize();
+    
+    getBase64Image("PUO.png", function(logoBase64){
+        // Delay 500ms untuk memastikan render Leaflet selesai sepenuhnya
+        setTimeout(function(){
+            html2canvas(document.getElementById("map"),{
+                useCORS: true,
+                scale: 2, // Scale dikecilkan sikit untuk elak memory crash tapi tetap tajam
+                logging: false
+            }).then(function(canvas){
+                const { jsPDF } = window.jspdf;
+                var pdf = new jsPDF("landscape","mm","a4");
+                var mapImg = canvas.toDataURL("image/jpeg", 1.0);
+                var prop = selectedLayer.feature.properties;
 
-getBase64Image("PUO.png", function(logoBase64){
+                // Lukis Frame & Layout
+                pdf.setLineWidth(1.5); pdf.rect(5,5,287,200); // Border
+                pdf.setLineWidth(0.8); pdf.rect(5,5,60,200); // Kiri
+                pdf.rect(65,5,227,140); // Map Box
+                pdf.rect(65,145,227,60); // Bawah Box
 
-html2canvas(document.getElementById("map"),{
-useCORS:true,
-scale:4
-}).then(function(canvas){
+                // Logo & Header
+                pdf.addImage(logoBase64,'PNG',15,12,30,20);
+                pdf.setFont("helvetica","bold"); pdf.setFontSize(11);
+                pdf.text("POLITEKNIK UNGKU OMAR",35,35,{align:"center"});
+                pdf.line(10,40,60,40);
 
-const { jsPDF } = window.jspdf;
-var pdf = new jsPDF("landscape","mm","a4");
+                // Info Lokasi
+                pdf.setFont("times","bold"); pdf.setFontSize(12);
+                pdf.text("NEGERI JOHOR",15,55);
+                pdf.setTextColor(200,0,0); pdf.text("TANGKAK",15,65);
+                pdf.setTextColor(0,0,0); pdf.text("DAERAH LEDANG",15,75);
+                pdf.text("MUKIM KESANG",15,85);
 
-var mapImg = canvas.toDataURL("image/jpeg",1.0);
-var prop = selectedLayer.feature.properties;
+                // No Lot & Skala
+                pdf.setFontSize(14); pdf.text("LOT " + prop["NO_LOT"],15,100);
+                pdf.setFontSize(11); pdf.setFont("helvetica","normal");
+                pdf.text("SKALA 1 : 400",15,110);
+                pdf.line(10,115,60,115);
 
-/* BORDER LUAR */
+                // Detail Pemilik & Luas
+                pdf.setFont("helvetica","bold"); pdf.setFontSize(9);
+                pdf.text("NAMA PEMILIK:",10,125);
+                pdf.setFont("helvetica","normal");
+                var owner = prop["tsp — pe"] || "-";
+                pdf.text(pdf.splitTextToSize(owner,45),10,132);
 
-pdf.setLineWidth(1.5);
-pdf.rect(5,5,287,200);
+                pdf.setFont("helvetica","bold"); pdf.text("NO. LOT:",10,155);
+                pdf.setFont("helvetica","normal"); pdf.text(String(prop["NO_LOT"]),10,162);
 
-/* PANEL KIRI */
+                pdf.setFont("helvetica","bold"); pdf.text("LUAS LOT:",10,175);
+                pdf.setFont("helvetica","normal"); pdf.text(parseFloat(prop["AREA"]).toFixed(2) + " m²",10,182);
 
-pdf.setLineWidth(0.8);
-pdf.rect(5,5,60,200);
+                pdf.line(10,190,60,190);
+                pdf.setFontSize(7);
+                pdf.text("Fail Ukur: PUBJ 121/2009",10,195);
+                pdf.text("Fail Pej Tanah: PTDM 3/8/83/02",10,198);
 
-/* PANEL MAP */
+                // Tajuk Atas
+                pdf.setFont("times","bold"); pdf.setFontSize(26);
+                pdf.text("PELAN AKUI",180,18,{align:"center"});
 
-pdf.rect(65,5,227,140);
+                // Masukkan Peta (Kekal Kedudukan)
+                pdf.addImage(mapImg,'JPEG',68,25,220,115);
 
-/* PANEL BAWAH */
+                // PA NOMBOR (Pembetulan No PA)
+                pdf.setFont("times","bold"); pdf.setFontSize(42);
+                var paNo = prop["tsp — _1"] || "-";
+                pdf.text("PA - " + paNo, 150, 180, {align:"center"});
 
-pdf.rect(65,145,227,60);
+                // Footer
+                pdf.setFontSize(7);
+                pdf.text("Dokumen ini dijana secara digital melalui Sistem Saujana Putra Smart Resident", 180, 198, {align:"center"});
 
-/* LOGO */
-
-pdf.addImage(logoBase64,'PNG',15,12,30,20);
-
-/* HEADER */
-
-pdf.setFont("helvetica","bold");
-pdf.setFontSize(11);
-pdf.text("POLITEKNIK UNGKU OMAR",35,35,{align:"center"});
-
-pdf.setLineWidth(0.4);
-pdf.line(10,40,60,40);
-
-/* INFO KIRI */
-
-pdf.setFont("times","bold");
-pdf.setFontSize(12);
-
-pdf.text("NEGERI JOHOR",15,55);
-
-pdf.setTextColor(200,0,0);
-pdf.text("TANGKAK",15,65);
-
-pdf.setTextColor(0,0,0);
-pdf.text("DAERAH LEDANG",15,75);
-
-pdf.text("MUKIM KESANG",15,85);
-
-/* LOT */
-
-pdf.setFontSize(14);
-pdf.text("LOT " + prop["NO_LOT"],15,100);
-
-pdf.setFontSize(11);
-pdf.setFont("helvetica","normal");
-pdf.text("SKALA 1 : 400",15,110);
-
-/* LINE */
-
-pdf.line(10,115,60,115);
-
-/* PEMILIK */
-
-pdf.setFont("helvetica","bold");
-pdf.setFontSize(9);
-pdf.text("NAMA PEMILIK:",10,125);
-
-pdf.setFont("helvetica","normal");
-
-var owner = prop["tsp_pe"] || "-";
-var ownerText = pdf.splitTextToSize(owner,45);
-pdf.text(ownerText,10,132);
-
-/* NO LOT */
-
-pdf.setFont("helvetica","bold");
-pdf.text("NO. LOT:",10,155);
-
-pdf.setFont("helvetica","normal");
-pdf.text(prop["NO_LOT"],10,162);
-
-/* LUAS */
-
-pdf.setFont("helvetica","bold");
-pdf.text("LUAS LOT:",10,175);
-
-pdf.setFont("helvetica","normal");
-
-var luas = parseFloat(prop["AREA"]).toFixed(2);
-pdf.text(luas + " m²",10,182);
-
-/* LINE */
-
-pdf.line(10,190,60,190);
-
-/* FAIL INFO */
-
-pdf.setFontSize(7);
-
-pdf.text("Fail Ukur: PUBJ 121/2009",10,195);
-pdf.text("Fail Pej Tanah: PTDM 3/8/83/02",10,198);
-
-/* TAJUK ATAS */
-
-pdf.setFont("times","bold");
-pdf.setFontSize(26);
-pdf.text("PELAN AKUI",180,18,{align:"center"});
-
-/* MAP */
-
-pdf.addImage(mapImg,'JPEG',68,25,220,115);
-
-/* PA BESAR */
-
-pdf.setFont("times","bold");
-pdf.setFontSize(42);
-
-var pa = prop["tsp__1"] || "-";
-
-pdf.text("PA " + pa,150,180,{align:"center"});
-
-/* FOOTER */
-
-pdf.setFontSize(7);
-
-pdf.text(
-"Dokumen ini dijana secara digital melalui Sistem Saujana Putra Smart Resident",
-180,
-198,
-{align:"center"}
-);
-
-/* SAVE PDF */
-
-pdf.save("Pelan_Akui_Lot_"+prop["NO_LOT"]+".pdf");
-
-});
-
-});
-
+                pdf.save("Pelan_Akui_Lot_"+prop["NO_LOT"]+".pdf");
+            });
+        }, 500); 
+    });
 };
-
 </script>
-
 </body>
 </html>
 
