@@ -648,13 +648,6 @@ padding:[250,250]
 });
 
 setTimeout(function(){
-map.invalidateSize();
-
-var prop = selectedLayer.feature.properties;
-
-/* capture map dengan resolusi tinggi */
-
-setTimeout(function(){
 
 map.invalidateSize();
 
@@ -662,71 +655,65 @@ map.once("idle", function(){
 
 html2canvas(document.getElementById("map"),{
 useCORS:true,
-scale:2
-})
-
-html2canvas(document.getElementById("map"),{
-useCORS:true,
 scale:2,
 logging:false,
 allowTaint:true
 }).then(function(canvas){
+
 const { jsPDF } = window.jspdf;
 
 var pdf = new jsPDF("landscape","mm","a4");
 
 var mapImg = canvas.toDataURL("image/jpeg",1.0);
 
-/* ================= BORDER ================= */
+var prop = selectedLayer.feature.properties;
+
+/* BORDER */
 
 pdf.setLineWidth(1);
 pdf.rect(5,5,287,200);
 
-/* ================= PANEL KIRI ================= */
+/* PANEL KIRI */
 
 pdf.rect(5,5,70,200);
 
-/* ================= PANEL MAP ================= */
+/* PANEL MAP */
 
 pdf.rect(75,5,217,150);
 
-/* ================= PANEL BAWAH ================= */
+/* PANEL BAWAH */
 
 pdf.rect(95,155,217,50);
 
-/* ================= LOGO ================= */
+/* LOGO */
 
 pdf.addImage("PUO.png",'PNG',15,10,30,30);
 
-/* ================= HEADER ================= */
+/* HEADER */
 
 pdf.setFont("helvetica","bold");
 pdf.setFontSize(11);
-
 pdf.text("POLITEKNIK UNGKU OMAR",40,45,{align:"center"});
 
-/* ================= INFO KAWASAN ================= */
+/* INFO */
 
 pdf.setFontSize(11);
-
 pdf.text("NEGERI JOHOR",15,65);
 pdf.text("TANGKAK",15,75);
 pdf.text("DAERAH LEDANG",15,85);
 pdf.text("MUKIM KESANG",15,95);
 
-/* ================= LOT ================= */
+/* LOT */
 
 pdf.setFontSize(14);
 pdf.setFont("helvetica","bold");
-
 pdf.text("LOT " + prop["NO_LOT"],15,115);
 
 pdf.setFontSize(11);
 pdf.setFont("helvetica","normal");
-
 pdf.text("SKALA 1 : 400",15,125);
 
-/* ================= PEMILIK ================= */
+/* PEMILIK */
 
 pdf.setFont("helvetica","bold");
 pdf.text("NAMA PEMILIK:",15,140);
@@ -735,7 +722,7 @@ pdf.setFont("helvetica","normal");
 var ownerName = pdf.splitTextToSize(prop["tsp — pe"],55);
 pdf.text(ownerName,15,150);
 
-/* ================= LUAS ================= */
+/* LUAS */
 
 pdf.setFont("helvetica","bold");
 pdf.text("LUAS LOT:",15,165);
@@ -743,28 +730,25 @@ pdf.text("LUAS LOT:",15,165);
 pdf.setFont("helvetica","normal");
 pdf.text(parseFloat(prop["AREA"]).toFixed(3) + " m²",15,175);
 
-/* ================= TAJUK ================= */
+/* TAJUK */
 
 pdf.setFontSize(24);
 pdf.setFont("helvetica","bold");
-
 pdf.text("PELAN AKUI",185,20,{align:"center"});
 
-/* ================= MAP ================= */
+/* MAP */
 
 pdf.addImage(mapImg,'JPEG',80,30,200,110);
 
-/* ================= NO PA BESAR ================= */
+/* NO PA */
 
 pdf.setFontSize(42);
 pdf.setFont("helvetica","bold");
-
 pdf.text("PA " + prop["tsp — _1"],120,185);
 
-/* ================= FOOTER ================= */
+/* FOOTER */
 
 pdf.setFontSize(9);
-
 pdf.text(
 "Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah",
 185,
@@ -772,13 +756,15 @@ pdf.text(
 {align:"center"}
 );
 
-/* ================= SAVE ================= */
+/* SAVE */
 
 pdf.save("Pelan_Akui_Lot_"+prop["NO_LOT"]+".pdf");
 
 });
 
-},1500);
+});
+
+},1200);
 
 };
 
