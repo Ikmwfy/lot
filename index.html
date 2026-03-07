@@ -619,6 +619,8 @@ var prop = selectedLayer.feature.properties;
 /* ambil logo */
 getBase64Image("PUO.png", function(logoData){
 
+getBase64Image("north.png", function(northData){
+
 html2canvas(document.getElementById("map")).then(function(canvas){
 
 const { jsPDF } = window.jspdf;
@@ -627,50 +629,68 @@ var pdf = new jsPDF("portrait","mm","a4");
 
 var imgData = canvas.toDataURL("image/png");
 
+/* ===== BORDER PAGE ===== */
+
+pdf.rect(5,5,200,287);
+
 /* ===== LOGO ===== */
 
-pdf.addImage(logoData,'PNG',15,5,35,35);
+pdf.addImage(logoData,'PNG',10,10,30,30);
 
-/* ===== TAJUK ===== */
+/* ===== TAJUK PELAN ===== */
 
 pdf.setFont("helvetica","bold");
 pdf.setFontSize(18);
-pdf.text("TAMAN SAUJANA PUTRA",105,15,{align:"center"});
+pdf.text("PELAN LOT TANAH",105,15,{align:"center"});
 
 pdf.setFontSize(14);
-pdf.text("SISTEM MAKLUMAT LOT TANAH",105,23,{align:"center"});
+pdf.text("TAMAN SAUJANA PUTRA",105,23,{align:"center"});
 
-/* ===== LINE ===== */
+/* ===== BOX MAP ===== */
 
-pdf.line(10,30,200,30);
+pdf.rect(10,40,190,120);
 
-/* ===== GAMBAR MAP ===== */
+/* ===== MAP IMAGE ===== */
 
-pdf.addImage(imgData,'PNG',15,35,180,100);
+pdf.addImage(imgData,'PNG',12,42,186,116);
 
-/* ===== LINE ===== */
+/* ===== NORTH ARROW ===== */
 
-pdf.line(10,140,200,140);
+pdf.addImage(northData,'PNG',170,45,15,15);
+
+pdf.setFontSize(10);
+pdf.text("N",177,43);
+
+/* ===== SCALE TEXT ===== */
+
+pdf.setFontSize(10);
+pdf.text("Anggaran Skala Peta",150,160);
+
+/* ===== BOX MAKLUMAT ===== */
+
+pdf.rect(10,170,190,70);
+
+/* ===== TAJUK MAKLUMAT ===== */
+
+pdf.setFontSize(14);
+pdf.text("MAKLUMAT LOT",15,180);
 
 /* ===== MAKLUMAT ===== */
 
-pdf.setFontSize(14);
-pdf.text("Maklumat Lot",15,150);
-
 pdf.setFontSize(12);
 
-pdf.text("No PA      : " + prop["tsp — _1"],20,160);
+pdf.text("No PA      : " + prop["tsp — _1"],20,195);
 
-pdf.text("No Lot     : " + prop["NO_LOT"],20,170);
+pdf.text("No Lot     : " + prop["NO_LOT"],20,205);
 
 pdf.text(
 "Keluasan   : " +
 parseFloat(prop["AREA"]).toFixed(3) + " m²",
 20,
-180
+215
 );
 
-pdf.text("Pemilik    : " + prop["tsp — pe"],20,190);
+pdf.text("Pemilik    : " + prop["tsp — pe"],20,225);
 
 /* ===== FOOTER ===== */
 
@@ -682,9 +702,9 @@ pdf.text(
 {align:"center"}
 );
 
-/* SAVE */
+pdf.save("Pelan_Lot_Taman_Saujana_Putra.pdf");
 
-pdf.save("Maklumat_Lot_Taman_Saujana_Putra.pdf");
+});
 
 });
 
