@@ -216,6 +216,23 @@ html, body {
     z-index: 2;
 }
 
+#northArrow{
+position:absolute;
+top:130px;
+right:20px;
+width:45px;
+height:45px;
+background:white;
+border-radius:50%;
+box-shadow:0 3px 10px rgba(0,0,0,0.3);
+display:flex;
+align-items:center;
+justify-content:center;
+font-weight:bold;
+font-size:18px;
+z-index:4000;
+}
+
 /* ================= MAP ================= */
 
 #map {
@@ -240,6 +257,11 @@ html, body {
 </div>
 
 <div id="map"></div>
+<div id="northArrow">N</div>
+
+<div id="northArrow">
+<img src="north.png" width="40">
+</div>
     
 <!-- MENU BUTTON -->
 <div id="menuBtn">☰ Menu</div>
@@ -342,6 +364,11 @@ var map = L.map('map', {
 
 L.control.zoom({
     position: 'topleft'
+}).addTo(map);
+
+L.control.scale({
+    metric:true,
+    imperial:false
 }).addTo(map);
 
 /* ================= BASEMAP ================= */
