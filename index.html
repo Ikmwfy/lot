@@ -641,15 +641,16 @@ alert("Sila pilih lot dahulu.");
 return;
 }
 
+getBase64Image("PUO.png", function(logoBase64){
+
+getBase64Image("north.png", function(northBase64){
+
 /* SIMPAN STYLE ASAL */
 
 var originalStyles = [];
 
 layer_LOTFINAL_0.eachLayer(function(layer){
-originalStyles.push({
-layer:layer,
-style:layer.options
-});
+originalStyles.push(layer);
 layer.setStyle({
 fillOpacity:0.2,
 color:"#999",
@@ -678,9 +679,7 @@ map.invalidateSize();
 
 html2canvas(document.getElementById("map"),{
 useCORS:true,
-scale:3,
-logging:false,
-allowTaint:true
+scale:3
 }).then(function(canvas){
 
 const { jsPDF } = window.jspdf;
@@ -691,7 +690,7 @@ var mapImg = canvas.toDataURL("image/jpeg",1.0);
 
 var prop = selectedLayer.feature.properties;
 
-/* BORDER LUAR */
+/* BORDER */
 
 pdf.setLineWidth(1.2);
 pdf.rect(5,5,287,200);
@@ -711,7 +710,7 @@ pdf.rect(65,150,227,55);
 
 /* LOGO */
 
-pdf.addImage("PUO.png",'PNG',20,12,25,25);
+pdf.addImage(logoBase64,'PNG',20,12,25,25);
 
 /* HEADER */
 
@@ -719,12 +718,7 @@ pdf.setFont("helvetica","bold");
 pdf.setFontSize(11);
 pdf.text("POLITEKNIK UNGKU OMAR",35,45,{align:"center"});
 
-/* GARIS */
-
-pdf.setLineWidth(0.4);
-pdf.line(10,55,55,55);
-
-/* INFO LOKASI */
+/* INFO */
 
 pdf.setFontSize(11);
 
@@ -747,10 +741,6 @@ pdf.text("LOT " + prop["NO_LOT"],15,115);
 pdf.setFontSize(11);
 pdf.setFont("helvetica","normal");
 pdf.text("SKALA 1 : 400",15,125);
-
-/* GARIS */
-
-pdf.line(10,135,55,135);
 
 /* PEMILIK */
 
@@ -791,9 +781,9 @@ pdf.addImage(mapImg,'JPEG',70,25,210,120);
 
 /* NORTH ARROW */
 
-pdf.addImage("north.png","PNG",265,30,12,12);
+pdf.addImage(northBase64,"PNG",265,30,12,12);
 
-/* SCALE BAR */
+/* SCALE */
 
 pdf.setLineWidth(1);
 pdf.line(240,135,260,135);
@@ -808,13 +798,11 @@ pdf.text("20 m",257,140);
 
 pdf.setFontSize(48);
 pdf.setFont("times","bold");
-
 pdf.text("PA " + prop["tsp — _1"],150,185);
 
 /* FOOTER */
 
 pdf.setFontSize(9);
-
 pdf.text(
 "Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah",
 180,
@@ -828,18 +816,17 @@ pdf.save("Pelan_Akui_Lot_"+prop["NO_LOT"]+".pdf");
 
 /* RESET STYLE */
 
-originalStyles.forEach(function(item){
-item.layer.setStyle({
+layer_LOTFINAL_0.eachLayer(function(layer){
+layer.setStyle({
 fillOpacity:1,
 color:"#5a3e2b",
 weight:1,
 fillColor:"#a47148"
 });
-});
-
-});
 
 },1200);
+
+});
 
 };
 
