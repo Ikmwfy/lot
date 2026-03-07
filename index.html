@@ -257,7 +257,6 @@ z-index:4000;
 </div>
 
 <div id="map"></div>
-<div id="northArrow">N</div>
 
 <div id="northArrow">
 <img src="north.png" width="40">
@@ -645,8 +644,11 @@ return;
 map.closePopup();
 
 map.fitBounds(selectedLayer.getBounds(),{
-padding:[120,120]
+padding:[250,250]
 });
+
+setTimeout(function(){
+map.invalidateSize();
 
 var prop = selectedLayer.feature.properties;
 
@@ -656,9 +658,18 @@ setTimeout(function(){
 
 map.invalidateSize();
 
+map.once("idle", function(){
+
 html2canvas(document.getElementById("map"),{
 useCORS:true,
 scale:2
+})
+
+html2canvas(document.getElementById("map"),{
+useCORS:true,
+scale:2,
+logging:false,
+allowTaint:true
 }).then(function(canvas){
 const { jsPDF } = window.jspdf;
 
