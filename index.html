@@ -641,6 +641,31 @@ alert("Sila pilih lot dahulu.");
 return;
 }
 
+/* SIMPAN STYLE ASAL */
+
+var originalStyles = [];
+
+layer_LOTFINAL_0.eachLayer(function(layer){
+originalStyles.push({
+layer:layer,
+style:layer.options
+});
+layer.setStyle({
+fillOpacity:0.2,
+color:"#999",
+weight:1
+});
+});
+
+/* LOT DIPILIH */
+
+selectedLayer.setStyle({
+fillColor:"yellow",
+fillOpacity:1,
+color:"#000",
+weight:2
+});
+
 map.closePopup();
 
 map.fitBounds(selectedLayer.getBounds(),{
@@ -688,13 +713,13 @@ pdf.rect(65,150,227,55);
 
 pdf.addImage("PUO.png",'PNG',20,12,25,25);
 
-/* HEADER KIRI */
+/* HEADER */
 
 pdf.setFont("helvetica","bold");
 pdf.setFontSize(11);
 pdf.text("POLITEKNIK UNGKU OMAR",35,45,{align:"center"});
 
-/* GARIS PEMISAH */
+/* GARIS */
 
 pdf.setLineWidth(0.4);
 pdf.line(10,55,55,55);
@@ -723,7 +748,7 @@ pdf.setFontSize(11);
 pdf.setFont("helvetica","normal");
 pdf.text("SKALA 1 : 400",15,125);
 
-/* GARIS PEMISAH */
+/* GARIS */
 
 pdf.line(10,135,55,135);
 
@@ -754,15 +779,30 @@ pdf.text("LUAS LOT:",15,188);
 pdf.setFont("helvetica","normal");
 pdf.text(parseFloat(prop["AREA"]).toFixed(2) + " m²",15,195);
 
-/* TAJUK BESAR */
+/* TAJUK */
 
 pdf.setFontSize(26);
 pdf.setFont("times","bold");
 pdf.text("PELAN AKUI",180,18,{align:"center"});
 
-/* MAP IMAGE */
+/* MAP */
 
 pdf.addImage(mapImg,'JPEG',70,25,210,120);
+
+/* NORTH ARROW */
+
+pdf.addImage("north.png","PNG",265,30,12,12);
+
+/* SCALE BAR */
+
+pdf.setLineWidth(1);
+pdf.line(240,135,260,135);
+pdf.line(240,133,240,137);
+pdf.line(260,133,260,137);
+
+pdf.setFontSize(8);
+pdf.text("0",238,140);
+pdf.text("20 m",257,140);
 
 /* PA BESAR */
 
@@ -782,9 +822,20 @@ pdf.text(
 {align:"center"}
 );
 
-/* SAVE PDF */
+/* SAVE */
 
 pdf.save("Pelan_Akui_Lot_"+prop["NO_LOT"]+".pdf");
+
+/* RESET STYLE */
+
+originalStyles.forEach(function(item){
+item.layer.setStyle({
+fillOpacity:1,
+color:"#5a3e2b",
+weight:1,
+fillColor:"#a47148"
+});
+});
 
 });
 
