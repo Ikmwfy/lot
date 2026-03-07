@@ -431,11 +431,11 @@ function onEachFeature_LOTFINAL_0(feature, layer) {
                 selectedLayer.setStyle(style_LOTFINAL_0());
             }
 
-            // Simpan lot yang dipilih
             selectedLayer = layer;
 
-            // Tukar warna kuning
-            layer.setStyle(highlightStyle());
+layer.setStyle(highlightStyle());
+
+updateLotInfo(feature.properties);
 
             // Pastikan layer berada di atas
             layer.bringToFront();
