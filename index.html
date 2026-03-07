@@ -354,10 +354,6 @@ var satellite = L.tileLayer(
 'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
 { maxZoom: 22 }).addTo(map);
 
-var satellite = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-{ maxZoom: 22 });
-
 var terrain = L.tileLayer(
 'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
 { maxZoom: 22 });
@@ -613,6 +609,8 @@ img.src = url;
 
 document.getElementById("generatePDF").onclick = function(){
 
+map.closePopup();
+
 if(!selectedLayer){
 alert("Sila pilih lot dahulu.");
 return;
@@ -622,11 +620,12 @@ var prop = selectedLayer.feature.properties;
 
 /* capture map dengan resolusi tinggi */
 
+setTimeout(function(){
+
 html2canvas(document.getElementById("map"),{
 useCORS:true,
 scale:2
 }).then(function(canvas){
-
 const { jsPDF } = window.jspdf;
 
 var pdf = new jsPDF("landscape","mm","a4");
@@ -732,6 +731,8 @@ pdf.text(
 pdf.save("Pelan_Akui_Lot_"+prop["NO_LOT"]+".pdf");
 
 });
+
+},800);
 
 };
 
