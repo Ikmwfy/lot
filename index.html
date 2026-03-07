@@ -616,97 +616,116 @@ return;
 
 var prop = selectedLayer.feature.properties;
 
-/* ambil logo */
-getBase64Image("PUO.png", function(logoData){
+/* capture map dengan resolusi tinggi */
 
-getBase64Image("north.png", function(northData){
-
-html2canvas(document.getElementById("map")).then(function(canvas){
+html2canvas(document.getElementById("map"),{
+useCORS:true,
+scale:2
+}).then(function(canvas){
 
 const { jsPDF } = window.jspdf;
 
-var pdf = new jsPDF("portrait","mm","a4");
+var pdf = new jsPDF("landscape","mm","a4");
 
-var imgData = canvas.toDataURL("image/png");
+var mapImg = canvas.toDataURL("image/jpeg",1.0);
 
-/* ===== BORDER PAGE ===== */
+/* ================= BORDER ================= */
 
-pdf.rect(5,5,200,287);
+pdf.setLineWidth(1);
+pdf.rect(5,5,287,200);
 
-/* ===== LOGO ===== */
+/* ================= PANEL KIRI ================= */
 
-pdf.addImage(logoData,'PNG',10,10,30,30);
+pdf.rect(5,5,70,200);
 
-/* ===== TAJUK PELAN ===== */
+/* ================= PANEL MAP ================= */
+
+pdf.rect(75,5,217,150);
+
+/* ================= PANEL BAWAH ================= */
+
+pdf.rect(75,155,217,50);
+
+/* ================= LOGO ================= */
+
+pdf.addImage("PUO.png",'PNG',15,10,30,30);
+
+/* ================= HEADER ================= */
 
 pdf.setFont("helvetica","bold");
-pdf.setFontSize(18);
-pdf.text("PELAN LOT TANAH",105,15,{align:"center"});
+pdf.setFontSize(11);
+
+pdf.text("POLITEKNIK UNGKU OMAR",40,45,{align:"center"});
+
+/* ================= INFO KAWASAN ================= */
+
+pdf.setFontSize(11);
+
+pdf.text("NEGERI JOHOR",15,65);
+pdf.text("TANGKAK",15,75);
+pdf.text("DAERAH LEDANG",15,85);
+pdf.text("MUKIM KESANG",15,95);
+
+/* ================= LOT ================= */
 
 pdf.setFontSize(14);
-pdf.text("TAMAN SAUJANA PUTRA",105,23,{align:"center"});
+pdf.setFont("helvetica","bold");
 
-/* ===== BOX MAP ===== */
+pdf.text("LOT " + prop["NO_LOT"],15,115);
 
-pdf.rect(10,40,190,120);
+pdf.setFontSize(11);
+pdf.setFont("helvetica","normal");
 
-/* ===== MAP IMAGE ===== */
+pdf.text("SKALA 1 : 400",15,125);
 
-pdf.addImage(imgData,'PNG',12,42,186,116);
+/* ================= PEMILIK ================= */
 
-/* ===== NORTH ARROW ===== */
+pdf.setFont("helvetica","bold");
+pdf.text("NAMA PEMILIK:",15,140);
 
-pdf.addImage(northData,'PNG',170,45,15,15);
+pdf.setFont("helvetica","normal");
+pdf.text(prop["tsp — pe"],15,150);
 
-pdf.setFontSize(10);
-pdf.text("N",177,43);
+/* ================= LUAS ================= */
 
-/* ===== SCALE TEXT ===== */
+pdf.setFont("helvetica","bold");
+pdf.text("LUAS LOT:",15,165);
 
-pdf.setFontSize(10);
-pdf.text("Anggaran Skala Peta",150,160);
+pdf.setFont("helvetica","normal");
+pdf.text(parseFloat(prop["AREA"]).toFixed(3) + " m²",15,175);
 
-/* ===== BOX MAKLUMAT ===== */
+/* ================= TAJUK ================= */
 
-pdf.rect(10,170,190,70);
+pdf.setFontSize(24);
+pdf.setFont("helvetica","bold");
 
-/* ===== TAJUK MAKLUMAT ===== */
+pdf.text("PELAN AKUI",185,20,{align:"center"});
 
-pdf.setFontSize(14);
-pdf.text("MAKLUMAT LOT",15,180);
+/* ================= MAP ================= */
 
-/* ===== MAKLUMAT ===== */
+pdf.addImage(mapImg,'JPEG',80,30,200,110);
 
-pdf.setFontSize(12);
+/* ================= NO PA BESAR ================= */
 
-pdf.text("No PA      : " + prop["tsp — _1"],20,195);
+pdf.setFontSize(42);
+pdf.setFont("helvetica","bold");
 
-pdf.text("No Lot     : " + prop["NO_LOT"],20,205);
+pdf.text("PA " + prop["tsp — _1"],120,185);
+
+/* ================= FOOTER ================= */
+
+pdf.setFontSize(9);
 
 pdf.text(
-"Keluasan   : " +
-parseFloat(prop["AREA"]).toFixed(3) + " m²",
-20,
-215
-);
-
-pdf.text("Pemilik    : " + prop["tsp — pe"],20,225);
-
-/* ===== FOOTER ===== */
-
-pdf.setFontSize(10);
-pdf.text(
-"Politeknik Ungku Omar | Hak Cipta 2026",
-105,
-285,
+"Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah",
+185,
+195,
 {align:"center"}
 );
 
-pdf.save("Pelan_Lot_Taman_Saujana_Putra.pdf");
+/* ================= SAVE ================= */
 
-});
-
-});
+pdf.save("Pelan_Akui_Lot_"+prop["NO_LOT"]+".pdf");
 
 });
 
