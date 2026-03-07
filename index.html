@@ -530,6 +530,7 @@ document.getElementById("findLot").onclick = function() {
         if(layer.feature.properties["NO_LOT"] == searchValue){
 
             map.fitBounds(layer.getBounds());
+            map.invalidateSize();
 
             if (selectedLayer) {
                 selectedLayer.setStyle(style_LOTFINAL_0());
@@ -621,6 +622,8 @@ var prop = selectedLayer.feature.properties;
 /* capture map dengan resolusi tinggi */
 
 setTimeout(function(){
+
+map.invalidateSize();
 
 html2canvas(document.getElementById("map"),{
 useCORS:true,
