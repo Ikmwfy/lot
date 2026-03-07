@@ -616,6 +616,9 @@ alert("Sila pilih lot dahulu.");
 return;
 }
 
+/* zoom ke lot */
+map.fitBounds(selectedLayer.getBounds());
+
 var prop = selectedLayer.feature.properties;
 
 /* capture map dengan resolusi tinggi */
@@ -687,7 +690,8 @@ pdf.setFont("helvetica","bold");
 pdf.text("NAMA PEMILIK:",15,140);
 
 pdf.setFont("helvetica","normal");
-pdf.text(prop["tsp — pe"],15,150);
+var ownerName = pdf.splitTextToSize(prop["tsp — pe"],55);
+pdf.text(ownerName,15,150);
 
 /* ================= LUAS ================= */
 
@@ -732,7 +736,7 @@ pdf.save("Pelan_Akui_Lot_"+prop["NO_LOT"]+".pdf");
 
 });
 
-},800);
+},1000);
 
 };
 
