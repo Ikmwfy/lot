@@ -230,6 +230,7 @@ html, body {
     top: 110px;
     bottom: 35px;
     width: 100%;
+    background: #eee;
 }
 </style>
 
@@ -322,7 +323,9 @@ html, body {
 var map = L.map('map', {
     zoomControl: false,
     maxZoom: 22,
-    minZoom: 5
+    minZoom: 5,
+    fadeAnimation: false, // Matikan animasi untuk kestabilan PDF
+    zoomAnimation: false
 }).fitBounds([
     [2.10309049233999,102.52084635053448],
     [2.1044455032659752,102.52331439237805]
@@ -383,7 +386,7 @@ var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1,{
     }
 });
 
-/* ================= UI FUNCTIONS ================= */
+/* ================= DASHBOARD & PANEL ================= */
 document.getElementById("gmLayersBtn").onclick=function(){
     var gp = document.getElementById("gmPanel");
     gp.style.display=gp.style.display==="block"?"none":"block";
@@ -452,33 +455,43 @@ function getBase64Image(url, callback) {
     img.src = url;
 }
 
-/* ================= GENERATE PDF FIX ================= */
+/* ================= GENERATE PDF - FIXED POSITION VERSION ================= */
 document.getElementById("generatePDF").onclick = function(){
     if(!selectedLayer){ alert("Sila pilih lot dahulu."); return; }
 
-    // Memastikan peta stabil sebelum rakaman
-    map.invalidateSize();
-    
+    // 1. Kunci peta supaya tidak boleh digerakkan semasa rakaman
+    map.dragging.disable();
+    map.touchZoom.disable();
+    map.doubleClickZoom.disable();
+    map.scrollWheelZoom.disable();
+    map.closePopup(); // Tutup popup supaya tidak mengganggu rakaman
+
     getBase64Image("PUO.png", function(logoBase64){
-        // Delay 500ms untuk memastikan render Leaflet selesai sepenuhnya
+        // Beri masa 600ms untuk enjin peta bertenang (settle down)
         setTimeout(function(){
             html2canvas(document.getElementById("map"),{
                 useCORS: true,
-                scale: 2, // Scale dikecilkan sikit untuk elak memory crash tapi tetap tajam
-                logging: false
+                scale: 2, 
+                backgroundColor: null,
+                logging: false,
+                // Pastikan tiada transform CSS yang mengganggu
+                onclone: function(clonedDoc) {
+                    const mapEl = clonedDoc.getElementById('map');
+                    mapEl.style.transform = 'none';
+                }
             }).then(function(canvas){
                 const { jsPDF } = window.jspdf;
                 var pdf = new jsPDF("landscape","mm","a4");
-                var mapImg = canvas.toDataURL("image/jpeg", 1.0);
+                var mapImg = canvas.toDataURL("image/jpeg", 0.9);
                 var prop = selectedLayer.feature.properties;
 
-                // Lukis Frame & Layout
-                pdf.setLineWidth(1.5); pdf.rect(5,5,287,200); // Border
-                pdf.setLineWidth(0.8); pdf.rect(5,5,60,200); // Kiri
-                pdf.rect(65,5,227,140); // Map Box
-                pdf.rect(65,145,227,60); // Bawah Box
+                // Border & Layout
+                pdf.setLineWidth(1.2); pdf.rect(5,5,287,200); 
+                pdf.setLineWidth(0.7); pdf.rect(5,5,60,200); 
+                pdf.rect(65,5,227,140); 
+                pdf.rect(65,145,227,60); 
 
-                // Logo & Header
+                // Header & Logo
                 pdf.addImage(logoBase64,'PNG',15,12,30,20);
                 pdf.setFont("helvetica","bold"); pdf.setFontSize(11);
                 pdf.text("POLITEKNIK UNGKU OMAR",35,35,{align:"center"});
@@ -491,18 +504,18 @@ document.getElementById("generatePDF").onclick = function(){
                 pdf.setTextColor(0,0,0); pdf.text("DAERAH LEDANG",15,75);
                 pdf.text("MUKIM KESANG",15,85);
 
-                // No Lot & Skala
+                // Lot No & PA
                 pdf.setFontSize(14); pdf.text("LOT " + prop["NO_LOT"],15,100);
-                pdf.setFontSize(11); pdf.setFont("helvetica","normal");
+                pdf.setFontSize(10); pdf.setFont("helvetica","normal");
                 pdf.text("SKALA 1 : 400",15,110);
                 pdf.line(10,115,60,115);
 
-                // Detail Pemilik & Luas
+                // Detail Section
                 pdf.setFont("helvetica","bold"); pdf.setFontSize(9);
                 pdf.text("NAMA PEMILIK:",10,125);
                 pdf.setFont("helvetica","normal");
                 var owner = prop["tsp — pe"] || "-";
-                pdf.text(pdf.splitTextToSize(owner,45),10,132);
+                pdf.text(pdf.splitTextToSize(owner, 45), 10, 132);
 
                 pdf.setFont("helvetica","bold"); pdf.text("NO. LOT:",10,155);
                 pdf.setFont("helvetica","normal"); pdf.text(String(prop["NO_LOT"]),10,162);
@@ -515,25 +528,31 @@ document.getElementById("generatePDF").onclick = function(){
                 pdf.text("Fail Ukur: PUBJ 121/2009",10,195);
                 pdf.text("Fail Pej Tanah: PTDM 3/8/83/02",10,198);
 
-                // Tajuk Atas
+                // Tajuk Pelan
                 pdf.setFont("times","bold"); pdf.setFontSize(26);
-                pdf.text("PELAN AKUI",180,18,{align:"center"});
+                pdf.text("PELAN AKUI", 180, 18, {align:"center"});
 
-                // Masukkan Peta (Kekal Kedudukan)
+                // Insert Captured Map Image
                 pdf.addImage(mapImg,'JPEG',68,25,220,115);
 
-                // PA NOMBOR (Pembetulan No PA)
-                pdf.setFont("times","bold"); pdf.setFontSize(42);
-                var paNo = prop["tsp — _1"] || "-";
-                pdf.text("PA - " + paNo, 150, 180, {align:"center"});
+                // NO PA (Fixed)
+                pdf.setFont("times","bold"); pdf.setFontSize(40);
+                var paFinal = prop["tsp — _1"] || "-";
+                pdf.text("PA : " + paFinal, 180, 180, {align:"center"});
 
-                // Footer
+                // Footer Text
                 pdf.setFontSize(7);
                 pdf.text("Dokumen ini dijana secara digital melalui Sistem Saujana Putra Smart Resident", 180, 198, {align:"center"});
 
                 pdf.save("Pelan_Akui_Lot_"+prop["NO_LOT"]+".pdf");
+
+                // 2. Aktifkan semula peta selepas rakaman selesai
+                map.dragging.enable();
+                map.touchZoom.enable();
+                map.doubleClickZoom.enable();
+                map.scrollWheelZoom.disable(); // Kekalkan disable mengikut habit user asal
             });
-        }, 500); 
+        }, 600); 
     });
 };
 </script>
