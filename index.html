@@ -610,16 +610,16 @@ img.src = url;
 
 document.getElementById("generatePDF").onclick = function(){
 
+if(!selectedLayer){
+alert("Sila pilih lot dahulu.");
+return;
+}
+
 map.closePopup();
 
 map.fitBounds(selectedLayer.getBounds(),{
 padding:[120,120]
 });
-
-if(!selectedLayer){
-alert("Sila pilih lot dahulu.");
-return;
-}
 
 var prop = selectedLayer.feature.properties;
 
@@ -747,6 +747,8 @@ pdf.text(
 pdf.save("Pelan_Akui_Lot_"+prop["NO_LOT"]+".pdf");
 
 });
+
+},1500);
 
 },1500);
 
