@@ -612,6 +612,10 @@ document.getElementById("generatePDF").onclick = function(){
 
 map.closePopup();
 
+map.fitBounds(selectedLayer.getBounds(),{
+padding:[120,120]
+});
+
 if(!selectedLayer){
 alert("Sila pilih lot dahulu.");
 return;
@@ -620,6 +624,14 @@ return;
 var prop = selectedLayer.feature.properties;
 
 /* capture map dengan resolusi tinggi */
+
+setTimeout(function(){
+
+map.invalidateSize();
+
+map.fitBounds(selectedLayer.getBounds(),{
+padding:[120,120]
+});
 
 setTimeout(function(){
 
@@ -736,7 +748,7 @@ pdf.save("Pelan_Akui_Lot_"+prop["NO_LOT"]+".pdf");
 
 });
 
-},1200);
+},1500);
 
 };
 
