@@ -629,14 +629,6 @@ setTimeout(function(){
 
 map.invalidateSize();
 
-map.fitBounds(selectedLayer.getBounds(),{
-padding:[120,120]
-});
-
-setTimeout(function(){
-
-map.invalidateSize();
-
 html2canvas(document.getElementById("map"),{
 useCORS:true,
 scale:2
@@ -662,7 +654,7 @@ pdf.rect(75,5,217,150);
 
 /* ================= PANEL BAWAH ================= */
 
-pdf.rect(75,155,217,50);
+pdf.rect(95,155,217,50);
 
 /* ================= LOGO ================= */
 
