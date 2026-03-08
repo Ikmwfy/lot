@@ -632,11 +632,17 @@ img.src = url;
 
 }
 
-/* ================= GENERATE PDF A4 + LOGO ================= */
 
 /* ================= GENERATE PDF A4 + LOGO ================= */
 
 document.getElementById("generatePDF").onclick = function(){
+
+var namaSemak = prompt("Masukkan Nama Untuk 'Disemak Oleh':");
+
+if(!namaSemak){
+alert("Nama diperlukan untuk generate PDF.");
+return;
+}
 
 if(!selectedLayer){
 alert("Sila pilih lot dahulu.");
