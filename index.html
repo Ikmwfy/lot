@@ -744,11 +744,11 @@ pdf.text("TARIKH CETAKAN:", 15, 170); // Rapatkan sedikit ke kiri (x=10)
 pdf.text(today, 15, 175); // Letak tarikh di bawah label (y+5)
 /* DISEMAK */
 
-pdf.text("DISEMAK OLEH:", 15, 180); 
+pdf.text("DISEMAK OLEH:", 15, 185); 
 
 // Gunakan splitText supaya jika nama panjang, ia tidak langgar garisan hitam
 var namaSemakText = pdf.splitTextToSize(namaSemak.toUpperCase(), 45); 
-pdf.text(namaSemakText, 15, 185);
+pdf.text(namaSemakText, 15, 190);
 /* TAJUK */
 
 pdf.setFont("times","bold");
@@ -765,7 +765,7 @@ pdf.addImage(northBase64,"PNG",260,35,12,12);
 
 /* PA BESAR */
 
-pdf.setFontSize(35);
+pdf.setFontSize(30);
 pdf.setFont("times","bold");
 
 var pa = prop["tsp — _1"] || "-";
