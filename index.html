@@ -690,7 +690,7 @@ pdf.rect(65,5,227,140);
 
 /* BOTTOM PANEL */
 
-pdf.rect(65,145,227,40);
+pdf.rect(65,145,227,60);
 
 /* LOGO */
 
@@ -700,7 +700,7 @@ pdf.addImage(logoBase64,'PNG',15,2,40,40);
 
 pdf.setFont("times","bold");
 pdf.setFontSize(10);
-pdf.text("POLITEKNIK UNGKU OMAR",35,40,{align:"center"});
+pdf.text("POLITEKNIK UNGKU OMAR",35,50,{align:"center"});
 
 /* LOCATION */
 
@@ -757,7 +757,7 @@ pdf.text("PELAN AKUI",180,20,{align:"center"});
 
 /* MAP IMAGE */
 
-pdf.addImage(mapImg,'JPEG',70,30,210,110);
+pdf.addImage(mapImg,'JPEG',80,30,210,110);
 
 /* NORTH ARROW */
 
@@ -770,7 +770,7 @@ pdf.setFont("times","bold");
 
 var pa = prop["tsp — _1"] || "-";
 
-pdf.text("PA "+pa,90,185);
+pdf.text("PA "+pa,80,185);
 
 /* FOOTER */
 
