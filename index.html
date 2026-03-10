@@ -708,44 +708,44 @@ pdf.text("POLITEKNIK UNGKU OMAR",35,40,{align:"center"});
 pdf.setFontSize(11);
 
 pdf.setFont("times","bold");
-pdf.text("NEGERI JOHOR",10,65);
+pdf.text("NEGERI JOHOR",15,65);
 
 pdf.setTextColor(200,0,0);
-pdf.text("DAERAH TANGKAK",10,75);
+pdf.text("DAERAH TANGKAK",15,75);
 
 pdf.setTextColor(0,0,0);
-pdf.text("MUKIM KESANG",10,85);
+pdf.text("MUKIM KESANG",15,85);
 
 /* INFO LOT */
 
 pdf.setFontSize(11);
 
-pdf.text("INFORMASI LOT",10,105);
+pdf.text("INFORMASI LOT",15,105);
 
 pdf.setFont("times","normal");
 
-pdf.text("NO. LOT:",10,115);
-pdf.text(prop["NO_LOT"],30,115);
+pdf.text("NO. LOT:",15,115);
+pdf.text(prop["NO_LOT"],40,115);
 
-pdf.text("NAMA PEMILIK:",10,130);
+pdf.text("NAMA PEMILIK:",15,130);
 
 var owner = prop["tsp — pe"] || "-";
 var ownerText = pdf.splitTextToSize(owner,40);
 pdf.text(ownerText,15,137);
 
-pdf.text("KELUASAN:",10,160);
+pdf.text("KELUASAN:",15,160);
 
 var luas = parseFloat(prop["AREA"]).toFixed(2);
-pdf.text(luas+" m²",30,160);
+pdf.text(luas+" m²",40,160);
 
 /* TARIKH */
 
 var today = new Date().toLocaleDateString('en-GB'); // Format DD/MM/YYYY
-pdf.text("TARIKH CETAKAN:", 10, 180); // Rapatkan sedikit ke kiri (x=10)
-pdf.text(today, 10, 185); // Letak tarikh di bawah label (y+5)
+pdf.text("TARIKH CETAKAN:", 15, 180); // Rapatkan sedikit ke kiri (x=10)
+pdf.text(today, 15, 185); // Letak tarikh di bawah label (y+5)
 /* DISEMAK */
 
-pdf.text("DISEMAK OLEH:", 10, 193); 
+pdf.text("DISEMAK OLEH:", 15, 193); 
 
 // Gunakan splitText supaya jika nama panjang, ia tidak langgar garisan hitam
 var namaSemakText = pdf.splitTextToSize(namaSemak.toUpperCase(), 45); 
@@ -771,7 +771,7 @@ pdf.setFont("times","bold");
 
 var pa = prop["tsp — _1"] || "-";
 
-pdf.text("PA "+pa,80,185);
+pdf.text("PA "+pa,75,185);
 
 /* FOOTER */
 
