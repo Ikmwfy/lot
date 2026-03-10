@@ -649,49 +649,15 @@ alert("Sila pilih lot dahulu.");
 return;
 }
 
-/* LOAD LOGO */
-
 getBase64Image("PUO.png", function(logoBase64){
 
 getBase64Image("north.png", function(northBase64){
-
-/* SIMPAN STYLE ASAL */
-
-var layers = [];
-
-layer_LOTFINAL_0.eachLayer(function(layer){
-layers.push(layer);
-layer.setStyle({
-fillOpacity:0.2,
-color:"#999",
-weight:1
-});
-});
-
-/* HIGHLIGHT LOT */
-
-selectedLayer.setStyle({
-fillColor:"yellow",
-fillOpacity:1,
-color:"#000",
-weight:2
-});
-
-map.closePopup();
-
-/* ZOOM LOT */
 
 map.fitBounds(selectedLayer.getBounds(),{
 padding:[200,200]
 });
 
-/* BAGI MASA MAP RENDER */
-
 setTimeout(function(){
-
-map.invalidateSize();
-
-/* CAPTURE MAP */
 
 html2canvas(document.getElementById("map"),{
 useCORS:true,
@@ -706,23 +672,23 @@ var mapImg = canvas.toDataURL("image/jpeg",1.0);
 
 var prop = selectedLayer.feature.properties;
 
-/* BORDER */
+/* OUTER BORDER */
 
-pdf.setLineWidth(1.2);
+pdf.setLineWidth(1.5);
 pdf.rect(5,5,287,200);
 
-/* PANEL KIRI */
+/* LEFT PANEL */
 
 pdf.setLineWidth(0.8);
 pdf.rect(5,5,60,200);
 
-/* PANEL MAP */
+/* MAP PANEL */
 
-pdf.rect(65,5,227,145);
+pdf.rect(65,5,227,140);
 
-/* PANEL BAWAH */
+/* BOTTOM PANEL */
 
-pdf.rect(65,150,227,55);
+pdf.rect(65,145,227,60);
 
 /* LOGO */
 
@@ -730,88 +696,70 @@ pdf.addImage(logoBase64,'PNG',20,12,25,25);
 
 /* HEADER */
 
-pdf.setFont("helvetica","bold");
-pdf.setFontSize(11);
+pdf.setFont("times","bold");
+pdf.setFontSize(14);
 pdf.text("POLITEKNIK UNGKU OMAR",35,45,{align:"center"});
 
-/* INFO */
+/* LOCATION */
 
 pdf.setFontSize(11);
 
-pdf.setFont("helvetica","bold");
+pdf.setFont("times","bold");
 pdf.text("NEGERI JOHOR",15,65);
 
 pdf.setTextColor(200,0,0);
-pdf.text("TANGKAK",15,75);
+pdf.text("DAERAH TANGKAK",15,75);
 
 pdf.setTextColor(0,0,0);
-pdf.text("DAERAH LEDANG",15,85);
+pdf.text("MUKIM KESANG",15,85);
 
-pdf.text("MUKIM KESANG",15,95);
-
-/* LOT */
-
-pdf.setFontSize(14);
-pdf.text("LOT " + prop["NO_LOT"],15,115);
+/* INFO LOT */
 
 pdf.setFontSize(11);
-pdf.setFont("helvetica","normal");
-pdf.text("SKALA 1 : 400",15,125);
 
-/* PEMILIK */
+pdf.text("INFORMASI LOT",15,105);
 
-pdf.setFont("helvetica","bold");
-pdf.setFontSize(10);
-pdf.text("NAMA PEMILIK:",15,145);
+pdf.setFont("times","normal");
 
-pdf.setFont("helvetica","normal");
+pdf.text("NO. LOT:",15,115);
+pdf.text(prop["NO_LOT"],40,115);
+
+pdf.text("NAMA PEMILIK:",15,130);
 
 var owner = prop["tsp_pe"] || "-";
 var ownerText = pdf.splitTextToSize(owner,40);
-pdf.text(ownerText,15,152);
+pdf.text(ownerText,15,137);
 
-/* NO LOT */
-
-pdf.setFont("helvetica","bold");
-pdf.text("NO. LOT:",15,170);
-
-pdf.setFont("helvetica","normal");
-pdf.text(prop["NO_LOT"],15,177);
-
-/* LUAS */
-
-pdf.setFont("helvetica","bold");
-pdf.text("LUAS LOT:",15,188);
-
-pdf.setFont("helvetica","normal");
+pdf.text("KELUASAN:",15,160);
 
 var luas = parseFloat(prop["AREA"]).toFixed(2);
-pdf.text(luas + " m²",15,195);
+pdf.text(luas+" m²",40,160);
+
+/* TARIKH */
+
+var today = new Date().toLocaleDateString();
+
+pdf.text("TARIKH CETAKAN:",15,180);
+pdf.text(today,45,180);
+
+/* DISEMAK */
+
+pdf.text("DISEMAK OLEH:",15,195);
+pdf.text(namaSemak,45,195);
 
 /* TAJUK */
 
-pdf.setFontSize(26);
 pdf.setFont("times","bold");
-pdf.text("PELAN AKUI",180,18,{align:"center"});
+pdf.setFontSize(28);
+pdf.text("PELAN AKUI",180,20,{align:"center"});
 
 /* MAP IMAGE */
 
-pdf.addImage(mapImg,'JPEG',70,25,210,120);
+pdf.addImage(mapImg,'JPEG',70,30,210,105);
 
 /* NORTH ARROW */
 
-pdf.addImage(northBase64,"PNG",265,30,12,12);
-
-/* SCALE */
-
-pdf.setLineWidth(1);
-pdf.line(240,135,260,135);
-pdf.line(240,133,240,137);
-pdf.line(260,133,260,137);
-
-pdf.setFontSize(8);
-pdf.text("0",238,140);
-pdf.text("20 m",257,140);
+pdf.addImage(northBase64,"PNG",260,35,12,12);
 
 /* PA BESAR */
 
@@ -819,32 +767,21 @@ pdf.setFontSize(48);
 pdf.setFont("times","bold");
 
 var pa = prop["tsp__1"] || "-";
-pdf.text("PA " + pa,150,185);
+
+pdf.text("PA "+pa,150,185);
 
 /* FOOTER */
 
-pdf.setFontSize(9);
+pdf.setFontSize(8);
+
 pdf.text(
 "Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah",
 180,
-197,
+198,
 {align:"center"}
 );
 
-/* SAVE PDF */
-
 pdf.save("Pelan_Akui_Lot_"+prop["NO_LOT"]+".pdf");
-
-/* RESET STYLE */
-
-layer_LOTFINAL_0.eachLayer(function(layer){
-layer.setStyle({
-fillOpacity:1,
-color:"#5a3e2b",
-weight:1,
-fillColor:"#a47148"
-});
-});
 
 });
 
@@ -855,12 +792,10 @@ fillColor:"#a47148"
 });
 
 };
-
+    
 </script>
 
 </body>
 </html>
 
 
-
-buat kasi macam ni lah, tapi jangan ubah coding lain, hanya generate pdf
