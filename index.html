@@ -659,6 +659,8 @@ padding:[200,200]
 
 setTimeout(function(){
 
+map.closePopup();
+
 html2canvas(document.getElementById("map"),{
 useCORS:true,
 scale:4
@@ -726,7 +728,7 @@ pdf.text(prop["NO_LOT"],40,115);
 
 pdf.text("NAMA PEMILIK:",15,130);
 
-var owner = prop["tsp_pe"] || "-";
+var owner = prop["tsp — pe"] || "-";
 var ownerText = pdf.splitTextToSize(owner,40);
 pdf.text(ownerText,15,137);
 
@@ -766,7 +768,7 @@ pdf.addImage(northBase64,"PNG",260,35,12,12);
 pdf.setFontSize(48);
 pdf.setFont("times","bold");
 
-var pa = prop["tsp__1"] || "-";
+var pa = prop["tsp — _1"] || "-";
 
 pdf.text("PA "+pa,150,185);
 
