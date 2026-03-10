@@ -654,7 +654,8 @@ getBase64Image("PUO.png", function(logoBase64){
 getBase64Image("north.png", function(northBase64){
 
 map.fitBounds(selectedLayer.getBounds(),{
-padding:[40,40]
+padding:[250,250],
+animate: false
 });
 
 setTimeout(function(){
@@ -707,35 +708,35 @@ pdf.text("POLITEKNIK UNGKU OMAR",35,40,{align:"center"});
 pdf.setFontSize(11);
 
 pdf.setFont("times","bold");
-pdf.text("NEGERI JOHOR",15,65);
+pdf.text("NEGERI JOHOR",10,65);
 
 pdf.setTextColor(200,0,0);
-pdf.text("DAERAH TANGKAK",15,75);
+pdf.text("DAERAH TANGKAK",10,75);
 
 pdf.setTextColor(0,0,0);
-pdf.text("MUKIM KESANG",15,85);
+pdf.text("MUKIM KESANG",10,85);
 
 /* INFO LOT */
 
 pdf.setFontSize(11);
 
-pdf.text("INFORMASI LOT",15,105);
+pdf.text("INFORMASI LOT",10,105);
 
 pdf.setFont("times","normal");
 
-pdf.text("NO. LOT:",15,115);
-pdf.text(prop["NO_LOT"],40,115);
+pdf.text("NO. LOT:",10,115);
+pdf.text(prop["NO_LOT"],30,115);
 
-pdf.text("NAMA PEMILIK:",15,130);
+pdf.text("NAMA PEMILIK:",10,130);
 
 var owner = prop["tsp — pe"] || "-";
 var ownerText = pdf.splitTextToSize(owner,40);
 pdf.text(ownerText,15,137);
 
-pdf.text("KELUASAN:",15,160);
+pdf.text("KELUASAN:",10,160);
 
 var luas = parseFloat(prop["AREA"]).toFixed(2);
-pdf.text(luas+" m²",40,160);
+pdf.text(luas+" m²",30,160);
 
 /* TARIKH */
 
