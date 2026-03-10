@@ -1,166 +1,80 @@
-<!DOCTYPE html>
-<html lang="ms">
+<!doctype html>
+<html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login Survey Lot Rumah</title>
-    <style>
-        body {
-            font-family: 'Arial', sans-serif;
-            background-color: #f4f4f9;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            height: 100vh;
-            margin: 0;
-        }
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
-        /* Container Log Masuk */
-        .login-card {
-            background: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-            width: 350px;
-            text-align: center;
-        }
+<link rel="stylesheet" href="css/leaflet.css">
 
-        h2 { color: #5a3e2b; margin-bottom: 20px; }
-
-        input {
-            width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 6px;
-            box-sizing: border-box;
-        }
-
-        button {
-            width: 100%;
-            padding: 12px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: 0.3s;
-        }
-
-        .btn-login { background-color: #8b5e3c; color: white; }
-        .btn-login:hover { background-color: #5a3e2b; }
-
-        .btn-forgot { background: none; color: #8b5e3c; text-decoration: underline; font-size: 14px; }
-
-        /* Dialog / Modal Reset Password */
-        .modal {
-            display: none; 
-            position: fixed;
-            z-index: 9999;
-            left: 0; top: 0;
-            width: 100%; height: 100%;
-            background-color: rgba(0,0,0,0.5);
-        }
-
-        .modal-content {
-            background-color: white;
-            margin: 10% auto;
-            padding: 25px;
-            border-radius: 12px;
-            width: 320px;
-            position: relative;
-        }
-
-        .close {
-            position: absolute; right: 15px; top: 10px;
-            cursor: pointer; font-size: 20px;
-        }
-
-        .status-msg { margin-top: 10px; font-size: 14px; }
-    </style>
-</head>
 <body>
 
-<div class="login-card" id="loginArea">
-    <h2>🏠 Survey Lot Rumah</h2>
-    <input type="text" id="user_id" placeholder="👤 Masukkan ID">
-    <input type="password" id="user_pass" placeholder="🔑 Masukkan Kata Laluan">
-    <button class="btn-login" onclick="handleLogin()">Log Masuk</button>
-    <button class="btn-forgot" onclick="toggleModal(true)">❓ Lupa Kata Laluan?</button>
-    <div id="loginStatus" class="status-msg"></div>
-</div>
-
-<div id="resetModal" class="modal">
-    <div class="modal-content">
-        <span class="close" onclick="toggleModal(false)">&times;</span>
-        <h3 style="color:#5a3e2b;">🔑 Kemaskini Kata Laluan</h3>
-        <p style="font-size: 13px; color: #666;">Sahkan ID untuk menetapkan semula kata laluan.</p>
-        
-        <input type="text" id="confirm_id" placeholder="Sahkan ID Pengguna">
-        <input type="password" id="new_pass" placeholder="Kata Laluan Baharu">
-        <input type="password" id="confirm_new_pass" placeholder="Sahkan Kata Laluan Baharu">
-        
-        <button class="btn-login" onclick="handleReset()">Simpan Kata Laluan</button>
-        <div id="resetStatus" class="status-msg"></div>
+    <div id="loginOverlay">
+        <div class="login-box">
+            <h2>Sistem Survey Lot PUO</h2>
+            <input type="text" id="username" placeholder="Masukkan ID">
+            <input type="password" id="password" placeholder="Kata Laluan">
+            <button id="loginBtn">Log Masuk</button>
+        </div>
     </div>
-</div>
 
-<script>
-    // Konfigurasi Kredential (Simulasi Database)
-    let currentID = "67";
-    let currentPass = "ikmalkacak";
+    <div id="app-container" style="display: none;">
+        <div id="header">...</div>
+        <div id="map">...</div>
+        </div>
 
-    // Fungsi Log Masuk
-    function handleLogin() {
-        const idInput = document.getElementById('user_id').value;
-        const passInput = document.getElementById('user_pass').value;
-        const status = document.getElementById('loginStatus');
-
-        if (idInput === currentID && passInput === currentPass) {
-            status.innerHTML = "<span style='color:green;'>✅ Log masuk berjaya! Menghala ke peta...</span>";
-            // Di sini anda boleh redirect ke page peta:
-            // window.location.href = "peta.html";
-        } else {
-            status.innerHTML = "<span style='color:red;'>❌ ID atau Kata Laluan salah.</span>";
-        }
-    }
-
-    // Fungsi Buka/Tutup Modal
-    function toggleModal(show) {
-        document.getElementById('resetModal').style.display = show ? "block" : "none";
-        // Reset mesej status bila modal dibuka/tutup
-        document.getElementById('resetStatus').innerHTML = "";
-    }
-
-    // Fungsi Simpan Kata Laluan Baharu
-    function handleReset() {
-        const idSah = document.getElementById('confirm_id').value;
-        const passBaru = document.getElementById('new_pass').value;
-        const passSah = document.getElementById('confirm_new_pass').value;
-        const status = document.getElementById('resetStatus');
-
-        // Logik sepadan dengan kod Python anda
-        if (idSah === "ikmalkacak" && passBaru === passSah && passBaru !== "") {
-            currentPass = passBaru; // Kemaskini password dalam memori
-            status.innerHTML = "<span style='color:green;'>✅ Berjaya! Sila log masuk semula.</span>";
+    <script>
+        // Logik untuk menyembunyikan login
+        document.getElementById("loginBtn").onclick = function() {
+            var u = document.getElementById("username").value;
+            var p = document.getElementById("password").value;
             
-            setTimeout(() => {
-                toggleModal(false);
-            }, 1500);
-        } else {
-            status.innerHTML = "<span style='color:red;'>❌ Maklumat tidak sepadan atau kosong.</span>";
-        }
-    }
-
-    // Tutup modal jika klik luar kotak
-    window.onclick = function(event) {
-        const modal = document.getElementById('resetModal');
-        if (event.target == modal) toggleModal(false);
-    }
-</script>
-
+            if(u === "admin" && p === "12345") {
+                document.getElementById("loginOverlay").style.display = "none";
+                document.getElementById("app-container").style.display = "block";
+            } else {
+                alert("ID atau Kata Laluan salah!");
+            }
+        };
+    </script>
 </body>
-</html>
+
+<style>
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+}
+
+#loginOverlay {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: #1a1a2e; /* Warna gelap */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
+
+.login-box {
+    background: #252538;
+    padding: 40px;
+    border-radius: 15px;
+    box-shadow: 0px 10px 30px rgba(0,0,0,0.3);
+    color: white;
+    width: 350px;
+    text-align: center;
+}
+
+.login-box input {
+    width: 100%; padding: 12px; margin: 10px 0;
+    border-radius: 8px; border: none;
+}
+
+.login-box button {
+    width: 100%; padding: 12px; background: #5a3e2b;
+    color: white; border: none; border-radius: 8px; cursor: pointer;
+}
 
 /* ================= ZOOM POSITION ================= */
 
@@ -496,6 +410,18 @@ z-index:4000;
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
+
+document.getElementById("loginBtn").onclick = function() {
+    var u = document.getElementById("username").value;
+    var p = document.getElementById("password").value;
+
+    // Logik mudah (Ganti dengan sistem backend sebenar jika mahu lebih selamat)
+    if(u === "admin" && p === "12345") {
+        document.getElementById("loginOverlay").style.display = "none";
+    } else {
+        alert("ID atau Kata Laluan salah!");
+    }
+};
 
 
 /* ================= MAP SETTING ================= */
@@ -856,48 +782,48 @@ pdf.text("POLITEKNIK UNGKU OMAR",35,40,{align:"center"});
 pdf.setFontSize(11);
 
 pdf.setFont("times","bold");
-pdf.text("NEGERI JOHOR",15,65);
+pdf.text("NEGERI JOHOR",10,65);
 
 pdf.setTextColor(200,0,0);
-pdf.text("DAERAH TANGKAK",15,75);
+pdf.text("DAERAH TANGKAK",10,75);
 
 pdf.setTextColor(0,0,0);
-pdf.text("MUKIM KESANG",15,85);
+pdf.text("MUKIM KESANG",10,85);
 
 /* INFO LOT */
 
 pdf.setFontSize(11);
 
-pdf.text("INFORMASI LOT",15,105);
+pdf.text("INFORMASI LOT",10,105);
 
 pdf.setFont("times","normal");
 
-pdf.text("NO. LOT:",15,115);
-pdf.text(prop["NO_LOT"],40,115);
+pdf.text("NO. LOT:",10,115);
+pdf.text(prop["NO_LOT"],30,115);
 
-pdf.text("NAMA PEMILIK:",15,130);
+pdf.text("NAMA PEMILIK:",10,130);
 
 var owner = prop["tsp — pe"] || "-";
 var ownerText = pdf.splitTextToSize(owner,40);
 pdf.text(ownerText,15,137);
 
-pdf.text("KELUASAN:",15,160);
+pdf.text("KELUASAN:",10,160);
 
 var luas = parseFloat(prop["AREA"]).toFixed(2);
-pdf.text(luas+" m²",40,160);
+pdf.text(luas+" m²",30,160);
 
 /* TARIKH */
 
 var today = new Date().toLocaleDateString('en-GB'); // Format DD/MM/YYYY
-pdf.text("TARIKH CETAKAN:", 15, 180); // Rapatkan sedikit ke kiri (x=10)
-pdf.text(today, 15, 185); // Letak tarikh di bawah label (y+5)
+pdf.text("TARIKH CETAKAN:", 10, 180); // Rapatkan sedikit ke kiri (x=10)
+pdf.text(today, 10, 185); // Letak tarikh di bawah label (y+5)
 /* DISEMAK */
 
-pdf.text("DISEMAK OLEH:", 15, 193); 
+pdf.text("DISEMAK OLEH:", 10, 193); 
 
 // Gunakan splitText supaya jika nama panjang, ia tidak langgar garisan hitam
 var namaSemakText = pdf.splitTextToSize(namaSemak.toUpperCase(), 45); 
-pdf.text(namaSemakText, 15, 198);
+pdf.text(namaSemakText, 10, 198);
 /* TAJUK */
 
 pdf.setFont("times","bold");
@@ -919,7 +845,7 @@ pdf.setFont("times","bold");
 
 var pa = prop["tsp — _1"] || "-";
 
-pdf.text("PA "+pa,75,185);
+pdf.text("PA "+pa,80,185);
 
 /* FOOTER */
 
