@@ -655,7 +655,6 @@ getBase64Image("north.png", function(northBase64){
 
 map.fitBounds(selectedLayer.getBounds(),{
 padding:[200,200],
-animate: false
 });
 
 setTimeout(function(){
@@ -742,14 +741,14 @@ pdf.text(luas+" m²",40,160);
 
 var today = new Date().toLocaleDateString('en-GB'); // Format DD/MM/YYYY
 pdf.text("TARIKH CETAKAN:", 15, 170); // Rapatkan sedikit ke kiri (x=10)
-pdf.text(today, 15, 185); // Letak tarikh di bawah label (y+5)
+pdf.text(today, 15, 175); // Letak tarikh di bawah label (y+5)
 /* DISEMAK */
 
 pdf.text("DISEMAK OLEH:", 15, 180); 
 
 // Gunakan splitText supaya jika nama panjang, ia tidak langgar garisan hitam
 var namaSemakText = pdf.splitTextToSize(namaSemak.toUpperCase(), 45); 
-pdf.text(namaSemakText, 15, 198);
+pdf.text(namaSemakText, 15, 185);
 /* TAJUK */
 
 pdf.setFont("times","bold");
