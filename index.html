@@ -647,212 +647,111 @@ img.src = url;
 
 /* ================= GENERATE PDF A4 + LOGO ================= */
 
-document.getElementById("generatePDF").onclick = function(){
-    if(!selectedLayer){
+d/* ================= GENERATE PDF A4 + LOGO ================= */
+
+document.getElementById("generatePDF").onclick = function() {
+    if (!selectedLayer) {
         alert("Sila pilih lot dahulu.");
         return;
     }
-    // Tunjukkan modal
+    // Hanya tunjukkan modal, jangan jalankan proses PDF lagi
     document.getElementById("reportModal").style.display = "flex";
 };
 
 // Fungsi tutup modal
-document.getElementById("btnCancelPDF").onclick = function(){
+document.getElementById("btnCancelPDF").onclick = function() {
     document.getElementById("reportModal").style.display = "none";
 };
 
-// Fungsi proses PDF (KOD PERLU BERADA DI SINI)
-document.getElementById("btnConfirmPDF").onclick = function(){
+// Fungsi proses PDF (Hanya berjalan bila butang dalam modal ditekan)
+document.getElementById("btnConfirmPDF").onclick = function() {
     var namaSemak = document.getElementById("inputNamaSemak").value;
-    if(!namaSemak){
+    if (!namaSemak) {
         alert("Nama diperlukan!");
         return;
     }
-    
+
     // Sembunyikan modal
     document.getElementById("reportModal").style.display = "none";
-    
-    // Pindahkan kod generate PDF ke dalam fungsi ini
-    getBase64Image("PUO.png", function(logoBase64){
-        getBase64Image("north.png", function(northBase64){
-            map.fitBounds(selectedLayer.getBounds(),{
-                padding:[200,200],
+
+    // Pindahkan keseluruhan kod penjanaan PDF ke sini
+    getBase64Image("PUO.png", function(logoBase64) {
+        getBase64Image("north.png", function(northBase64) {
+            map.fitBounds(selectedLayer.getBounds(), {
+                padding: [200, 200],
             });
 
-            setTimeout(function(){
+            setTimeout(function() {
                 map.closePopup();
-                html2canvas(document.getElementById("map"),{
-                    useCORS:true,
-                    scale:4
-                }).then(function(canvas){
+                html2canvas(document.getElementById("map"), {
+                    useCORS: true,
+                    scale: 4
+                }).then(function(canvas) {
                     const { jsPDF } = window.jspdf;
-                    var pdf = new jsPDF("landscape","mm","a4");
-                    var mapImg = canvas.toDataURL("image/jpeg",1.0);
+                    var pdf = new jsPDF("landscape", "mm", "a4");
+                    var mapImg = canvas.toDataURL("image/jpeg", 1.0);
                     var prop = selectedLayer.feature.properties;
 
-                    /* --- KOD REKA BENTUK PDF ANDA (TETAPKAN SAMA) --- */
+                    /* --- KOD REKA BENTUK PDF --- */
                     pdf.setLineWidth(1.5);
-                    pdf.rect(5,5,287,200);
-                    /* ... (tambah kod reka bentuk anda di sini) ... */
+                    pdf.rect(5, 5, 287, 200);
+                    pdf.setLineWidth(0.8);
+                    pdf.rect(5, 5, 60, 200);
+                    pdf.rect(65, 5, 227, 140);
+                    pdf.rect(65, 145, 227, 60);
+
+                    pdf.addImage(logoBase64, 'PNG', 15, 2, 40, 40);
                     
-                    // Gunakan namaSemak yang diambil dari input modal
-                    var namaSemakText = pdf.splitTextToSize(namaSemak.toUpperCase(), 45); 
+                    pdf.setFont("times", "bold");
+                    pdf.setFontSize(10);
+                    pdf.text("POLITEKNIK UNGKU OMAR", 35, 40, { align: "center" });
+
+                    pdf.setFontSize(11);
+                    pdf.text("NEGERI JOHOR", 15, 55);
+                    pdf.setTextColor(200, 0, 0);
+                    pdf.text("DAERAH TANGKAK", 15, 65);
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.text("MUKIM KESANG", 15, 75);
+
+                    pdf.text("INFORMASI LOT", 15, 105);
+                    pdf.setFont("times", "normal");
+                    pdf.text("NO. LOT:", 15, 115);
+                    pdf.text(prop["NO_LOT"], 40, 115);
+                    pdf.text("NAMA PEMILIK:", 15, 130);
+                    var owner = prop["tsp — pe"] || "-";
+                    var ownerText = pdf.splitTextToSize(owner, 40);
+                    pdf.text(ownerText, 15, 137);
+                    pdf.text("KELUASAN:", 15, 160);
+                    var luas = parseFloat(prop["AREA"]).toFixed(2);
+                    pdf.text(luas + " m²", 40, 160);
+
+                    var today = new Date().toLocaleDateString('en-GB');
+                    pdf.text("TARIKH CETAKAN:", 15, 170);
+                    pdf.text(today, 15, 175);
+                    
+                    // Bahagian Disemak Oleh menggunakan namaSemak dari modal
+                    pdf.text("DISEMAK OLEH:", 15, 185);
+                    var namaSemakText = pdf.splitTextToSize(namaSemak.toUpperCase(), 45);
                     pdf.text(namaSemakText, 15, 190);
 
-                    pdf.save("Pelan Akui Lot Rumah"+prop["NO_LOT"]+".pdf");
+                    pdf.setFont("times", "bold");
+                    pdf.setFontSize(28);
+                    pdf.text("PELAN AKUI", 180, 20, { align: "center" });
+                    pdf.addImage(mapImg, 'JPEG', 72, 30, 210, 110);
+                    pdf.addImage(northBase64, "PNG", 260, 35, 12, 12);
+
+                    pdf.setFontSize(30);
+                    var pa = prop["tsp — _1"] || "-";
+                    pdf.text("PA " + pa, 75, 185);
+
+                    pdf.setFontSize(8);
+                    pdf.text("Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah", 180, 198, { align: "center" });
+
+                    pdf.save("Pelan_Akui_Lot_" + prop["NO_LOT"] + ".pdf");
                 });
-    
-    // Sembunyikan modal selepas klik
-    document.getElementById("reportModal").style.display = "none";
-    
-    // Teruskan dengan proses generatePDF sedia ada anda
-    // ... (masukkan kod getBase64Image("PUO.png", ...) anda di sini)
-};
-
-getBase64Image("PUO.png", function(logoBase64){
-
-getBase64Image("north.png", function(northBase64){
-
-map.fitBounds(selectedLayer.getBounds(),{
-padding:[200,200],
-});
-
-setTimeout(function(){
-
-map.closePopup();
-
-html2canvas(document.getElementById("map"),{
-useCORS:true,
-scale:4
-}).then(function(canvas){
-
-const { jsPDF } = window.jspdf;
-
-var pdf = new jsPDF("landscape","mm","a4");
-
-var mapImg = canvas.toDataURL("image/jpeg",1.0);
-
-var prop = selectedLayer.feature.properties;
-
-/* OUTER BORDER */
-
-pdf.setLineWidth(1.5);
-pdf.rect(5,5,287,200);
-
-/* LEFT PANEL */
-
-pdf.setLineWidth(0.8);
-pdf.rect(5,5,60,200);
-
-/* MAP PANEL */
-
-pdf.rect(65,5,227,140);
-
-/* BOTTOM PANEL */
-
-pdf.rect(65,145,227,60);
-
-/* LOGO */
-
-pdf.addImage(logoBase64,'PNG',15,2,40,40);
-
-/* HEADER */
-
-pdf.setFont("times","bold");
-pdf.setFontSize(10);
-pdf.text("POLITEKNIK UNGKU OMAR",35,40,{align:"center"});
-
-/* LOCATION */
-
-pdf.setFontSize(11);
-
-pdf.setFont("times","bold");
-pdf.text("NEGERI JOHOR",15,55);
-
-pdf.setTextColor(200,0,0);
-pdf.text("DAERAH TANGKAK",15,65);
-
-pdf.setTextColor(0,0,0);
-pdf.text("MUKIM KESANG",15,75);
-
-/* INFO LOT */
-
-pdf.setFontSize(11);
-
-pdf.text("INFORMASI LOT",15,105);
-
-pdf.setFont("times","normal");
-
-pdf.text("NO. LOT:",15,115);
-pdf.text(prop["NO_LOT"],40,115);
-
-pdf.text("NAMA PEMILIK:",15,130);
-
-var owner = prop["tsp — pe"] || "-";
-var ownerText = pdf.splitTextToSize(owner,40);
-pdf.text(ownerText,15,137);
-
-pdf.text("KELUASAN:",15,160);
-
-var luas = parseFloat(prop["AREA"]).toFixed(2);
-pdf.text(luas+" m²",40,160);
-
-/* TARIKH */
-
-var today = new Date().toLocaleDateString('en-GB'); // Format DD/MM/YYYY
-pdf.text("TARIKH CETAKAN:", 15, 170); // Rapatkan sedikit ke kiri (x=10)
-pdf.text(today, 15, 175); // Letak tarikh di bawah label (y+5)
-/* DISEMAK */
-
-pdf.text("DISEMAK OLEH:", 15, 185); 
-
-// Gunakan splitText supaya jika nama panjang, ia tidak langgar garisan hitam
-var namaSemakText = pdf.splitTextToSize(namaSemak.toUpperCase(), 45); 
-pdf.text(namaSemakText, 15, 190);
-/* TAJUK */
-
-pdf.setFont("times","bold");
-pdf.setFontSize(28);
-pdf.text("PELAN AKUI",180,20,{align:"center"});
-
-/* MAP IMAGE */
-
-pdf.addImage(mapImg,'JPEG',72,30,210,110);
-
-/* NORTH ARROW */
-
-pdf.addImage(northBase64,"PNG",260,35,12,12);
-
-/* PA BESAR */
-
-pdf.setFontSize(30);
-pdf.setFont("times","bold");
-
-var pa = prop["tsp — _1"] || "-";
-
-pdf.text("PA "+pa,75,185);
-
-/* FOOTER */
-
-pdf.setFontSize(8);
-
-pdf.text(
-"Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah",
-180,
-198,
-{align:"center"}
-);
-
-pdf.save("Pelan_Akui_Lot_"+prop["NO_LOT"]+".pdf");
-
-});
-
-},1200);
-
-});
-
-});
-
+            }, 1200);
+        });
+    });
 };
     
 </script>
