@@ -741,11 +741,11 @@ pdf.text(luas+" m²",40,160);
 /* TARIKH */
 
 var today = new Date().toLocaleDateString('en-GB'); // Format DD/MM/YYYY
-pdf.text("TARIKH CETAKAN:", 15, 180); // Rapatkan sedikit ke kiri (x=10)
+pdf.text("TARIKH CETAKAN:", 15, 170); // Rapatkan sedikit ke kiri (x=10)
 pdf.text(today, 15, 185); // Letak tarikh di bawah label (y+5)
 /* DISEMAK */
 
-pdf.text("DISEMAK OLEH:", 15, 193); 
+pdf.text("DISEMAK OLEH:", 15, 180); 
 
 // Gunakan splitText supaya jika nama panjang, ia tidak langgar garisan hitam
 var namaSemakText = pdf.splitTextToSize(namaSemak.toUpperCase(), 45); 
