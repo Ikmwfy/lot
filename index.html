@@ -306,6 +306,16 @@ z-index:4000;
 
 </div>
 
+<div id="reportModal" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.7); z-index:9999; align-items:center; justify-content:center;">
+    <div style="background:#2c3e50; padding:30px; border-radius:12px; border:2px solid #27ae60; width:350px; color:white; text-align:center;">
+        <h3 style="margin-top:0;">📄 Penjanaan Laporan</h3>
+        <p>Sila masukkan nama anda:</p>
+        <input type="text" id="inputNamaSemak" style="width:100%; padding:10px; margin-bottom:15px; border-radius:5px; border:none; box-sizing:border-box;">
+        <button id="btnConfirmPDF" style="width:100%; padding:10px; background:#27ae60; color:white; border:none; border-radius:5px; cursor:pointer; font-weight:bold; margin-bottom:10px;">Muat Turun PDF</button>
+        <button id="btnCancelPDF" style="width:100%; padding:10px; background:#444; color:white; border:none; border-radius:5px; cursor:pointer;">Batal</button>
+    </div>
+</div>
+
 <!-- Layers Button -->
 <div id="gmLayersBtn">
     <img src="MAPS.png">
@@ -636,18 +646,33 @@ img.src = url;
 /* ================= GENERATE PDF A4 + LOGO ================= */
 
 document.getElementById("generatePDF").onclick = function(){
+    if(!selectedLayer){
+        alert("Sila pilih lot dahulu.");
+        return;
+    }
+    // Tunjukkan modal
+    document.getElementById("reportModal").style.display = "flex";
+};
 
-var namaSemak = prompt("Masukkan Nama Untuk 'Disemak Oleh':");
+// Fungsi tutup modal
+document.getElementById("btnCancelPDF").onclick = function(){
+    document.getElementById("reportModal").style.display = "none";
+};
 
-if(!namaSemak){
-alert("Nama diperlukan untuk generate PDF.");
-return;
-}
-
-if(!selectedLayer){
-alert("Sila pilih lot dahulu.");
-return;
-}
+// Fungsi proses PDF
+document.getElementById("btnConfirmPDF").onclick = function(){
+    var namaSemak = document.getElementById("inputNamaSemak").value;
+    if(!namaSemak){
+        alert("Nama diperlukan!");
+        return;
+    }
+    
+    // Sembunyikan modal selepas klik
+    document.getElementById("reportModal").style.display = "none";
+    
+    // Teruskan dengan proses generatePDF sedia ada anda
+    // ... (masukkan kod getBase64Image("PUO.png", ...) anda di sini)
+};
 
 getBase64Image("PUO.png", function(logoBase64){
 
