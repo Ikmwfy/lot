@@ -694,13 +694,13 @@ pdf.rect(65,145,227,60);
 
 /* LOGO */
 
-pdf.addImage(logoBase64,'PNG',20,12,25,25);
+pdf.addImage(logoBase64,'PNG',40,12,25,25);
 
 /* HEADER */
 
 pdf.setFont("times","bold");
 pdf.setFontSize(14);
-pdf.text("POLITEKNIK UNGKU OMAR",35,45,{align:"center"});
+pdf.text("POLITEKNIK UNGKU OMAR",25,35,{align:"center"});
 
 /* LOCATION */
 
@@ -765,12 +765,12 @@ pdf.addImage(northBase64,"PNG",260,35,12,12);
 
 /* PA BESAR */
 
-pdf.setFontSize(48);
+pdf.setFontSize(40);
 pdf.setFont("times","bold");
 
 var pa = prop["tsp — _1"] || "-";
 
-pdf.text("PA "+pa,150,185);
+pdf.text("PA "+pa,100,185);
 
 /* FOOTER */
 
