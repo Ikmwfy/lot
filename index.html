@@ -274,7 +274,14 @@ html, body {
 }
 
 /* ================= HEADER ================= */
-
+#mainContent {
+    display: none; 
+    width: 100vw; 
+    height: 100vh; 
+    position: relative; /* Penting supaya elemen absolute di dalam ikut bekas ini */
+    overflow: hidden;
+}
+    
 #header {
     position: relative;
     width: 100%;
