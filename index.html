@@ -49,18 +49,24 @@
     var pass = document.getElementById("password").value;
 
     if(id === "67" && pass === "ikmalkacak") {
-        // 1. Paparkan kandungan utama
+        // 1. Sembunyikan login
         document.getElementById("loginPage").style.display = "none";
+        
+        // 2. Paparkan mainContent
         document.getElementById("mainContent").style.display = "block";
         
-        // 2. Beri sedikit masa (delay) supaya browser sempat melukis DIV
-        // Ini kunci utama supaya peta tidak "cacat" atau blank
+        // 3. Paksa Leaflet untuk 'reset' saiz dan view
         setTimeout(function() {
             if(typeof map !== 'undefined') {
-                map.invalidateSize(); // Memberitahu Leaflet untuk resize semula
-                console.log("Peta telah dimuatkan semula.");
+                map.invalidateSize(true); // 'true' memaksa pengiraan semula
+                // Tetapkan semula center dan zoom supaya peta tidak lari
+                map.fitBounds([
+                    [2.10309049233999, 102.52084635053448],
+                    [2.1044455032659752, 102.52331439237805]
+                ]);
+                console.log("Peta telah dipulihkan dengan setView.");
             }
-        }, 100); 
+        }, 200); // Masa 200ms biasanya cukup untuk browser buat transition
 
     } else {
         alert("ID atau Kata Laluan Salah!");
