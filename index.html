@@ -1,20 +1,44 @@
-<!DOCTYPE html>
-<html>
+<!doctype html>
+<html lang="en">
 <head>
-    <title>Sistem Survey Lot</title>
-    </head>
+    <meta charset="utf-8">
+    <title>Survey Lot Rumah</title>
+    <link rel="stylesheet" href="css/leaflet.css">
+    
+    <style>
+        /* CSS Halaman Log Masuk */
+        body, html { margin: 0; padding: 0; width: 100%; height: 100%; font-family: Arial, sans-serif; }
+        
+        #loginPage {
+            position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+            background: #0f1117; z-index: 9999; display: flex;
+            justify-content: center; align-items: center; color: white;
+        }
+        .login-box { width: 400px; text-align: center; }
+        .login-box input { width: 100%; padding: 12px; margin: 10px 0; background: #1e212a; border: 1px solid #333; color: white; border-radius: 4px; box-sizing: border-box; }
+        .login-box button { width: 100%; padding: 12px; background: #2a2d39; border: 1px solid #444; color: white; cursor: pointer; border-radius: 4px; font-weight: bold; }
+
+        /* Sembunyikan Peta Awal */
+        #mainContent { display: none; width: 100%; height: 100%; }
+        
+        /* Masukkan CSS Peta asal anda di bawah ini */
+        #map { position: absolute; top: 110px; bottom: 35px; width: 100%; }
+        /* ... (Masukkan baki CSS peta anda yang lain di sini) ... */
+    </style>
+</head>
 <body>
 
-    <div id="loginPage" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#0f1117; z-index:9999; display:flex; justify-content:center; align-items:center; color:white;">
-        <div style="text-align:center;">
+    <div id="loginPage">
+        <div class="login-box">
             <h1>Survey Lot Rumah</h1>
-            <input type="text" id="userid" placeholder="ID"><br><br>
-            <input type="password" id="password" placeholder="Kata Laluan"><br><br>
+            <input type="text" id="userid" placeholder="👤 Masukkan ID">
+            <input type="password" id="password" placeholder="🔑 Masukkan Kata Laluan">
             <button onclick="checkLogin()">Log Masuk</button>
+            <p style="color: #ff6b6b; cursor: pointer; margin-top: 20px;">? Lupa Kata Laluan?</p>
         </div>
     </div>
 
-    <div id="mainMapPage" style="display:none;">
+    <div id="mainContent">
         <div id="header">...</div>
         <div id="map"></div>
         </div>
@@ -24,17 +48,20 @@
             var id = document.getElementById("userid").value;
             var pass = document.getElementById("password").value;
 
-            // Tukar "admin" dan "12345" kepada ID/Password sebenar anda
+            // Tukar admin/12345 kepada password sebenar anda
             if(id === "admin" && pass === "12345") {
-                document.getElementById("loginPage").style.display = "none"; // Sembunyi login
-                document.getElementById("mainMapPage").style.display = "block"; // Tunjuk peta
-                map.invalidateSize(); // Penting: Supaya peta Leaflet tidak "patah"
+                document.getElementById("loginPage").style.display = "none";
+                document.getElementById("mainContent").style.display = "block";
+                
+                // Panggil fungsi map.invalidateSize() supaya peta Leaflet muncul dengan betul
+                if(typeof map !== 'undefined') { map.invalidateSize(); }
             } else {
                 alert("ID atau Kata Laluan Salah!");
             }
         }
     </script>
-</body>
+
+    </body>
 </html>
 
 <!doctype html>
