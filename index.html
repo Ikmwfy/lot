@@ -1,3 +1,42 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Sistem Survey Lot</title>
+    </head>
+<body>
+
+    <div id="loginPage" style="position:fixed; top:0; left:0; width:100%; height:100%; background:#0f1117; z-index:9999; display:flex; justify-content:center; align-items:center; color:white;">
+        <div style="text-align:center;">
+            <h1>Survey Lot Rumah</h1>
+            <input type="text" id="userid" placeholder="ID"><br><br>
+            <input type="password" id="password" placeholder="Kata Laluan"><br><br>
+            <button onclick="checkLogin()">Log Masuk</button>
+        </div>
+    </div>
+
+    <div id="mainMapPage" style="display:none;">
+        <div id="header">...</div>
+        <div id="map"></div>
+        </div>
+
+    <script>
+        function checkLogin() {
+            var id = document.getElementById("userid").value;
+            var pass = document.getElementById("password").value;
+
+            // Tukar "admin" dan "12345" kepada ID/Password sebenar anda
+            if(id === "admin" && pass === "12345") {
+                document.getElementById("loginPage").style.display = "none"; // Sembunyi login
+                document.getElementById("mainMapPage").style.display = "block"; // Tunjuk peta
+                map.invalidateSize(); // Penting: Supaya peta Leaflet tidak "patah"
+            } else {
+                alert("ID atau Kata Laluan Salah!");
+            }
+        }
+    </script>
+</body>
+</html>
+
 <!doctype html>
 <html lang="en">
 <head>
