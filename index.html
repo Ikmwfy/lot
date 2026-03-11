@@ -48,14 +48,20 @@
     var id = document.getElementById("userid").value;
     var pass = document.getElementById("password").value;
 
-    // Tambah console log untuk tengok apa yang anda taip
-    console.log("ID yang ditaip:", id);
-    console.log("Password yang ditaip:", pass);
-
     if(id === "67" && pass === "ikmalkacak") {
+        // 1. Paparkan kandungan utama
         document.getElementById("loginPage").style.display = "none";
         document.getElementById("mainContent").style.display = "block";
-        if(typeof map !== 'undefined') { map.invalidateSize(); }
+        
+        // 2. Beri sedikit masa (delay) supaya browser sempat melukis DIV
+        // Ini kunci utama supaya peta tidak "cacat" atau blank
+        setTimeout(function() {
+            if(typeof map !== 'undefined') {
+                map.invalidateSize(); // Memberitahu Leaflet untuk resize semula
+                console.log("Peta telah dimuatkan semula.");
+            }
+        }, 100); 
+
     } else {
         alert("ID atau Kata Laluan Salah!");
     }
