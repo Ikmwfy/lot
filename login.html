@@ -1,50 +1,31 @@
 <!DOCTYPE html>
-<html lang="ms">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <title>Log Masuk - Survey Lot Rumah</title>
-    <style>
-        body { background-color: #0f1117; color: white; font-family: Arial, sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .login-container { width: 400px; text-align: center; }
-        h1 { font-size: 24px; margin-bottom: 30px; }
-        .input-group { text-align: left; margin-bottom: 20px; }
-        input { width: 100%; padding: 12px; margin-top: 5px; background: #1e212a; border: 1px solid #333; color: white; border-radius: 4px; box-sizing: border-box; }
-        button { width: 100%; padding: 12px; background: #2a2d39; border: 1px solid #444; color: white; cursor: pointer; border-radius: 4px; font-weight: bold; }
-        button:hover { background: #3a3f4d; }
-        .forgot-pass { margin-top: 20px; color: #ff6b6b; cursor: pointer; }
-    </style>
+    <title>Log Masuk</title>
 </head>
 <body>
-
-<div class="login-container">
-    <h1>Survey Lot Rumah</h1>
-    
-    <div class="input-group">
-        <label>👤 Masukkan ID:</label>
-        <input type="text" id="userid">
-    </div>
-    
-    <div class="input-group">
-        <label>🔑 Masukkan Kata Laluan:</label>
-        <input type="password" id="password">
+    <div style="text-align:center; margin-top: 100px;">
+        <h2>Survey Lot Rumah</h2>
+        <input type="text" id="userid" placeholder="ID"><br><br>
+        <input type="password" id="password" placeholder="Kata Laluan"><br><br>
+        <button onclick="checkLogin()">Log Masuk</button>
     </div>
 
-    <button onclick="checkLogin()">Log Masuk</button>
-    <div class="forgot-pass">? Lupa Kata Laluan?</div>
-</div>
+    <script>
+        function checkLogin() {
+            var id = document.getElementById("userid").value;
+            var pass = document.getElementById("password").value;
+            
+            console.log("Mencuba login dengan ID:", id); // Semak F12 Console
 
-<script>
-    function checkLogin() {
-        // Contoh logik ringkas (Tukar 'admin' kepada ID sebenar)
-        var id = document.getElementById("userid").value;
-        var pass = document.getElementById("password").value;
-
-        if(id === "admin" && pass === "12345") {
-            window.location.href = "index.html"; // Redirect ke fail peta anda
-        } else {
-            alert("ID atau Kata Laluan Salah!");
+            // Sila pastikan nama fail peta anda betul (contoh: index.html atau peta.html)
+            if(id === "admin" && pass === "12345") {
+                console.log("Login berjaya, redirecting...");
+                window.location.href = "index.html"; 
+            } else {
+                alert("ID atau Kata Laluan Salah!");
+            }
         }
-    }
-</script>
+    </script>
 </body>
 </html>
