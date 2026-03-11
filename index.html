@@ -41,13 +41,31 @@ html, body {
     left: -340px;
     width: 300px;
     bottom: 35px;
-    background: white;
+    background: rgba(255, 255, 255, 0.85); /* Dibuat sedikit lutsinar supaya teks jelas */
     z-index: 5500;
     padding: 18px;
     overflow-y: auto;
     box-shadow: none;
     transition: 0.3s;
     font-family: Arial;
+    overflow-x: hidden; /* Tambah ini */
+}
+
+/* Video Latar Belakang Dashboard */
+.dashboard-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    z-index: -1;
+}
+
+/* Pastikan kandungan dashboard berada di atas video */
+#dashboard > div {
+    position: relative;
+    z-index: 1;
 }
 
 #dashboard.active {
@@ -267,43 +285,42 @@ z-index:4000;
 
 <!-- DASHBOARD -->
 <div id="dashboard">
+    <video autoplay muted loop playsinline class="dashboard-video">
+        <source src="DASHBOARD.mp4" type="video/mp4">
+    </video>
 
-<div style="display:flex; justify-content:space-between; align-items:center;">
-    <h2 style="margin:0;">DASHBOARD</h2>
-    <button id="closeDashboard"
-        style="background:#5a3e2b;color:white;border:none;
-        padding:5px 10px;border-radius:6px;cursor:pointer;">
-        ✖
-    </button>
-</div>
-<br>
-<hr>
-
-<div class="dashboard-section">
-    <label>Total Lot</label>
-    <div id="totalLot" class="dashboard-info"></div>
-</div>
-
-<div class="dashboard-section">
-    <label>Lot Opacity</label>
-    <input type="range" id="opacitySlider" min="0" max="1" step="0.1" value="1">
-</div>
-
-<div class="dashboard-section">
-    <label>Land Explorer</label>
-    <input type="text" id="searchLot" placeholder="Masukkan No Lot">
-    <button id="findLot">Find Lot</button>
-    <button id="resetLot">Reset Lot</button>
-</div>
-
-<div class="dashboard-section">
-    <label>Maklumat Lot Dipilih</label>
-    <div id="lotInfo" class="dashboard-info">
-        Tiada lot dipilih
+    <div style="display:flex; justify-content:space-between; align-items:center; background: rgba(255,255,255,0.7); padding: 5px; border-radius: 8px;">
+        <h2 style="margin:0; color: #5a3e2b;">DASHBOARD</h2>
+        <button id="closeDashboard" style="background:#5a3e2b;color:white;border:none;padding:5px 10px;border-radius:6px;cursor:pointer;">✖</button>
     </div>
-    <button id="generatePDF">Generate PDF Lot</button>
-</div>
+    
+    <br>
+    <hr>
+    
+    <div style="background: rgba(255,255,255,0.7); padding: 10px; border-radius: 8px;">
+        <div class="dashboard-section">
+            <label>Total Lot</label>
+            <div id="totalLot" class="dashboard-info"></div>
+        </div>
 
+        <div class="dashboard-section">
+            <label>Lot Opacity</label>
+            <input type="range" id="opacitySlider" min="0" max="1" step="0.1" value="1">
+        </div>
+
+        <div class="dashboard-section">
+            <label>Land Explorer</label>
+            <input type="text" id="searchLot" placeholder="Masukkan No Lot">
+            <button id="findLot">Find Lot</button>
+            <button id="resetLot">Reset Lot</button>
+        </div>
+
+        <div class="dashboard-section">
+            <label>Maklumat Lot Dipilih</label>
+            <div id="lotInfo" class="dashboard-info">Tiada lot dipilih</div>
+            <button id="generatePDF">Generate PDF Lot</button>
+        </div>
+    </div>
 </div>
 
 <!-- Layers Button -->
