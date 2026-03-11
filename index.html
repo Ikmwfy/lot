@@ -274,13 +274,6 @@ html, body {
 }
 
 /* ================= HEADER ================= */
-#mainContent {
-    display: none; 
-    width: 100vw; 
-    height: 100vh; 
-    position: relative; /* Penting supaya elemen absolute di dalam ikut bekas ini */
-    overflow: hidden;
-}
     
 #header {
     position: relative;
@@ -305,9 +298,10 @@ html, body {
 
 #header::after {
     content: "";
-    position: absolute;
+    position: relative;
     width: 100%;
-    height: 100%;
+    height: 110%;
+    flex-shrink: 0;
     background: rgba(0,0,0,0.5);
     top: 0;
     left: 0;
@@ -347,7 +341,8 @@ z-index:4000;
 /* ================= MAP ================= */
 
 #map {
-    position: absolute;
+    flex-grow: 1;
+    position: relative;
     top: 110px;
     bottom: 35px; /* ruang untuk footer */
     width: 100%;
