@@ -44,20 +44,22 @@
         </div>
 
    <script>
-    function checkLogin() {
-        var id = document.getElementById("userid").value;
-        var pass = document.getElementById("password").value;
+   function checkLogin() {
+    var id = document.getElementById("userid").value;
+    var pass = document.getElementById("password").value;
 
-        // TUKAR DI SINI:
-        if(id === "67" && pass === "ikmalkacak") {
-            document.getElementById("loginPage").style.display = "none";
-            document.getElementById("mainContent").style.display = "block";
-            
-            if(typeof map !== 'undefined') { map.invalidateSize(); }
-        } else {
-            alert("ID atau Kata Laluan Salah!");
-        }
+    // Tambah console log untuk tengok apa yang anda taip
+    console.log("ID yang ditaip:", id);
+    console.log("Password yang ditaip:", pass);
+
+    if(id === "67" && pass === "ikmalkacak") {
+        document.getElementById("loginPage").style.display = "none";
+        document.getElementById("mainContent").style.display = "block";
+        if(typeof map !== 'undefined') { map.invalidateSize(); }
+    } else {
+        alert("ID atau Kata Laluan Salah!");
     }
+}
 
     // FUNGSI TAMBAHAN: Membolehkan pengguna tekan "Enter" untuk log masuk
     document.addEventListener("keypress", function(event) {
