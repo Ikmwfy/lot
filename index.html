@@ -420,7 +420,6 @@ html, body {
     overflow: hidden;
 }
 
-/* VIDEO BACKGROUND LOGIN */
 #loginBgVideo {
     position: absolute;
     top: 50%; left: 50%;
@@ -431,7 +430,6 @@ html, body {
     z-index: 0;
 }
 
-/* OVERLAY GELAP DI ATAS VIDEO */
 #loginScreen::after {
     content: "";
     position: absolute;
@@ -440,7 +438,6 @@ html, body {
     z-index: 1;
 }
 
-/* KOTAK LOGIN */
 #loginBox {
     position: relative;
     z-index: 2;
@@ -451,7 +448,6 @@ html, body {
     gap: 18px;
 }
 
-/* LOGO ATAS */
 #loginLogo {
     width: 56px;
     height: 56px;
@@ -464,7 +460,6 @@ html, body {
     font-size: 28px;
 }
 
-/* TAJUK */
 #loginBox h2 {
     margin: 0;
     color: white;
@@ -475,7 +470,6 @@ html, body {
     text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
-/* FORM PANEL */
 #loginForm {
     width: 100%;
     background: rgba(22, 27, 34, 0.88);
@@ -517,7 +511,6 @@ html, body {
     box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
 }
 
-/* ROW PASSWORD + FORGOT */
 .lf-pw-row {
     display: flex;
     justify-content: space-between;
@@ -535,14 +528,13 @@ html, body {
     color: #5a8dee;
     font-size: 12px;
     text-decoration: none;
-    cursor: default;
+    cursor: pointer;
 }
 
 .lf-pw-row a:hover {
     text-decoration: underline;
 }
 
-/* BUTANG SIGN IN */
 #btnSignIn {
     width: 100%;
     padding: 10px 0;
@@ -561,7 +553,6 @@ html, body {
 #btnSignIn:hover { background: #2ea043; }
 #btnSignIn:active { transform: scale(0.98); }
 
-/* MESEJ ERROR */
 #loginError {
     display: none;
     color: #f85149;
@@ -574,7 +565,6 @@ html, body {
     border: 1px solid rgba(248,81,73,0.3);
 }
 
-/* PANEL BAWAH - New to LandHub */
 #loginExtra {
     width: 100%;
     background: rgba(22, 27, 34, 0.75);
@@ -592,12 +582,11 @@ html, body {
     color: #5a8dee;
     text-decoration: none;
     font-weight: 600;
-    cursor: default;
+    cursor: pointer;
 }
 
 #loginExtra a:hover { text-decoration: underline; }
 
-/* ANIMASI FADE OUT LOGIN */
 #loginScreen.fadeOut {
     animation: loginFade 0.6s ease forwards;
 }
@@ -607,6 +596,431 @@ html, body {
     to   { opacity: 0; pointer-events: none; }
 }
 
+/* ================= REGISTER SCREEN ================= */
+
+#registerScreen {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 999999;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    overflow: hidden;
+}
+
+#registerScreen.show {
+    display: flex;
+}
+
+#registerBgVideo {
+    position: absolute;
+    top: 50%; left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 0;
+}
+
+#registerScreen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.52);
+    z-index: 1;
+}
+
+#registerBox {
+    position: relative;
+    z-index: 2;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+#registerBox h2 {
+    margin: 0;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+#registerBox p.reg-sub {
+    margin: -8px 0 0 0;
+    color: rgba(255,255,255,0.65);
+    font-size: 13px;
+    text-align: center;
+}
+
+#registerForm {
+    width: 100%;
+    background: rgba(22, 27, 34, 0.90);
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 12px;
+    padding: 20px 20px 18px;
+    box-sizing: border-box;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+}
+
+#registerForm .lf-group {
+    margin-bottom: 12px;
+}
+
+#registerForm .lf-group label {
+    display: block;
+    color: #e6edf3;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+#registerForm .lf-group input {
+    width: 100%;
+    padding: 9px 12px;
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 7px;
+    color: #e6edf3;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+#registerForm .lf-group input:focus {
+    border-color: #5a8dee;
+    box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
+}
+
+#btnCreateAcc {
+    width: 100%;
+    padding: 10px 0;
+    background: #238636;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background 0.2s, transform 0.1s;
+}
+
+#btnCreateAcc:hover { background: #2ea043; }
+#btnCreateAcc:active { transform: scale(0.98); }
+
+#registerError {
+    display: none;
+    color: #f85149;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 8px;
+    padding: 7px 10px;
+    background: rgba(248,81,73,0.12);
+    border-radius: 6px;
+    border: 1px solid rgba(248,81,73,0.3);
+}
+
+#registerSuccess {
+    display: none;
+    color: #3fb950;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 8px;
+    padding: 7px 10px;
+    background: rgba(63,185,80,0.12);
+    border-radius: 6px;
+    border: 1px solid rgba(63,185,80,0.3);
+}
+
+#registerExtra {
+    width: 100%;
+    background: rgba(22, 27, 34, 0.75);
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 12px;
+    padding: 14px 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #e6edf3;
+    box-sizing: border-box;
+    backdrop-filter: blur(12px);
+}
+
+#registerExtra a {
+    color: #5a8dee;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#registerExtra a:hover { text-decoration: underline; }
+
+/* password strength bar */
+#pwStrengthWrap {
+    margin-top: 6px;
+    display: none;
+}
+
+#pwStrengthBar {
+    height: 4px;
+    border-radius: 4px;
+    background: #21262d;
+    overflow: hidden;
+}
+
+#pwStrengthFill {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.3s, background 0.3s;
+}
+
+#pwStrengthLabel {
+    font-size: 11px;
+    margin-top: 3px;
+    color: #8b949e;
+}
+
+/* ================= FORGOT PASSWORD SCREEN ================= */
+
+#forgotScreen {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 999999;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    overflow: hidden;
+}
+
+#forgotScreen.show {
+    display: flex;
+}
+
+#forgotBgVideo {
+    position: absolute;
+    top: 50%; left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 0;
+}
+
+#forgotScreen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.52);
+    z-index: 1;
+}
+
+#forgotBox {
+    position: relative;
+    z-index: 2;
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+#forgotBox h2 {
+    margin: 0;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+#forgotBox p.forgot-sub {
+    margin: -8px 0 0 0;
+    color: rgba(255,255,255,0.65);
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* STEP 1 - email input */
+#forgotStep1, #forgotStep2, #forgotStep3 {
+    width: 100%;
+    background: rgba(22, 27, 34, 0.90);
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 12px;
+    padding: 20px 20px 18px;
+    box-sizing: border-box;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+}
+
+#forgotStep2, #forgotStep3 {
+    display: none;
+}
+
+#forgotStep1 .lf-group,
+#forgotStep2 .lf-group,
+#forgotStep3 .lf-group {
+    margin-bottom: 14px;
+}
+
+#forgotStep1 .lf-group label,
+#forgotStep2 .lf-group label,
+#forgotStep3 .lf-group label {
+    display: block;
+    color: #e6edf3;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+#forgotStep1 .lf-group input,
+#forgotStep2 .lf-group input,
+#forgotStep3 .lf-group input {
+    width: 100%;
+    padding: 9px 12px;
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 7px;
+    color: #e6edf3;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+#forgotStep1 .lf-group input:focus,
+#forgotStep2 .lf-group input:focus,
+#forgotStep3 .lf-group input:focus {
+    border-color: #5a8dee;
+    box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
+}
+
+/* OTP boxes */
+#otpRow {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 4px;
+}
+
+.otp-input {
+    width: 44px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 8px;
+    color: #e6edf3;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.otp-input:focus {
+    border-color: #5a8dee;
+    box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
+}
+
+.otp-input.filled {
+    border-color: #3fb950;
+    box-shadow: 0 0 0 2px rgba(63,185,80,0.2);
+}
+
+.forgot-btn {
+    width: 100%;
+    padding: 10px 0;
+    background: #238636;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background 0.2s, transform 0.1s;
+}
+
+.forgot-btn:hover { background: #2ea043; }
+.forgot-btn:active { transform: scale(0.98); }
+
+.forgot-error {
+    display: none;
+    color: #f85149;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 8px;
+    padding: 7px 10px;
+    background: rgba(248,81,73,0.12);
+    border-radius: 6px;
+    border: 1px solid rgba(248,81,73,0.3);
+}
+
+.forgot-info {
+    color: #8b949e;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 8px;
+}
+
+#forgotExtra {
+    width: 100%;
+    background: rgba(22, 27, 34, 0.75);
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 12px;
+    padding: 14px 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #e6edf3;
+    box-sizing: border-box;
+    backdrop-filter: blur(12px);
+}
+
+#forgotExtra a {
+    color: #5a8dee;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#forgotExtra a:hover { text-decoration: underline; }
+
+/* ================= TOAST NOTIFICATION ================= */
+
+#toastNotif {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: rgba(22,27,34,0.95);
+    color: #e6edf3;
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    z-index: 9999999;
+    opacity: 0;
+    transition: all 0.35s ease;
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
+}
+
+#toastNotif.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
 </style>
 
 <title>TAMAN SAUJANA PUTRA</title>
@@ -614,23 +1028,22 @@ html, body {
 
 <body>
 
+<!-- ================= TOAST NOTIFICATION ================= -->
+<div id="toastNotif"></div>
+
 <!-- ================= LOGIN SCREEN ================= -->
 <div id="loginScreen">
 
-    <!-- Video Background -->
     <video id="loginBgVideo" autoplay muted loop playsinline>
         <source src="INTRO.mp4" type="video/mp4">
     </video>
 
     <div id="loginBox">
 
-        <!-- Logo Bulat -->
         <div id="loginLogo">🗺️</div>
 
-        <!-- Tajuk -->
         <h2>Sign in to LandHub</h2>
 
-        <!-- Form Panel -->
         <div id="loginForm">
 
             <div class="lf-group">
@@ -641,7 +1054,7 @@ html, body {
             <div class="lf-group">
                 <div class="lf-pw-row">
                     <label>Password</label>
-                    <a href="#">Forgot password?</a>
+                    <a href="#" id="linkForgot">Forgot password?</a>
                 </div>
                 <input type="password" id="loginPass" autocomplete="current-password" placeholder="">
             </div>
@@ -652,9 +1065,131 @@ html, body {
 
         </div>
 
-        <!-- Panel Bawah -->
         <div id="loginExtra">
-            New to LandHub? <a href="#">Create an account</a>
+            New to LandHub? <a href="#" id="linkCreateAcc">Create an account</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= REGISTER SCREEN ================= -->
+<div id="registerScreen">
+
+    <video id="registerBgVideo" autoplay muted loop playsinline>
+        <source src="INTRO.mp4" type="video/mp4">
+    </video>
+
+    <div id="registerBox">
+
+        <div id="loginLogo" style="position:static;">🗺️</div>
+
+        <h2>Create your account</h2>
+        <p class="reg-sub">Join LandHub to explore land parcels</p>
+
+        <div id="registerForm">
+
+            <div class="lf-group">
+                <label>Full Name</label>
+                <input type="text" id="regName" placeholder="Contoh: Ahmad bin Ali" maxlength="60">
+            </div>
+
+            <div class="lf-group">
+                <label>Email address</label>
+                <input type="email" id="regEmail" placeholder="email@example.com">
+            </div>
+
+            <div class="lf-group">
+                <label>Username</label>
+                <input type="text" id="regUser" placeholder="min. 4 aksara" maxlength="30">
+            </div>
+
+            <div class="lf-group">
+                <label>Password</label>
+                <input type="password" id="regPass" placeholder="min. 6 aksara" maxlength="50">
+                <div id="pwStrengthWrap">
+                    <div id="pwStrengthBar"><div id="pwStrengthFill"></div></div>
+                    <div id="pwStrengthLabel"></div>
+                </div>
+            </div>
+
+            <div class="lf-group">
+                <label>Confirm Password</label>
+                <input type="password" id="regPassConfirm" placeholder="taip semula password" maxlength="50">
+            </div>
+
+            <button id="btnCreateAcc">Create account</button>
+
+            <div id="registerError"></div>
+            <div id="registerSuccess"></div>
+
+        </div>
+
+        <div id="registerExtra">
+            Already have an account? <a href="#" id="linkBackLogin">Sign in</a>
+        </div>
+
+    </div>
+</div>
+
+<!-- ================= FORGOT PASSWORD SCREEN ================= -->
+<div id="forgotScreen">
+
+    <video id="forgotBgVideo" autoplay muted loop playsinline>
+        <source src="INTRO.mp4" type="video/mp4">
+    </video>
+
+    <div id="forgotBox">
+
+        <div style="width:56px;height:56px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,0.35);font-size:28px;">🔑</div>
+
+        <h2>Reset your password</h2>
+        <p class="forgot-sub" id="forgotSubText">Enter your email to receive a verification code</p>
+
+        <!-- STEP 1: EMAIL -->
+        <div id="forgotStep1">
+            <div class="lf-group">
+                <label>Email address</label>
+                <input type="email" id="forgotEmail" placeholder="email@example.com">
+            </div>
+            <button class="forgot-btn" id="btnSendOtp">Send verification code</button>
+            <div class="forgot-error" id="forgotErr1"></div>
+            <div class="forgot-info" id="forgotInfo1"></div>
+        </div>
+
+        <!-- STEP 2: OTP -->
+        <div id="forgotStep2">
+            <div class="lf-group">
+                <label style="text-align:center; display:block;">Enter 6-digit code</label>
+                <div id="otpRow">
+                    <input class="otp-input" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="otp-input" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="otp-input" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="otp-input" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="otp-input" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="otp-input" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                </div>
+            </div>
+            <button class="forgot-btn" id="btnVerifyOtp">Verify code</button>
+            <div class="forgot-error" id="forgotErr2"></div>
+            <div class="forgot-info" id="otpTimer"></div>
+        </div>
+
+        <!-- STEP 3: NEW PASSWORD -->
+        <div id="forgotStep3">
+            <div class="lf-group">
+                <label>New Password</label>
+                <input type="password" id="newPass1" placeholder="min. 6 aksara" maxlength="50">
+            </div>
+            <div class="lf-group">
+                <label>Confirm New Password</label>
+                <input type="password" id="newPass2" placeholder="taip semula password" maxlength="50">
+            </div>
+            <button class="forgot-btn" id="btnSetNewPass">Set new password</button>
+            <div class="forgot-error" id="forgotErr3"></div>
+        </div>
+
+        <div id="forgotExtra">
+            Remember your password? <a href="#" id="linkForgotBack">Back to sign in</a>
         </div>
 
     </div>
@@ -779,9 +1314,84 @@ html, body {
 
 <script>
 
-/* ================= LOGIN LOGIC ================= */
+/* ================================================
+   ACCOUNT STORAGE (localStorage)
+   Akaun disimpan dalam browser storage
+   ================================================ */
 
-/* Tetapkan username & password di sini */
+function getAccounts() {
+    var raw = localStorage.getItem("lh_accounts");
+    if (!raw) return [{ user: "admin", pass: "landhub123", email: "admin@landhub.my", name: "Administrator" }];
+    try { return JSON.parse(raw); } catch(e) { return []; }
+}
+
+function saveAccounts(arr) {
+    localStorage.setItem("lh_accounts", JSON.stringify(arr));
+}
+
+function findAccount(userOrEmail) {
+    var accs = getAccounts();
+    for (var i = 0; i < accs.length; i++) {
+        if (accs[i].user === userOrEmail || accs[i].email === userOrEmail) return accs[i];
+    }
+    return null;
+}
+
+/* Inisialisasi — simpan akaun default jika belum ada */
+if (!localStorage.getItem("lh_accounts")) {
+    saveAccounts([{ user: "admin", pass: "landhub123", email: "admin@landhub.my", name: "Administrator" }]);
+}
+
+/* ================================================
+   TOAST HELPER
+   ================================================ */
+
+function showToast(msg, duration) {
+    var t = document.getElementById("toastNotif");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(function() { t.classList.remove("show"); }, duration || 3000);
+}
+
+/* ================================================
+   SCREEN SWITCHER
+   ================================================ */
+
+function showLogin() {
+    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("loginScreen").classList.remove("fadeOut");
+    document.getElementById("registerScreen").classList.remove("show");
+    document.getElementById("forgotScreen").classList.remove("show");
+    document.getElementById("loginUser").value = "";
+    document.getElementById("loginPass").value = "";
+    document.getElementById("loginError").style.display = "none";
+}
+
+function showRegister() {
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("forgotScreen").classList.remove("show");
+    document.getElementById("registerScreen").classList.add("show");
+    document.getElementById("regName").value = "";
+    document.getElementById("regEmail").value = "";
+    document.getElementById("regUser").value = "";
+    document.getElementById("regPass").value = "";
+    document.getElementById("regPassConfirm").value = "";
+    document.getElementById("registerError").style.display = "none";
+    document.getElementById("registerSuccess").style.display = "none";
+    document.getElementById("pwStrengthWrap").style.display = "none";
+}
+
+function showForgot() {
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("registerScreen").classList.remove("show");
+    document.getElementById("forgotScreen").classList.add("show");
+    resetForgotFlow();
+}
+
+/* ================================================
+   LOGIN LOGIC
+   ================================================ */
+
 var VALID_USER = "admin";
 var VALID_PASS = "landhub123";
 
@@ -794,23 +1404,20 @@ var mainApp    = document.getElementById("mainApp");
 function doLogin() {
     var u = loginUser.value.trim();
     var p = loginPass.value;
+    var acc = findAccount(u);
 
-    if (u === VALID_USER && p === VALID_PASS) {
+    if (acc && acc.pass === p) {
         loginError.style.display = "none";
         loginScreen.classList.add("fadeOut");
         setTimeout(function() {
             loginScreen.style.display = "none";
             mainApp.style.display = "block";
-            /* Paksa Leaflet kira semula saiz peta */
-            if (typeof map !== "undefined") {
-                map.invalidateSize();
-            }
+            if (typeof map !== "undefined") { map.invalidateSize(); }
         }, 600);
     } else {
         loginError.style.display = "block";
         loginPass.value = "";
         loginPass.focus();
-        /* Goncang kotak login */
         var box = document.getElementById("loginForm");
         box.style.animation = "none";
         box.offsetHeight;
@@ -818,14 +1425,20 @@ function doLogin() {
     }
 }
 
-/* Butang Sign In */
 document.getElementById("btnSignIn").onclick = doLogin;
-
-/* Enter key pada mana-mana input */
 loginUser.addEventListener("keydown", function(e){ if(e.key==="Enter") loginPass.focus(); });
 loginPass.addEventListener("keydown", function(e){ if(e.key==="Enter") doLogin(); });
 
-/* Animasi goncang */
+document.getElementById("linkCreateAcc").onclick = function(e) {
+    e.preventDefault();
+    showRegister();
+};
+
+document.getElementById("linkForgot").onclick = function(e) {
+    e.preventDefault();
+    showForgot();
+};
+
 var shakeStyle = document.createElement("style");
 shakeStyle.textContent = `
 @keyframes shake {
@@ -837,7 +1450,330 @@ shakeStyle.textContent = `
 }`;
 document.head.appendChild(shakeStyle);
 
-/* ================= MAP SETTING ================= */
+/* ================================================
+   REGISTER LOGIC
+   ================================================ */
+
+/* Password strength */
+document.getElementById("regPass").addEventListener("input", function() {
+    var v = this.value;
+    var wrap = document.getElementById("pwStrengthWrap");
+    var fill  = document.getElementById("pwStrengthFill");
+    var label = document.getElementById("pwStrengthLabel");
+
+    if (!v) { wrap.style.display = "none"; return; }
+    wrap.style.display = "block";
+
+    var score = 0;
+    if (v.length >= 6)  score++;
+    if (v.length >= 10) score++;
+    if (/[A-Z]/.test(v)) score++;
+    if (/[0-9]/.test(v)) score++;
+    if (/[^a-zA-Z0-9]/.test(v)) score++;
+
+    var pct   = [0, 20, 40, 60, 80, 100][score];
+    var color = ["#f85149","#f0883e","#d29922","#3fb950","#3fb950"][score - 1] || "#f85149";
+    var text  = ["","Lemah","Sederhana","Cukup","Kuat","Sangat Kuat"][score] || "Lemah";
+
+    fill.style.width = pct + "%";
+    fill.style.background = color;
+    label.style.color = color;
+    label.textContent = text;
+});
+
+document.getElementById("btnCreateAcc").onclick = function() {
+    var name  = document.getElementById("regName").value.trim();
+    var email = document.getElementById("regEmail").value.trim();
+    var user  = document.getElementById("regUser").value.trim();
+    var pass  = document.getElementById("regPass").value;
+    var conf  = document.getElementById("regPassConfirm").value;
+
+    var errEl  = document.getElementById("registerError");
+    var succEl = document.getElementById("registerSuccess");
+
+    errEl.style.display  = "none";
+    succEl.style.display = "none";
+
+    function showRegErr(msg) {
+        errEl.innerHTML = "⚠️ " + msg;
+        errEl.style.display = "block";
+    }
+
+    if (!name)  { showRegErr("Nama penuh diperlukan."); return; }
+    if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) { showRegErr("Email tidak sah."); return; }
+    if (user.length < 4) { showRegErr("Username mestilah sekurang-kurangnya 4 aksara."); return; }
+    if (pass.length < 6) { showRegErr("Password mestilah sekurang-kurangnya 6 aksara."); return; }
+    if (pass !== conf)   { showRegErr("Password tidak sepadan."); return; }
+
+    var accs = getAccounts();
+    for (var i = 0; i < accs.length; i++) {
+        if (accs[i].user === user)  { showRegErr("Username sudah digunakan."); return; }
+        if (accs[i].email === email){ showRegErr("Email sudah didaftarkan."); return; }
+    }
+
+    accs.push({ user: user, pass: pass, email: email, name: name });
+    saveAccounts(accs);
+
+    succEl.innerHTML = "✅ Akaun berjaya dicipta! Anda boleh log masuk sekarang.";
+    succEl.style.display = "block";
+
+    showToast("✅ Akaun berjaya dicipta!", 3000);
+
+    setTimeout(function() {
+        showLogin();
+        document.getElementById("loginUser").value = user;
+        document.getElementById("loginPass").focus();
+    }, 2000);
+};
+
+document.getElementById("linkBackLogin").onclick = function(e) {
+    e.preventDefault();
+    showLogin();
+};
+
+/* Enter key dalam register form */
+["regName","regEmail","regUser","regPass","regPassConfirm"].forEach(function(id, idx, arr) {
+    document.getElementById(id).addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            if (idx < arr.length - 1) {
+                document.getElementById(arr[idx + 1]).focus();
+            } else {
+                document.getElementById("btnCreateAcc").click();
+            }
+        }
+    });
+});
+
+/* ================================================
+   FORGOT PASSWORD LOGIC
+   ================================================ */
+
+var _otpCode    = "";
+var _otpEmail   = "";
+var _otpTimer   = null;
+var _otpSeconds = 0;
+
+function resetForgotFlow() {
+    document.getElementById("forgotStep1").style.display = "block";
+    document.getElementById("forgotStep2").style.display = "none";
+    document.getElementById("forgotStep3").style.display = "none";
+    document.getElementById("forgotEmail").value = "";
+    document.getElementById("newPass1").value = "";
+    document.getElementById("newPass2").value = "";
+    document.getElementById("forgotErr1").style.display = "none";
+    document.getElementById("forgotErr2").style.display = "none";
+    document.getElementById("forgotErr3").style.display = "none";
+    document.getElementById("forgotInfo1").textContent = "";
+    document.getElementById("forgotSubText").textContent = "Enter your email to receive a verification code";
+    clearInterval(_otpTimer);
+    /* Reset OTP inputs */
+    var boxes = document.querySelectorAll(".otp-input");
+    boxes.forEach(function(b) { b.value = ""; b.classList.remove("filled"); });
+    _otpCode = "";
+    _otpEmail = "";
+}
+
+function generateOTP() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+function startOtpTimer(seconds) {
+    _otpSeconds = seconds;
+    var el = document.getElementById("otpTimer");
+    clearInterval(_otpTimer);
+    _otpTimer = setInterval(function() {
+        _otpSeconds--;
+        if (_otpSeconds <= 0) {
+            clearInterval(_otpTimer);
+            el.textContent = "Kod telah tamat tempoh. Sila minta kod baru.";
+            el.style.color = "#f85149";
+            _otpCode = "";
+        } else {
+            el.style.color = "#8b949e";
+            el.textContent = "Kod sah selama " + _otpSeconds + " saat lagi";
+        }
+    }, 1000);
+}
+
+/* Step 1: Hantar OTP */
+document.getElementById("btnSendOtp").onclick = function() {
+    var email = document.getElementById("forgotEmail").value.trim();
+    var errEl = document.getElementById("forgotErr1");
+    var infoEl= document.getElementById("forgotInfo1");
+
+    errEl.style.display = "none";
+    infoEl.textContent  = "";
+
+    if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+        errEl.innerHTML = "⚠️ Sila masukkan alamat email yang sah.";
+        errEl.style.display = "block";
+        return;
+    }
+
+    var acc = findAccount(email);
+    if (!acc) {
+        errEl.innerHTML = "⚠️ Email ini tidak didaftarkan dalam sistem.";
+        errEl.style.display = "block";
+        return;
+    }
+
+    _otpCode  = generateOTP();
+    _otpEmail = email;
+
+    /* Simulasi hantar email — tunjuk OTP dalam toast (dalam sistem sebenar, hantar via email API) */
+    showToast("📧 Kod OTP anda: " + _otpCode, 15000);
+
+    /* Pergi ke step 2 */
+    document.getElementById("forgotStep1").style.display = "none";
+    document.getElementById("forgotStep2").style.display = "block";
+    document.getElementById("forgotSubText").textContent = "Enter the 6-digit code sent to " + email;
+
+    startOtpTimer(120);
+
+    /* Focus kotak OTP pertama */
+    setTimeout(function() {
+        document.querySelectorAll(".otp-input")[0].focus();
+    }, 200);
+};
+
+/* OTP input auto-advance */
+var otpBoxes = document.querySelectorAll(".otp-input");
+otpBoxes.forEach(function(box, idx) {
+    box.addEventListener("input", function() {
+        var val = this.value.replace(/[^0-9]/g, "");
+        this.value = val;
+        if (val) {
+            this.classList.add("filled");
+            if (idx < otpBoxes.length - 1) otpBoxes[idx + 1].focus();
+        } else {
+            this.classList.remove("filled");
+        }
+    });
+
+    box.addEventListener("keydown", function(e) {
+        if (e.key === "Backspace" && !this.value && idx > 0) {
+            otpBoxes[idx - 1].focus();
+            otpBoxes[idx - 1].value = "";
+            otpBoxes[idx - 1].classList.remove("filled");
+        }
+        if (e.key === "Enter") {
+            document.getElementById("btnVerifyOtp").click();
+        }
+    });
+
+    /* Tampal semua digit sekaligus */
+    box.addEventListener("paste", function(e) {
+        e.preventDefault();
+        var pasted = (e.clipboardData || window.clipboardData).getData("text").replace(/[^0-9]/g,"");
+        for (var i = 0; i < pasted.length && (idx + i) < otpBoxes.length; i++) {
+            otpBoxes[idx + i].value = pasted[i];
+            otpBoxes[idx + i].classList.add("filled");
+        }
+        var next = idx + pasted.length;
+        if (next < otpBoxes.length) otpBoxes[next].focus();
+    });
+});
+
+/* Step 2: Sahkan OTP */
+document.getElementById("btnVerifyOtp").onclick = function() {
+    var entered = "";
+    otpBoxes.forEach(function(b) { entered += b.value; });
+
+    var errEl = document.getElementById("forgotErr2");
+    errEl.style.display = "none";
+
+    if (entered.length < 6) {
+        errEl.innerHTML = "⚠️ Sila masukkan 6 digit kod pengesahan.";
+        errEl.style.display = "block";
+        return;
+    }
+
+    if (!_otpCode) {
+        errEl.innerHTML = "⚠️ Kod telah tamat tempoh. Sila minta kod baru.";
+        errEl.style.display = "block";
+        return;
+    }
+
+    if (entered !== _otpCode) {
+        errEl.innerHTML = "⚠️ Kod tidak betul. Cuba semula.";
+        errEl.style.display = "block";
+        /* Goncang OTP boxes */
+        var row = document.getElementById("otpRow");
+        row.style.animation = "none";
+        row.offsetHeight;
+        row.style.animation = "shake 0.4s ease";
+        return;
+    }
+
+    clearInterval(_otpTimer);
+
+    /* Pergi step 3 */
+    document.getElementById("forgotStep2").style.display = "none";
+    document.getElementById("forgotStep3").style.display = "block";
+    document.getElementById("forgotSubText").textContent = "Choose a new password for your account";
+    document.getElementById("newPass1").focus();
+};
+
+/* Step 3: Set password baru */
+document.getElementById("btnSetNewPass").onclick = function() {
+    var p1    = document.getElementById("newPass1").value;
+    var p2    = document.getElementById("newPass2").value;
+    var errEl = document.getElementById("forgotErr3");
+
+    errEl.style.display = "none";
+
+    if (p1.length < 6) {
+        errEl.innerHTML = "⚠️ Password mestilah sekurang-kurangnya 6 aksara.";
+        errEl.style.display = "block";
+        return;
+    }
+
+    if (p1 !== p2) {
+        errEl.innerHTML = "⚠️ Password tidak sepadan. Cuba semula.";
+        errEl.style.display = "block";
+        return;
+    }
+
+    /* Kemaskini password dalam storage */
+    var accs = getAccounts();
+    for (var i = 0; i < accs.length; i++) {
+        if (accs[i].email === _otpEmail) {
+            accs[i].pass = p1;
+            break;
+        }
+    }
+    saveAccounts(accs);
+
+    showToast("✅ Password berjaya ditukar! Sila log masuk.", 4000);
+
+    setTimeout(function() {
+        document.getElementById("forgotScreen").classList.remove("show");
+        showLogin();
+    }, 1500);
+};
+
+/* Back button */
+document.getElementById("linkForgotBack").onclick = function(e) {
+    e.preventDefault();
+    clearInterval(_otpTimer);
+    document.getElementById("forgotScreen").classList.remove("show");
+    showLogin();
+};
+
+/* Enter key dalam forgot fields */
+document.getElementById("forgotEmail").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") document.getElementById("btnSendOtp").click();
+});
+document.getElementById("newPass1").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") document.getElementById("newPass2").focus();
+});
+document.getElementById("newPass2").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") document.getElementById("btnSetNewPass").click();
+});
+
+/* ================================================
+   MAP SETTING (TIDAK DIUBAH)
+   ================================================ */
 
 var map = L.map('map', {
     zoomControl: false,
