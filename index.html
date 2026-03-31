@@ -1823,45 +1823,48 @@ function highlightStyle() {
 
 var selectedLayer = null;
 
-function onEachFeature_LOTFINAL_0(feature, layer) {
+onEachFeature: function(feature, layer) {
     layer.on({
         click: function(e) {
-            if (selectedLayer) {
-                selectedLayer.setStyle(style_LOTFINAL_0());
+            var props = feature.properties;
+            var content = '<div style="font-family:Arial; font-size:13px;">';
+            content += '<h4 style="margin:0 0 6px 0; color:#5a3e2b;">🔶 Tanda Sempadan</h4>';
+            content += '<hr style="margin:4px 0 8px 0;">';
+            for (var key in props) {
+                if (props[key] !== null && props[key] !== "" && props[key] !== undefined) {
+                    content += '<b>' + key + ':</b> ' + props[key] + '<br>';
+                }
             }
-            selectedLayer = layer;
-            layer.setStyle(highlightStyle());
-            updateLotInfo(feature.properties);
-            layer.bringToFront();
-
-            var popupContent = `
-<div style="font-family: Arial; font-size:14px;">
-    <h4 style="margin:0; color:#5a3e2b;">Maklumat Lot</h4>
-    <hr style="margin:6px 0;">
-    <b>No PA:</b> ${feature.properties["tsp — _1"]}<br>
-    <b>No Lot:</b> ${feature.properties["NO_LOT"]}<br>
-    <b>Keluasan:</b> ${parseFloat(feature.properties["AREA"]).toFixed(3)} m²<br>
-    <b>Pemilik:</b> ${feature.properties["tsp — pe"]}
-</div>
-`;
-            layer.bindPopup(popupContent).openPopup();
+            if (Object.keys(props).length === 0) {
+                content += 'Tiada maklumat tambahan.';
+            }
+            content += '</div>';
+            layer.bindPopup(content).openPopup();
         },
 
         mouseover: function(e) {
-            var props = feature.properties;
+            var latlng = layer.getLatLng();
+            var barat  = latlng.lng.toFixed(6) + '° BARAT';
+            var utara  = latlng.lat.toFixed(6) + '° UTARA';
+
             var tooltipContent =
-                '<b style="color:#5a3e2b;">📦 Lot</b><br>' +
-                '<b>No Lot:</b> ' + props["NO_LOT"] + '<br>' +
-                '<b>No PA:</b> ' + props["tsp — _1"] + '<br>' +
-                '<b>Pemilik:</b> ' + props["tsp — pe"] + '<br>' +
-                '<b>Keluasan:</b> ' + parseFloat(props["AREA"]).toFixed(3) + ' m²';
+                '<b style="color:#b8860b;">📍 Tanda Sempadan</b><br>' +
+                '<b>BARAT:</b> ' + barat + '<br>' +
+                '<b>UTARA:</b> ' + utara;
 
             layer.bindTooltip(tooltipContent, {
                 sticky: true,
                 opacity: 1,
-                className: 'lot-tooltip'
+                className: 'tanda-tooltip'
             }).openTooltip();
         },
+
+        mouseout: function(e) {
+            layer.closeTooltip();
+            layer.unbindTooltip();
+        }
+    });
+}
 
         mouseout: function(e) {
             layer.closeTooltip();
