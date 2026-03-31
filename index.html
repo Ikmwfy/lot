@@ -249,8 +249,6 @@ html, body {
     width: 100%;
 }
 
-/* ================= HOVER TOOLTIP STYLE ================= */
-
 .leaflet-tooltip.lot-tooltip {
     background: rgba(255, 255, 255, 0.95);
     border: 1.5px solid #5a3e2b;
@@ -274,6 +272,139 @@ html, body {
     box-shadow: 0 3px 10px rgba(0,0,0,0.2);
     pointer-events: none;
 }
+
+/* ================= MODAL DIALOG CANTIK ================= */
+
+#pdfModal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.55);
+    z-index: 99999;
+    align-items: center;
+    justify-content: center;
+}
+
+#pdfModal.show {
+    display: flex;
+}
+
+#pdfModalBox {
+    background: white;
+    border-radius: 18px;
+    width: 380px;
+    overflow: hidden;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+    font-family: Arial, sans-serif;
+    animation: modalPop 0.25s ease;
+}
+
+@keyframes modalPop {
+    from { transform: scale(0.85); opacity: 0; }
+    to   { transform: scale(1);    opacity: 1; }
+}
+
+#pdfModalHeader {
+    background: linear-gradient(135deg, #5a3e2b, #8b5e3c);
+    padding: 22px 24px 18px;
+    text-align: center;
+    color: white;
+}
+
+#pdfModalHeader .modal-icon {
+    font-size: 38px;
+    margin-bottom: 6px;
+}
+
+#pdfModalHeader h3 {
+    margin: 0;
+    font-size: 18px;
+    letter-spacing: 0.5px;
+}
+
+#pdfModalHeader p {
+    margin: 6px 0 0;
+    font-size: 12px;
+    opacity: 0.85;
+}
+
+#pdfModalBody {
+    padding: 24px 24px 10px;
+}
+
+#pdfModalBody label {
+    display: block;
+    font-size: 13px;
+    font-weight: bold;
+    color: #5a3e2b;
+    margin-bottom: 8px;
+    letter-spacing: 0.3px;
+}
+
+#pdfModalBody input {
+    width: 100%;
+    padding: 11px 14px;
+    border: 2px solid #d4b896;
+    border-radius: 10px;
+    font-size: 14px;
+    color: #2d1a0e;
+    outline: none;
+    box-sizing: border-box;
+    transition: border 0.2s;
+    background: #fffaf5;
+}
+
+#pdfModalBody input:focus {
+    border-color: #8b5e3c;
+    background: #fff8f0;
+}
+
+#pdfModalBody input::placeholder {
+    color: #bbb;
+    font-style: italic;
+}
+
+.modal-divider {
+    height: 1px;
+    background: #f0e6da;
+    margin: 18px 0 16px;
+}
+
+#pdfModalFooter {
+    padding: 0 24px 22px;
+    display: flex;
+    gap: 10px;
+}
+
+#pdfModalFooter button {
+    flex: 1;
+    padding: 11px 0;
+    border: none;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+#pdfModalFooter button:active {
+    transform: scale(0.97);
+}
+
+#btnBatalModal {
+    background: #f0e6da;
+    color: #5a3e2b;
+}
+
+#btnHantarModal {
+    background: linear-gradient(135deg, #5a3e2b, #8b5e3c);
+    color: white;
+    box-shadow: 0 4px 12px rgba(90,62,43,0.35);
+}
+
+#btnBatalModal:hover { opacity: 0.8; }
+#btnHantarModal:hover { opacity: 0.9; }
 
 </style>
 
@@ -366,6 +497,30 @@ html, body {
 
 <div id="footer">
     Hak Cipta Terpelihara 2026 @ Ikmwfy | Politeknik Ungku Omar
+</div>
+
+<!-- ================= MODAL CANTIK ================= -->
+<div id="pdfModal">
+    <div id="pdfModalBox">
+
+        <div id="pdfModalHeader">
+            <div class="modal-icon">📄</div>
+            <h3>JANA PELAN AKUI</h3>
+            <p>Sila isikan maklumat untuk cetakan PDF</p>
+        </div>
+
+        <div id="pdfModalBody">
+            <label>✍️ &nbsp;Nama Penyemak</label>
+            <input type="text" id="inputNamaSemak" placeholder="Contoh: MOHD AMIN BIN AHMAD" maxlength="60">
+            <div class="modal-divider"></div>
+        </div>
+
+        <div id="pdfModalFooter">
+            <button id="btnBatalModal">✖ &nbsp;Batal</button>
+            <button id="btnHantarModal">🖨️ &nbsp;Jana PDF</button>
+        </div>
+
+    </div>
 </div>
 
 <script src="js/leaflet.js"></script>
@@ -468,7 +623,6 @@ function onEachFeature_LOTFINAL_0(feature, layer) {
             layer.bindPopup(popupContent).openPopup();
         },
 
-        /* ===== HOVER MASUK - LOT ===== */
         mouseover: function(e) {
             var props = feature.properties;
             var tooltipContent =
@@ -485,7 +639,6 @@ function onEachFeature_LOTFINAL_0(feature, layer) {
             }).openTooltip();
         },
 
-        /* ===== HOVER KELUAR - LOT ===== */
         mouseout: function(e) {
             layer.closeTooltip();
             layer.unbindTooltip();
@@ -510,41 +663,32 @@ var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
         });
     },
     onEachFeature: function(feature, layer) {
-
         layer.on({
             click: function(e) {
                 var props = feature.properties;
                 var content = '<div style="font-family:Arial; font-size:13px;">';
                 content += '<h4 style="margin:0 0 6px 0; color:#5a3e2b;">🔶 Tanda Sempadan</h4>';
                 content += '<hr style="margin:4px 0 8px 0;">';
-
                 for (var key in props) {
                     if (props[key] !== null && props[key] !== "" && props[key] !== undefined) {
                         content += '<b>' + key + ':</b> ' + props[key] + '<br>';
                     }
                 }
-
                 if (Object.keys(props).length === 0) {
                     content += 'Tiada maklumat tambahan.';
                 }
-
                 content += '</div>';
                 layer.bindPopup(content).openPopup();
             },
 
-            /* ===== HOVER MASUK - TANDA SEMPADAN ===== */
             mouseover: function(e) {
                 var latlng = layer.getLatLng();
-
-                /* Tukar nilai koordinat kepada label BARAT / UTARA */
                 var barat  = latlng.lng.toFixed(6) + '° BARAT';
                 var utara  = latlng.lat.toFixed(6) + '° UTARA';
-
                 var tooltipContent =
                     '<b style="color:#b8860b;">📍 Tanda Sempadan</b><br>' +
                     '<b>BARAT:</b> ' + barat + '<br>' +
                     '<b>UTARA:</b> ' + utara;
-
                 layer.bindTooltip(tooltipContent, {
                     sticky: true,
                     opacity: 1,
@@ -552,7 +696,6 @@ var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
                 }).openTooltip();
             },
 
-            /* ===== HOVER KELUAR - TANDA SEMPADAN ===== */
             mouseout: function(e) {
                 layer.closeTooltip();
                 layer.unbindTooltip();
@@ -690,99 +833,172 @@ function getBase64Image(url, callback) {
     img.src = url;
 }
 
-/* ================= GENERATE PDF A4 + LOGO ================= */
+/* ================= MODAL BUKA / TUTUP ================= */
 
+var pdfModal    = document.getElementById("pdfModal");
+var inputNama   = document.getElementById("inputNamaSemak");
+
+/* Buka modal apabila klik Generate PDF */
 document.getElementById("generatePDF").onclick = function() {
-    var namaSemak = prompt("Masukkan Nama Untuk 'Disemak Oleh':");
-    if (!namaSemak) {
-        alert("Nama diperlukan untuk generate PDF.");
-        return;
-    }
     if (!selectedLayer) {
         alert("Sila pilih lot dahulu.");
         return;
     }
+    inputNama.value = "";
+    pdfModal.classList.add("show");
+    setTimeout(function(){ inputNama.focus(); }, 300);
+};
+
+/* Tutup modal - Batal */
+document.getElementById("btnBatalModal").onclick = function() {
+    pdfModal.classList.remove("show");
+};
+
+/* Klik luar kotak - tutup modal */
+pdfModal.onclick = function(e) {
+    if (e.target === pdfModal) {
+        pdfModal.classList.remove("show");
+    }
+};
+
+/* Enter key - terus jana */
+inputNama.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        document.getElementById("btnHantarModal").click();
+    }
+});
+
+/* ================= GENERATE PDF A4 + LOGO ================= */
+
+document.getElementById("btnHantarModal").onclick = function() {
+
+    var namaSemak = inputNama.value.trim();
+
+    if (!namaSemak) {
+        inputNama.style.border = "2px solid red";
+        inputNama.placeholder  = "⚠️ Nama wajib diisi!";
+        inputNama.focus();
+        return;
+    }
+
+    inputNama.style.border = "";
+    pdfModal.classList.remove("show");
 
     getBase64Image("PUO.png", function(logoBase64) {
         getBase64Image("north.png", function(northBase64) {
+
+            /* Zoom tepat ke lot dengan padding yang lebih kecil
+               supaya lot nampak jelas dan berada di tengah peta */
             map.fitBounds(selectedLayer.getBounds(), {
-                padding: [250, 250],
-                animate: false
+                padding: [120, 120],
+                animate: false,
+                maxZoom: 20
             });
 
+            map.invalidateSize();
+
             setTimeout(function() {
+
                 map.closePopup();
+
                 html2canvas(document.getElementById("map"), {
                     useCORS: true,
                     scale: 4
                 }).then(function(canvas) {
+
                     const { jsPDF } = window.jspdf;
                     var pdf = new jsPDF("landscape", "mm", "a4");
                     var mapImg = canvas.toDataURL("image/jpeg", 1.0);
-                    var prop = selectedLayer.feature.properties;
+                    var prop   = selectedLayer.feature.properties;
 
+                    /* ---- SEMPADAN LUAR ---- */
                     pdf.setLineWidth(1.5);
                     pdf.rect(5, 5, 287, 200);
+
+                    /* ---- PANEL KIRI ---- */
                     pdf.setLineWidth(0.8);
                     pdf.rect(5, 5, 60, 200);
-                    pdf.rect(65, 5, 227, 140);
-                    pdf.rect(65, 145, 227, 60);
 
-                    pdf.addImage(logoBase64, 'PNG', 15, 2, 40, 40);
+                    /* ---- PANEL PETA (kanan atas) ---- */
+                    pdf.rect(65, 5, 227, 165);
 
+                    /* ---- PANEL MAKLUMAT (kanan bawah) ---- */
+                    pdf.rect(65, 170, 227, 35);
+
+                    /* ---- LOGO ---- */
+                    pdf.addImage(logoBase64, 'PNG', 15, 8, 40, 40);
+
+                    /* ---- NAMA INSTITUSI ---- */
                     pdf.setFont("times", "bold");
                     pdf.setFontSize(10);
-                    pdf.text("POLITEKNIK UNGKU OMAR", 35, 40, { align: "center" });
+                    pdf.text("POLITEKNIK UNGKU OMAR", 35, 52, { align: "center" });
 
+                    /* ---- LOKASI ---- */
                     pdf.setFontSize(11);
                     pdf.setFont("times", "bold");
-                    pdf.text("NEGERI JOHOR", 15, 55);
+                    pdf.text("NEGERI JOHOR",   15, 68);
                     pdf.setTextColor(200, 0, 0);
-                    pdf.text("DAERAH TANGKAK", 15, 65);
+                    pdf.text("DAERAH TANGKAK",  15, 78);
                     pdf.setTextColor(0, 0, 0);
-                    pdf.text("MUKIM KESANG", 15, 75);
+                    pdf.text("MUKIM KESANG",    15, 88);
 
+                    /* ---- MAKLUMAT LOT ---- */
                     pdf.setFontSize(11);
-                    pdf.text("INFORMASI LOT", 15, 105);
+                    pdf.text("INFORMASI LOT",  15, 108);
                     pdf.setFont("times", "normal");
-                    pdf.text("NO. LOT:", 15, 115);
-                    pdf.text(prop["NO_LOT"], 35, 115);
-                    pdf.text("NAMA PEMILIK:", 15, 130);
-                    var owner = prop["tsp — pe"] || "-";
-                    var ownerText = pdf.splitTextToSize(owner, 40);
-                    pdf.text(ownerText, 15, 137);
-                    pdf.text("KELUASAN:", 15, 160);
+
+                    pdf.text("NO. LOT:",       15, 118);
+                    pdf.text(prop["NO_LOT"],   40, 118);
+
+                    pdf.text("NAMA PEMILIK:",  15, 130);
+                    var owner     = prop["tsp — pe"] || "-";
+                    var ownerText = pdf.splitTextToSize(owner, 42);
+                    pdf.text(ownerText,        15, 137);
+
+                    pdf.text("KELUASAN:",      15, 155);
                     var luas = parseFloat(prop["AREA"]).toFixed(2);
-                    pdf.text(luas + " m²", 40, 160);
+                    pdf.text(luas + " m²",     40, 155);
 
+                    /* ---- TARIKH & PENYEMAK ---- */
                     var today = new Date().toLocaleDateString('en-GB');
-                    pdf.text("TARIKH CETAKAN:", 15, 170);
-                    pdf.text(today, 15, 175);
-                    pdf.text("DISEMAK OLEH:", 15, 185);
-                    var namaSemakText = pdf.splitTextToSize(namaSemak.toUpperCase(), 45);
-                    pdf.text(namaSemakText, 15, 190);
+                    pdf.text("TARIKH CETAKAN:", 15, 168);
+                    pdf.text(today,              15, 174);
 
+                    pdf.text("DISEMAK OLEH:",   15, 184);
+                    var semakText = pdf.splitTextToSize(namaSemak.toUpperCase(), 45);
+                    pdf.text(semakText,          15, 190);
+
+                    /* ---- TAJUK PELAN ---- */
                     pdf.setFont("times", "bold");
-                    pdf.setFontSize(28);
-                    pdf.text("PELAN AKUI", 170, 20, { align: "center" });
+                    pdf.setFontSize(22);
+                    pdf.text("PELAN AKUI", 178, 16, { align: "center" });
 
-                    pdf.addImage(mapImg, 'JPEG', 72, 30, 210, 110);
-                    pdf.addImage(northBase64, "PNG", 260, 35, 12, 12);
+                    /* ---- GAMBAR PETA - memenuhi panel peta sepenuhnya ---- */
+                    /* Panel peta: x=65, y=5, w=227, h=165
+                       Beri margin kecil 3mm dalam panel                      */
+                    pdf.addImage(mapImg, 'JPEG', 68, 18, 221, 149);
 
-                    pdf.setFontSize(35);
+                    /* ---- ANAK PANAH UTARA ---- */
+                    pdf.addImage(northBase64, "PNG", 276, 20, 13, 13);
+
+                    /* ---- NO PA BESAR DI PANEL BAWAH ---- */
+                    pdf.setFontSize(26);
                     pdf.setFont("times", "bold");
                     var pa = prop["tsp — _1"] || "-";
-                    pdf.text("PA " + pa, 75, 185);
+                    pdf.text("PA " + pa, 178, 188, { align: "center" });
 
-                    pdf.setFontSize(8);
+                    /* ---- FOOTER NOTA ---- */
+                    pdf.setFontSize(7);
+                    pdf.setFont("times", "normal");
                     pdf.text(
                         "Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah",
-                        180, 198, { align: "center" }
+                        178, 203, { align: "center" }
                     );
 
                     pdf.save("Pelan_Akui_Lot_" + prop["NO_LOT"] + ".pdf");
                 });
-            }, 2000);
+
+            }, 2500);
         });
     });
 };
