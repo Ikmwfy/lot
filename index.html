@@ -116,15 +116,13 @@ html, body {
     z-index: 5000;
 }
 
-/* ================= LAYERS BUTTON - WARNA BROWN ================= */
-
 #gmLayersBtn {
     position: absolute;
     bottom: 60px;
     right: 20px;
     width: 110px;
     height: 85px;
-    background: #5a3e2b; /* BROWN */
+    background: #5a3e2b;
     border-radius: 16px;
     box-shadow: 0 6px 18px rgba(0,0,0,0.3);
     cursor: pointer;
@@ -142,22 +140,19 @@ html, body {
     height: 75%;
     object-fit: cover;
     top: 0;
-    /* Beri tint coklat pada gambar */
     filter: sepia(60%) saturate(60%) brightness(0.75);
 }
 
 #gmLayersBtn span {
     position: relative;
-    background: #3d2a1e; /* BROWN GELAP */
-    color: #f5dfc0;       /* TEKS KRIM/COKLAT CERAH */
+    background: #3d2a1e;
+    color: #f5dfc0;
     text-align: center;
     font-weight: bold;
     padding: 6px 0;
     font-size: 14px;
     letter-spacing: 1px;
 }
-
-/* ================= PANEL ================= */
 
 #gmPanel {
     position: absolute;
@@ -230,14 +225,12 @@ html, body {
     z-index: 2;
 }
 
-/* ================= NORTH ARROW - DIBESARKAN ================= */
-
 #northArrow {
     position: absolute;
     top: 130px;
     right: 20px;
-    width: 65px;   /* DARI 45px -> 65px */
-    height: 65px;  /* DARI 45px -> 65px */
+    width: 65px;
+    height: 65px;
     background: white;
     border-radius: 50%;
     box-shadow: 0 3px 10px rgba(0,0,0,0.3);
@@ -255,6 +248,33 @@ html, body {
     bottom: 35px;
     width: 100%;
 }
+
+/* ================= HOVER TOOLTIP STYLE ================= */
+
+.leaflet-tooltip.lot-tooltip {
+    background: rgba(255, 255, 255, 0.95);
+    border: 1.5px solid #5a3e2b;
+    border-radius: 8px;
+    padding: 7px 11px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #2d1a0e;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    pointer-events: none;
+}
+
+.leaflet-tooltip.tanda-tooltip {
+    background: rgba(255, 248, 220, 0.97);
+    border: 1.5px solid #d5b43c;
+    border-radius: 8px;
+    padding: 7px 11px;
+    font-family: Arial, sans-serif;
+    font-size: 12px;
+    color: #2d1a0e;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.2);
+    pointer-events: none;
+}
+
 </style>
 
 <title>TAMAN SAUJANA PUTRA</title>
@@ -273,7 +293,7 @@ html, body {
 <div id="map"></div>
 
 <div id="northArrow">
-    <img src="north.png" width="58"> <!-- DIBESARKAN DARI 40 -> 58 -->
+    <img src="north.png" width="65">
 </div>
     
 <div id="menuBtn">☰ Menu</div>
@@ -446,6 +466,29 @@ function onEachFeature_LOTFINAL_0(feature, layer) {
 </div>
 `;
             layer.bindPopup(popupContent).openPopup();
+        },
+
+        /* ===== HOVER MASUK - LOT ===== */
+        mouseover: function(e) {
+            var props = feature.properties;
+            var tooltipContent =
+                '<b style="color:#5a3e2b;">📦 Lot</b><br>' +
+                '<b>No Lot:</b> ' + props["NO_LOT"] + '<br>' +
+                '<b>No PA:</b> ' + props["tsp — _1"] + '<br>' +
+                '<b>Pemilik:</b> ' + props["tsp — pe"] + '<br>' +
+                '<b>Keluasan:</b> ' + parseFloat(props["AREA"]).toFixed(3) + ' m²';
+
+            layer.bindTooltip(tooltipContent, {
+                sticky: true,
+                opacity: 1,
+                className: 'lot-tooltip'
+            }).openTooltip();
+        },
+
+        /* ===== HOVER KELUAR - LOT ===== */
+        mouseout: function(e) {
+            layer.closeTooltip();
+            layer.unbindTooltip();
         }
     });
 }
@@ -455,7 +498,7 @@ var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0, {
     onEachFeature: onEachFeature_LOTFINAL_0
 }).addTo(map);
 
-/* ================= TANDA SEMPADAN + POPUP ================= */
+/* ================= TANDA SEMPADAN + POPUP + HOVER ================= */
 
 var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
     pointToLayer: function(feature, latlng) {
@@ -467,28 +510,52 @@ var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
         });
     },
     onEachFeature: function(feature, layer) {
+
         layer.on({
             click: function(e) {
-                // Bina popup content dari semua properties yang ada
                 var props = feature.properties;
                 var content = '<div style="font-family:Arial; font-size:13px;">';
                 content += '<h4 style="margin:0 0 6px 0; color:#5a3e2b;">🔶 Tanda Sempadan</h4>';
                 content += '<hr style="margin:4px 0 8px 0;">';
 
-                // Paparkan semua field yang ada nilai
                 for (var key in props) {
                     if (props[key] !== null && props[key] !== "" && props[key] !== undefined) {
                         content += '<b>' + key + ':</b> ' + props[key] + '<br>';
                     }
                 }
 
-                // Jika tiada properties langsung
                 if (Object.keys(props).length === 0) {
                     content += 'Tiada maklumat tambahan.';
                 }
 
                 content += '</div>';
                 layer.bindPopup(content).openPopup();
+            },
+
+            /* ===== HOVER MASUK - TANDA SEMPADAN ===== */
+            mouseover: function(e) {
+                var latlng = layer.getLatLng();
+
+                /* Tukar nilai koordinat kepada label BARAT / UTARA */
+                var barat  = latlng.lng.toFixed(6) + '° BARAT';
+                var utara  = latlng.lat.toFixed(6) + '° UTARA';
+
+                var tooltipContent =
+                    '<b style="color:#b8860b;">📍 Tanda Sempadan</b><br>' +
+                    '<b>BARAT:</b> ' + barat + '<br>' +
+                    '<b>UTARA:</b> ' + utara;
+
+                layer.bindTooltip(tooltipContent, {
+                    sticky: true,
+                    opacity: 1,
+                    className: 'tanda-tooltip'
+                }).openTooltip();
+            },
+
+            /* ===== HOVER KELUAR - TANDA SEMPADAN ===== */
+            mouseout: function(e) {
+                layer.closeTooltip();
+                layer.unbindTooltip();
             }
         });
     }
