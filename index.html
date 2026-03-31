@@ -762,7 +762,6 @@ html, body {
 
 #registerExtra a:hover { text-decoration: underline; }
 
-/* password strength bar */
 #pwStrengthWrap {
     margin-top: 6px;
     display: none;
@@ -851,7 +850,6 @@ html, body {
     line-height: 1.5;
 }
 
-/* STEP 1 - email input */
 #forgotStep1, #forgotStep2, #forgotStep3 {
     width: 100%;
     background: rgba(22, 27, 34, 0.90);
@@ -905,7 +903,6 @@ html, body {
     box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
 }
 
-/* OTP boxes */
 #otpRow {
     display: flex;
     gap: 10px;
@@ -1316,7 +1313,6 @@ html, body {
 
 /* ================================================
    ACCOUNT STORAGE (localStorage)
-   Akaun disimpan dalam browser storage
    ================================================ */
 
 function getAccounts() {
@@ -1337,7 +1333,6 @@ function findAccount(userOrEmail) {
     return null;
 }
 
-/* Inisialisasi — simpan akaun default jika belum ada */
 if (!localStorage.getItem("lh_accounts")) {
     saveAccounts([{ user: "admin", pass: "landhub123", email: "admin@landhub.my", name: "Administrator" }]);
 }
@@ -1391,9 +1386,6 @@ function showForgot() {
 /* ================================================
    LOGIN LOGIC
    ================================================ */
-
-var VALID_USER = "admin";
-var VALID_PASS = "landhub123";
 
 var loginUser  = document.getElementById("loginUser");
 var loginPass  = document.getElementById("loginPass");
@@ -1454,7 +1446,6 @@ document.head.appendChild(shakeStyle);
    REGISTER LOGIC
    ================================================ */
 
-/* Password strength */
 document.getElementById("regPass").addEventListener("input", function() {
     var v = this.value;
     var wrap = document.getElementById("pwStrengthWrap");
@@ -1531,7 +1522,6 @@ document.getElementById("linkBackLogin").onclick = function(e) {
     showLogin();
 };
 
-/* Enter key dalam register form */
 ["regName","regEmail","regUser","regPass","regPassConfirm"].forEach(function(id, idx, arr) {
     document.getElementById(id).addEventListener("keydown", function(e) {
         if (e.key === "Enter") {
@@ -1566,7 +1556,6 @@ function resetForgotFlow() {
     document.getElementById("forgotInfo1").textContent = "";
     document.getElementById("forgotSubText").textContent = "Enter your email to receive a verification code";
     clearInterval(_otpTimer);
-    /* Reset OTP inputs */
     var boxes = document.querySelectorAll(".otp-input");
     boxes.forEach(function(b) { b.value = ""; b.classList.remove("filled"); });
     _otpCode = "";
@@ -1595,7 +1584,6 @@ function startOtpTimer(seconds) {
     }, 1000);
 }
 
-/* Step 1: Hantar OTP */
 document.getElementById("btnSendOtp").onclick = function() {
     var email = document.getElementById("forgotEmail").value.trim();
     var errEl = document.getElementById("forgotErr1");
@@ -1620,23 +1608,19 @@ document.getElementById("btnSendOtp").onclick = function() {
     _otpCode  = generateOTP();
     _otpEmail = email;
 
-    /* Simulasi hantar email — tunjuk OTP dalam toast (dalam sistem sebenar, hantar via email API) */
     showToast("📧 Kod OTP anda: " + _otpCode, 15000);
 
-    /* Pergi ke step 2 */
     document.getElementById("forgotStep1").style.display = "none";
     document.getElementById("forgotStep2").style.display = "block";
     document.getElementById("forgotSubText").textContent = "Enter the 6-digit code sent to " + email;
 
     startOtpTimer(120);
 
-    /* Focus kotak OTP pertama */
     setTimeout(function() {
         document.querySelectorAll(".otp-input")[0].focus();
     }, 200);
 };
 
-/* OTP input auto-advance */
 var otpBoxes = document.querySelectorAll(".otp-input");
 otpBoxes.forEach(function(box, idx) {
     box.addEventListener("input", function() {
@@ -1661,7 +1645,6 @@ otpBoxes.forEach(function(box, idx) {
         }
     });
 
-    /* Tampal semua digit sekaligus */
     box.addEventListener("paste", function(e) {
         e.preventDefault();
         var pasted = (e.clipboardData || window.clipboardData).getData("text").replace(/[^0-9]/g,"");
@@ -1674,7 +1657,6 @@ otpBoxes.forEach(function(box, idx) {
     });
 });
 
-/* Step 2: Sahkan OTP */
 document.getElementById("btnVerifyOtp").onclick = function() {
     var entered = "";
     otpBoxes.forEach(function(b) { entered += b.value; });
@@ -1697,7 +1679,6 @@ document.getElementById("btnVerifyOtp").onclick = function() {
     if (entered !== _otpCode) {
         errEl.innerHTML = "⚠️ Kod tidak betul. Cuba semula.";
         errEl.style.display = "block";
-        /* Goncang OTP boxes */
         var row = document.getElementById("otpRow");
         row.style.animation = "none";
         row.offsetHeight;
@@ -1707,14 +1688,12 @@ document.getElementById("btnVerifyOtp").onclick = function() {
 
     clearInterval(_otpTimer);
 
-    /* Pergi step 3 */
     document.getElementById("forgotStep2").style.display = "none";
     document.getElementById("forgotStep3").style.display = "block";
     document.getElementById("forgotSubText").textContent = "Choose a new password for your account";
     document.getElementById("newPass1").focus();
 };
 
-/* Step 3: Set password baru */
 document.getElementById("btnSetNewPass").onclick = function() {
     var p1    = document.getElementById("newPass1").value;
     var p2    = document.getElementById("newPass2").value;
@@ -1734,7 +1713,6 @@ document.getElementById("btnSetNewPass").onclick = function() {
         return;
     }
 
-    /* Kemaskini password dalam storage */
     var accs = getAccounts();
     for (var i = 0; i < accs.length; i++) {
         if (accs[i].email === _otpEmail) {
@@ -1752,7 +1730,6 @@ document.getElementById("btnSetNewPass").onclick = function() {
     }, 1500);
 };
 
-/* Back button */
 document.getElementById("linkForgotBack").onclick = function(e) {
     e.preventDefault();
     clearInterval(_otpTimer);
@@ -1760,7 +1737,6 @@ document.getElementById("linkForgotBack").onclick = function(e) {
     showLogin();
 };
 
-/* Enter key dalam forgot fields */
 document.getElementById("forgotEmail").addEventListener("keydown", function(e) {
     if (e.key === "Enter") document.getElementById("btnSendOtp").click();
 });
@@ -1772,17 +1748,23 @@ document.getElementById("newPass2").addEventListener("keydown", function(e) {
 });
 
 /* ================================================
-   MAP SETTING (TIDAK DIUBAH)
+   MAP SETTING
    ================================================ */
 
+/*
+   FIX 1: ZOOM IN KE TAPAK LOT SEMASA MUAT
+   -----------------------------------------
+   Guna setView dengan koordinat center tapak + zoom 19
+   supaya lot terus nampak tanpa perlu zoom out.
+   Koordinat dikira dari bounds asal:
+     lat center = (2.10309 + 2.10444) / 2 = 2.10876
+     lng center = (102.52084 + 102.52331) / 2 = 102.52208
+*/
 var map = L.map('map', {
     zoomControl: false,
     maxZoom: 22,
     minZoom: 5
-}).fitBounds([
-[2.10309049233999,102.52084635053448],
-[2.1044455032659752,102.52331439237805]
-], { padding: [30, 30], maxZoom: 19 });
+}).setView([2.10876799780298, 102.52208037145626], 19);
 
 L.control.zoom({
     position: 'topleft'
@@ -2022,7 +2004,13 @@ document.getElementById("findLot").onclick = function() {
     var searchValue = document.getElementById("searchLot").value;
     layer_LOTFINAL_0.eachLayer(function(layer) {
         if (layer.feature.properties["NO_LOT"] == searchValue) {
-            map.fitBounds(layer.getBounds());
+            /*
+               FIX: setView ke center lot dengan zoom 20
+               Ini memastikan lot berada tepat di tengah skrin
+               dan PDF akan capture dengan betul
+            */
+            var center = layer.getBounds().getCenter();
+            map.setView(center, 20, { animate: true });
             map.invalidateSize();
             if (selectedLayer) {
                 selectedLayer.setStyle(style_LOTFINAL_0());
@@ -2125,12 +2113,16 @@ document.getElementById("btnHantarModal").onclick = function() {
     getBase64Image("PUO.png", function(logoBase64) {
         getBase64Image("north.png", function(northBase64) {
 
-            map.fitBounds(selectedLayer.getBounds(), {
-                padding: [120, 120],
-                animate: false,
-                maxZoom: 20
-            });
-
+            /*
+               FIX 2: LOT TENGAH DALAM PDF
+               ----------------------------
+               Guna setView ke center lot dengan zoom 20 tanpa animate.
+               Ini menjamin lot berada TEPAT di tengah #map div
+               semasa html2canvas capture — tiada offset dari padding atau dashboard.
+               Tunggu 2500ms untuk tile satellite load sepenuhnya.
+            */
+            var lotCenter = selectedLayer.getBounds().getCenter();
+            map.setView(lotCenter, 20, { animate: false });
             map.invalidateSize();
 
             setTimeout(function() {
