@@ -281,9 +281,10 @@ html, body {
     top: 0; left: 0;
     width: 100%; height: 100%;
     background: rgba(0,0,0,0.55);
-    z-index: 99999;
+    z-index: 999998;
     align-items: center;
     justify-content: center;
+    pointer-events: auto;
 }
 
 #pdfModal.show {
@@ -298,6 +299,9 @@ html, body {
     box-shadow: 0 20px 60px rgba(0,0,0,0.4);
     font-family: Arial, sans-serif;
     animation: modalPop 0.25s ease;
+    position: relative;
+    z-index: 999999;
+    pointer-events: auto;
 }
 
 @keyframes modalPop {
@@ -386,6 +390,9 @@ html, body {
     font-weight: bold;
     cursor: pointer;
     transition: opacity 0.2s, transform 0.1s;
+    position: relative;
+    z-index: 1;
+    pointer-events: auto;
 }
 
 #pdfModalFooter button:active {
@@ -895,6 +902,7 @@ html, body {
     Hak Cipta Terpelihara 2026 @ Ikmwfy | Politeknik Ungku Omar
 </div>
 
+<!-- ================= MODAL PDF ================= -->
 <div id="pdfModal">
     <div id="pdfModalBox">
         <div id="pdfModalHeader">
@@ -908,8 +916,8 @@ html, body {
             <div class="modal-divider"></div>
         </div>
         <div id="pdfModalFooter">
-            <button id="btnBatalModal">✖ &nbsp;Batal</button>
-            <button id="btnHantarModal">🖨️ &nbsp;Jana PDF</button>
+            <button id="btnBatalModal" type="button">✖ &nbsp;Batal</button>
+            <button id="btnHantarModal" type="button">🖨️ &nbsp;Jana PDF</button>
         </div>
     </div>
 </div>
@@ -1348,9 +1356,18 @@ document.getElementById("generatePDF").onclick = function () {
     setTimeout(function () { inputNama.focus(); }, 300);
 };
 
-document.getElementById("btnBatalModal").onclick = function () { pdfModal.classList.remove("show"); };
+document.getElementById("btnBatalModal").addEventListener("click", function (e) {
+    e.stopPropagation();
+    pdfModal.classList.remove("show");
+});
 
-pdfModal.onclick = function (e) { if (e.target === pdfModal) pdfModal.classList.remove("show"); };
+pdfModal.addEventListener("click", function (e) {
+    if (e.target === pdfModal) pdfModal.classList.remove("show");
+});
+
+document.getElementById("pdfModalBox").addEventListener("click", function (e) {
+    e.stopPropagation();
+});
 
 inputNama.addEventListener("keydown", function (e) {
     if (e.key === "Enter") document.getElementById("btnHantarModal").click();
@@ -1359,7 +1376,9 @@ inputNama.addEventListener("keydown", function (e) {
 /* =====================================================
    GENERATE PDF
    ===================================================== */
-document.getElementById("btnHantarModal").onclick = function () {
+document.getElementById("btnHantarModal").addEventListener("click", function (e) {
+    e.stopPropagation();
+
     var namaSemak = inputNama.value.trim();
     if (!namaSemak) {
         inputNama.style.border = "2px solid red";
@@ -1451,7 +1470,7 @@ document.getElementById("btnHantarModal").onclick = function () {
             });
         });
     });
-};
+});
 </script>
 
 </body>
