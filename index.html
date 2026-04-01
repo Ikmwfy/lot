@@ -406,7 +406,9 @@ html, body {
 #btnBatalModal:hover { opacity: 0.8; }
 #btnHantarModal:hover { opacity: 0.9; }
 
-/* ================= LOGIN SCREEN ================= */
+/* ========================================
+   LOGIN SCREEN
+   ======================================== */
 
 #loginScreen {
     position: fixed;
@@ -420,7 +422,6 @@ html, body {
     overflow: hidden;
 }
 
-/* VIDEO BACKGROUND LOGIN */
 #loginBgVideo {
     position: absolute;
     top: 50%; left: 50%;
@@ -431,16 +432,14 @@ html, body {
     z-index: 0;
 }
 
-/* OVERLAY GELAP DI ATAS VIDEO */
 #loginScreen::after {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.52);
+    background: rgba(0,0,0,0.52);
     z-index: 1;
 }
 
-/* KOTAK LOGIN */
 #loginBox {
     position: relative;
     z-index: 2;
@@ -451,7 +450,6 @@ html, body {
     gap: 18px;
 }
 
-/* LOGO ATAS */
 #loginLogo {
     width: 56px;
     height: 56px;
@@ -464,7 +462,6 @@ html, body {
     font-size: 28px;
 }
 
-/* TAJUK */
 #loginBox h2 {
     margin: 0;
     color: white;
@@ -475,7 +472,6 @@ html, body {
     text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
-/* FORM PANEL */
 #loginForm {
     width: 100%;
     background: rgba(22, 27, 34, 0.88);
@@ -517,7 +513,6 @@ html, body {
     box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
 }
 
-/* ROW PASSWORD + FORGOT */
 .lf-pw-row {
     display: flex;
     justify-content: space-between;
@@ -535,14 +530,11 @@ html, body {
     color: #5a8dee;
     font-size: 12px;
     text-decoration: none;
-    cursor: default;
+    cursor: pointer;
 }
 
-.lf-pw-row a:hover {
-    text-decoration: underline;
-}
+.lf-pw-row a:hover { text-decoration: underline; }
 
-/* BUTANG SIGN IN */
 #btnSignIn {
     width: 100%;
     padding: 10px 0;
@@ -561,7 +553,6 @@ html, body {
 #btnSignIn:hover { background: #2ea043; }
 #btnSignIn:active { transform: scale(0.98); }
 
-/* MESEJ ERROR */
 #loginError {
     display: none;
     color: #f85149;
@@ -574,7 +565,6 @@ html, body {
     border: 1px solid rgba(248,81,73,0.3);
 }
 
-/* PANEL BAWAH - New to LandHub */
 #loginExtra {
     width: 100%;
     background: rgba(22, 27, 34, 0.75);
@@ -592,12 +582,11 @@ html, body {
     color: #5a8dee;
     text-decoration: none;
     font-weight: 600;
-    cursor: default;
+    cursor: pointer;
 }
 
 #loginExtra a:hover { text-decoration: underline; }
 
-/* ANIMASI FADE OUT LOGIN */
 #loginScreen.fadeOut {
     animation: loginFade 0.6s ease forwards;
 }
@@ -607,6 +596,149 @@ html, body {
     to   { opacity: 0; pointer-events: none; }
 }
 
+/* ========================================
+   MODAL REGISTER & FORGOT PASSWORD
+   ======================================== */
+
+.auth-modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    background: rgba(0,0,0,0.7);
+    z-index: 9999999;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+}
+
+.auth-modal-overlay.show {
+    display: flex;
+}
+
+.auth-modal-box {
+    background: #161b22;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 14px;
+    width: 360px;
+    overflow: hidden;
+    box-shadow: 0 24px 60px rgba(0,0,0,0.6);
+    animation: modalPop 0.25s ease;
+}
+
+.auth-modal-head {
+    background: linear-gradient(135deg, #1a3a2a, #2d6a4f);
+    padding: 20px 22px 16px;
+    text-align: center;
+    color: white;
+}
+
+.auth-modal-head .am-icon { font-size: 32px; margin-bottom: 5px; }
+
+.auth-modal-head h3 {
+    margin: 0;
+    font-size: 17px;
+    letter-spacing: 0.4px;
+}
+
+.auth-modal-head p {
+    margin: 5px 0 0;
+    font-size: 11px;
+    opacity: 0.8;
+}
+
+.auth-modal-body {
+    padding: 20px 22px 8px;
+}
+
+.auth-modal-body .am-group {
+    margin-bottom: 13px;
+}
+
+.auth-modal-body .am-group label {
+    display: block;
+    color: #c9d1d9;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.auth-modal-body .am-group input {
+    width: 100%;
+    padding: 9px 12px;
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 7px;
+    color: #e6edf3;
+    font-size: 13px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.auth-modal-body .am-group input:focus {
+    border-color: #5a8dee;
+    box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
+}
+
+.am-success {
+    display: none;
+    color: #56d364;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 8px;
+    padding: 7px 10px;
+    background: rgba(86,211,100,0.1);
+    border-radius: 6px;
+    border: 1px solid rgba(86,211,100,0.3);
+}
+
+.am-error {
+    display: none;
+    color: #f85149;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 8px;
+    padding: 7px 10px;
+    background: rgba(248,81,73,0.12);
+    border-radius: 6px;
+    border: 1px solid rgba(248,81,73,0.3);
+}
+
+.auth-modal-foot {
+    padding: 10px 22px 20px;
+    display: flex;
+    gap: 10px;
+}
+
+.auth-modal-foot button {
+    flex: 1;
+    padding: 10px 0;
+    border: none;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: opacity 0.2s, transform 0.1s;
+}
+
+.auth-modal-foot button:active { transform: scale(0.97); }
+
+.am-btn-cancel {
+    background: rgba(255,255,255,0.08);
+    color: #c9d1d9;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+}
+
+.am-btn-submit {
+    background: linear-gradient(135deg, #238636, #2ea043);
+    color: white;
+    box-shadow: 0 4px 12px rgba(35,134,54,0.35);
+}
+
+.am-btn-cancel:hover { opacity: 0.8; }
+.am-btn-submit:hover { opacity: 0.9; }
+
 </style>
 
 <title>TAMAN SAUJANA PUTRA</title>
@@ -614,23 +746,21 @@ html, body {
 
 <body>
 
-<!-- ================= LOGIN SCREEN ================= -->
+<!-- ========================================
+     LOGIN SCREEN
+     ======================================== -->
 <div id="loginScreen">
 
-    <!-- Video Background -->
     <video id="loginBgVideo" autoplay muted loop playsinline>
         <source src="INTRO.mp4" type="video/mp4">
     </video>
 
     <div id="loginBox">
 
-        <!-- Logo Bulat -->
         <div id="loginLogo">🗺️</div>
 
-        <!-- Tajuk -->
         <h2>Sign in to LandHub</h2>
 
-        <!-- Form Panel -->
         <div id="loginForm">
 
             <div class="lf-group">
@@ -641,7 +771,7 @@ html, body {
             <div class="lf-group">
                 <div class="lf-pw-row">
                     <label>Password</label>
-                    <a href="#">Forgot password?</a>
+                    <a id="linkForgot">Forgot password?</a>
                 </div>
                 <input type="password" id="loginPass" autocomplete="current-password" placeholder="">
             </div>
@@ -652,15 +782,98 @@ html, body {
 
         </div>
 
-        <!-- Panel Bawah -->
         <div id="loginExtra">
-            New to LandHub? <a href="#">Create an account</a>
+            New to LandHub? <a id="linkRegister">Create an account</a>
         </div>
 
     </div>
 </div>
 
-<!-- ================= MAIN APP (DISEMBUNYIKAN SEHINGGA LOGIN) ================= -->
+<!-- ========================================
+     MODAL - CREATE ACCOUNT
+     ======================================== -->
+<div class="auth-modal-overlay" id="modalRegister">
+    <div class="auth-modal-box">
+
+        <div class="auth-modal-head">
+            <div class="am-icon">👤</div>
+            <h3>Create an Account</h3>
+            <p>Daftarkan akaun LandHub baharu anda</p>
+        </div>
+
+        <div class="auth-modal-body">
+            <div class="am-group">
+                <label>Full Name</label>
+                <input type="text" id="regName" placeholder="Contoh: Ahmad bin Ali">
+            </div>
+            <div class="am-group">
+                <label>Email Address</label>
+                <input type="email" id="regEmail" placeholder="contoh@email.com">
+            </div>
+            <div class="am-group">
+                <label>Username</label>
+                <input type="text" id="regUser" placeholder="Pilih username">
+            </div>
+            <div class="am-group">
+                <label>Password</label>
+                <input type="password" id="regPass" placeholder="Minimum 6 aksara">
+            </div>
+            <div class="am-group">
+                <label>Confirm Password</label>
+                <input type="password" id="regPass2" placeholder="Ulang password">
+            </div>
+            <div class="am-error"  id="regError"></div>
+            <div class="am-success" id="regSuccess">✅ Akaun berjaya didaftarkan! Sila log masuk.</div>
+        </div>
+
+        <div class="auth-modal-foot">
+            <button class="am-btn-cancel" id="btnRegCancel">✖ Batal</button>
+            <button class="am-btn-submit" id="btnRegSubmit">✔ Daftar</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- ========================================
+     MODAL - FORGOT PASSWORD
+     ======================================== -->
+<div class="auth-modal-overlay" id="modalForgot">
+    <div class="auth-modal-box">
+
+        <div class="auth-modal-head" style="background: linear-gradient(135deg, #2a1a3a, #4d2d6a);">
+            <div class="am-icon">🔑</div>
+            <h3>Reset Password</h3>
+            <p>Masukkan username dan password baharu anda</p>
+        </div>
+
+        <div class="auth-modal-body">
+            <div class="am-group">
+                <label>Username</label>
+                <input type="text" id="fgUser" placeholder="Username anda">
+            </div>
+            <div class="am-group">
+                <label>Password Baharu</label>
+                <input type="password" id="fgPass" placeholder="Password baharu">
+            </div>
+            <div class="am-group">
+                <label>Confirm Password Baharu</label>
+                <input type="password" id="fgPass2" placeholder="Ulang password baharu">
+            </div>
+            <div class="am-error"   id="fgError"></div>
+            <div class="am-success" id="fgSuccess">✅ Password berjaya ditukar! Sila log masuk.</div>
+        </div>
+
+        <div class="auth-modal-foot">
+            <button class="am-btn-cancel" id="btnFgCancel">✖ Batal</button>
+            <button class="am-btn-submit" id="btnFgSubmit">🔑 Tukar Password</button>
+        </div>
+
+    </div>
+</div>
+
+<!-- ========================================
+     MAIN APP
+     ======================================== -->
 <div id="mainApp" style="display:none; width:100%; height:100%;">
 
 <div id="header">
@@ -779,53 +992,90 @@ html, body {
 
 <script>
 
-/* ================= LOGIN LOGIC ================= */
+/* ========================================
+   SISTEM AKAUN - LocalStorage
+   ======================================== */
 
-/* Tetapkan username & password di sini */
-var VALID_USER = "admin";
-var VALID_PASS = "landhub123";
+/* Akaun admin lalai - tidak boleh dipadam */
+var DEFAULT_ACCOUNTS = [
+    { username: "admin", password: "landhub123", name: "Administrator", email: "admin@landhub.my" }
+];
 
-var loginUser  = document.getElementById("loginUser");
-var loginPass  = document.getElementById("loginPass");
-var loginError = document.getElementById("loginError");
-var loginScreen= document.getElementById("loginScreen");
-var mainApp    = document.getElementById("mainApp");
+function getAccounts() {
+    var stored = localStorage.getItem("lh_accounts");
+    if (!stored) {
+        localStorage.setItem("lh_accounts", JSON.stringify(DEFAULT_ACCOUNTS));
+        return DEFAULT_ACCOUNTS;
+    }
+    return JSON.parse(stored);
+}
+
+function saveAccounts(arr) {
+    localStorage.setItem("lh_accounts", JSON.stringify(arr));
+}
+
+function findAccount(username) {
+    return getAccounts().find(function(a) {
+        return a.username.toLowerCase() === username.toLowerCase();
+    });
+}
+
+/* ========================================
+   LOGIN LOGIC
+   ======================================== */
+
+var loginUser   = document.getElementById("loginUser");
+var loginPass   = document.getElementById("loginPass");
+var loginError  = document.getElementById("loginError");
+var loginScreen = document.getElementById("loginScreen");
+var mainApp     = document.getElementById("mainApp");
 
 function doLogin() {
     var u = loginUser.value.trim();
     var p = loginPass.value;
 
-    if (u === VALID_USER && p === VALID_PASS) {
+    if (!u || !p) {
+        loginError.innerHTML = "⚠️ Sila isi username dan password.";
+        loginError.style.display = "block";
+        return;
+    }
+
+    var acc = findAccount(u);
+
+    if (acc && acc.password === p) {
         loginError.style.display = "none";
         loginScreen.classList.add("fadeOut");
         setTimeout(function() {
             loginScreen.style.display = "none";
             mainApp.style.display = "block";
-            /* Paksa Leaflet kira semula saiz peta */
-            if (typeof map !== "undefined") {
-                map.invalidateSize();
-            }
+            /* Beri masa DOM render sepenuhnya sebelum invalidateSize */
+            setTimeout(function() {
+                if (typeof map !== "undefined") {
+                    map.invalidateSize(true);
+                    /* Kembalikan ke kawasan lot - TIDAK zoom out */
+                    map.fitBounds([
+                        [2.10309049233999, 102.52084635053448],
+                        [2.1044455032659752, 102.52331439237805]
+                    ]);
+                }
+            }, 150);
         }, 600);
     } else {
+        loginError.innerHTML = "⚠️ Username atau password tidak betul.";
         loginError.style.display = "block";
         loginPass.value = "";
         loginPass.focus();
-        /* Goncang kotak login */
         var box = document.getElementById("loginForm");
         box.style.animation = "none";
-        box.offsetHeight;
+        void box.offsetHeight;
         box.style.animation = "shake 0.4s ease";
     }
 }
 
-/* Butang Sign In */
 document.getElementById("btnSignIn").onclick = doLogin;
-
-/* Enter key pada mana-mana input */
 loginUser.addEventListener("keydown", function(e){ if(e.key==="Enter") loginPass.focus(); });
 loginPass.addEventListener("keydown", function(e){ if(e.key==="Enter") doLogin(); });
 
-/* Animasi goncang */
 var shakeStyle = document.createElement("style");
 shakeStyle.textContent = `
 @keyframes shake {
@@ -837,70 +1087,168 @@ shakeStyle.textContent = `
 }`;
 document.head.appendChild(shakeStyle);
 
-/* ================= MAP SETTING ================= */
+/* ========================================
+   MODAL - CREATE ACCOUNT
+   ======================================== */
+
+var modalRegister = document.getElementById("modalRegister");
+
+document.getElementById("linkRegister").onclick = function() {
+    document.getElementById("regName").value  = "";
+    document.getElementById("regEmail").value = "";
+    document.getElementById("regUser").value  = "";
+    document.getElementById("regPass").value  = "";
+    document.getElementById("regPass2").value = "";
+    document.getElementById("regError").style.display   = "none";
+    document.getElementById("regSuccess").style.display = "none";
+    modalRegister.classList.add("show");
+};
+
+document.getElementById("btnRegCancel").onclick = function() {
+    modalRegister.classList.remove("show");
+};
+
+modalRegister.onclick = function(e) {
+    if (e.target === modalRegister) modalRegister.classList.remove("show");
+};
+
+document.getElementById("btnRegSubmit").onclick = function() {
+    var name  = document.getElementById("regName").value.trim();
+    var email = document.getElementById("regEmail").value.trim();
+    var user  = document.getElementById("regUser").value.trim();
+    var pass  = document.getElementById("regPass").value;
+    var pass2 = document.getElementById("regPass2").value;
+    var errEl = document.getElementById("regError");
+    var sucEl = document.getElementById("regSuccess");
+
+    errEl.style.display = "none";
+    sucEl.style.display = "none";
+
+    if (!name || !email || !user || !pass || !pass2) {
+        errEl.innerHTML = "⚠️ Sila isi semua medan.";
+        errEl.style.display = "block"; return;
+    }
+    if (pass.length < 6) {
+        errEl.innerHTML = "⚠️ Password minimum 6 aksara.";
+        errEl.style.display = "block"; return;
+    }
+    if (pass !== pass2) {
+        errEl.innerHTML = "⚠️ Password tidak sepadan.";
+        errEl.style.display = "block"; return;
+    }
+    if (findAccount(user)) {
+        errEl.innerHTML = "⚠️ Username sudah digunakan.";
+        errEl.style.display = "block"; return;
+    }
+
+    var accounts = getAccounts();
+    accounts.push({ username: user, password: pass, name: name, email: email });
+    saveAccounts(accounts);
+
+    sucEl.style.display = "block";
+    setTimeout(function() { modalRegister.classList.remove("show"); }, 2000);
+};
+
+/* ========================================
+   MODAL - FORGOT PASSWORD
+   ======================================== */
+
+var modalForgot = document.getElementById("modalForgot");
+
+document.getElementById("linkForgot").onclick = function() {
+    document.getElementById("fgUser").value  = "";
+    document.getElementById("fgPass").value  = "";
+    document.getElementById("fgPass2").value = "";
+    document.getElementById("fgError").style.display   = "none";
+    document.getElementById("fgSuccess").style.display = "none";
+    modalForgot.classList.add("show");
+};
+
+document.getElementById("btnFgCancel").onclick = function() {
+    modalForgot.classList.remove("show");
+};
+
+modalForgot.onclick = function(e) {
+    if (e.target === modalForgot) modalForgot.classList.remove("show");
+};
+
+document.getElementById("btnFgSubmit").onclick = function() {
+    var user  = document.getElementById("fgUser").value.trim();
+    var pass  = document.getElementById("fgPass").value;
+    var pass2 = document.getElementById("fgPass2").value;
+    var errEl = document.getElementById("fgError");
+    var sucEl = document.getElementById("fgSuccess");
+
+    errEl.style.display = "none";
+    sucEl.style.display = "none";
+
+    if (!user || !pass || !pass2) {
+        errEl.innerHTML = "⚠️ Sila isi semua medan.";
+        errEl.style.display = "block"; return;
+    }
+    if (pass.length < 6) {
+        errEl.innerHTML = "⚠️ Password minimum 6 aksara.";
+        errEl.style.display = "block"; return;
+    }
+    if (pass !== pass2) {
+        errEl.innerHTML = "⚠️ Password tidak sepadan.";
+        errEl.style.display = "block"; return;
+    }
+
+    var accounts = getAccounts();
+    var idx = accounts.findIndex(function(a) {
+        return a.username.toLowerCase() === user.toLowerCase();
+    });
+
+    if (idx === -1) {
+        errEl.innerHTML = "⚠️ Username tidak dijumpai.";
+        errEl.style.display = "block"; return;
+    }
+
+    accounts[idx].password = pass;
+    saveAccounts(accounts);
+
+    sucEl.style.display = "block";
+    setTimeout(function() { modalForgot.classList.remove("show"); }, 2000);
+};
+
+/* ========================================
+   MAP SETTING
+   ======================================== */
 
 var map = L.map('map', {
     zoomControl: false,
     maxZoom: 22,
     minZoom: 5
 }).fitBounds([
-[2.10309049233999,102.52084635053448],
-[2.1044455032659752,102.52331439237805]
+    [2.10309049233999, 102.52084635053448],
+    [2.1044455032659752, 102.52331439237805]
 ]);
 
-L.control.zoom({
-    position: 'topleft'
-}).addTo(map);
+L.control.zoom({ position: 'topleft' }).addTo(map);
+L.control.scale({ metric: true, imperial: false }).addTo(map);
 
-L.control.scale({
-    metric:true,
-    imperial:false
-}).addTo(map);
+/* ========================================
+   BASEMAP
+   ======================================== */
 
-/* ================= BASEMAP ================= */
+var street = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 22 });
+var satellite = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', { maxZoom: 22 }).addTo(map);
+var terrain = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', { maxZoom: 22 });
+var traffic = L.tileLayer('https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}', { maxZoom: 22 });
+var transit = L.tileLayer('https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}', { maxZoom: 22 });
+var bicycling = L.tileLayer('https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}', { maxZoom: 22 });
 
-var street = L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{ maxZoom: 22 });
-
-var satellite = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-{ maxZoom: 22 }).addTo(map);
-
-var terrain = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
-{ maxZoom: 22 });
-
-var traffic = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}',
-{ maxZoom: 22 });
-
-var transit = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}',
-{ maxZoom: 22 });
-
-var bicycling = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}',
-{ maxZoom: 22 });
-
-/* ================= LOT FINAL INTERACTIVE ================= */
+/* ========================================
+   LOT FINAL INTERACTIVE
+   ======================================== */
 
 function style_LOTFINAL_0() {
-    return {
-        color: '#5a3e2b',
-        weight: 1,
-        fillColor: '#a47148',
-        fillOpacity: 1
-    };
+    return { color: '#5a3e2b', weight: 1, fillColor: '#a47148', fillOpacity: 1 };
 }
 
 function highlightStyle() {
-    return {
-        color: '#000000',
-        weight: 2,
-        fillColor: 'yellow',
-        fillOpacity: 1
-    };
+    return { color: '#000000', weight: 2, fillColor: 'yellow', fillOpacity: 1 };
 }
 
 var selectedLayer = null;
@@ -908,9 +1256,7 @@ var selectedLayer = null;
 function onEachFeature_LOTFINAL_0(feature, layer) {
     layer.on({
         click: function(e) {
-            if (selectedLayer) {
-                selectedLayer.setStyle(style_LOTFINAL_0());
-            }
+            if (selectedLayer) selectedLayer.setStyle(style_LOTFINAL_0());
             selectedLayer = layer;
             layer.setStyle(highlightStyle());
             updateLotInfo(feature.properties);
@@ -924,25 +1270,20 @@ function onEachFeature_LOTFINAL_0(feature, layer) {
     <b>No Lot:</b> ${feature.properties["NO_LOT"]}<br>
     <b>Keluasan:</b> ${parseFloat(feature.properties["AREA"]).toFixed(3)} m²<br>
     <b>Pemilik:</b> ${feature.properties["tsp — pe"]}
-</div>
-`;
+</div>`;
             layer.bindPopup(popupContent).openPopup();
         },
 
         mouseover: function(e) {
             var props = feature.properties;
-            var tooltipContent =
+            layer.bindTooltip(
                 '<b style="color:#5a3e2b;">📦 Lot</b><br>' +
                 '<b>No Lot:</b> ' + props["NO_LOT"] + '<br>' +
                 '<b>No PA:</b> ' + props["tsp — _1"] + '<br>' +
                 '<b>Pemilik:</b> ' + props["tsp — pe"] + '<br>' +
-                '<b>Keluasan:</b> ' + parseFloat(props["AREA"]).toFixed(3) + ' m²';
-
-            layer.bindTooltip(tooltipContent, {
-                sticky: true,
-                opacity: 1,
-                className: 'lot-tooltip'
-            }).openTooltip();
+                '<b>Keluasan:</b> ' + parseFloat(props["AREA"]).toFixed(3) + ' m²',
+                { sticky: true, opacity: 1, className: 'lot-tooltip' }
+            ).openTooltip();
         },
 
         mouseout: function(e) {
@@ -957,15 +1298,14 @@ var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0, {
     onEachFeature: onEachFeature_LOTFINAL_0
 }).addTo(map);
 
-/* ================= TANDA SEMPADAN + POPUP + HOVER ================= */
+/* ========================================
+   TANDA SEMPADAN + POPUP + HOVER
+   ======================================== */
 
 var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
     pointToLayer: function(feature, latlng) {
         return L.circleMarker(latlng, {
-            radius: 4,
-            color: '#232323',
-            fillColor: '#d5b43c',
-            fillOpacity: 1
+            radius: 4, color: '#232323', fillColor: '#d5b43c', fillOpacity: 1
         });
     },
     onEachFeature: function(feature, layer) {
@@ -980,26 +1320,19 @@ var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
                         content += '<b>' + key + ':</b> ' + props[key] + '<br>';
                     }
                 }
-                if (Object.keys(props).length === 0) {
-                    content += 'Tiada maklumat tambahan.';
-                }
+                if (Object.keys(props).length === 0) content += 'Tiada maklumat tambahan.';
                 content += '</div>';
                 layer.bindPopup(content).openPopup();
             },
 
             mouseover: function(e) {
                 var latlng = layer.getLatLng();
-                var barat  = latlng.lng.toFixed(6) + '° BARAT';
-                var utara  = latlng.lat.toFixed(6) + '° UTARA';
-                var tooltipContent =
+                layer.bindTooltip(
                     '<b style="color:#b8860b;">📍 Tanda Sempadan</b><br>' +
-                    '<b>BARAT:</b> ' + barat + '<br>' +
-                    '<b>UTARA:</b> ' + utara;
-                layer.bindTooltip(tooltipContent, {
-                    sticky: true,
-                    opacity: 1,
-                    className: 'tanda-tooltip'
-                }).openTooltip();
+                    '<b>BARAT:</b> ' + latlng.lng.toFixed(6) + '° BARAT<br>' +
+                    '<b>UTARA:</b> ' + latlng.lat.toFixed(6) + '° UTARA',
+                    { sticky: true, opacity: 1, className: 'tanda-tooltip' }
+                ).openTooltip();
             },
 
             mouseout: function(e) {
@@ -1010,7 +1343,9 @@ var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
     }
 });
 
-/* ================= PANEL FUNCTION ================= */
+/* ========================================
+   PANEL FUNCTION
+   ======================================== */
 
 var gmPanel = document.getElementById("gmPanel");
 
@@ -1021,57 +1356,46 @@ document.getElementById("gmLayersBtn").onclick = function() {
 document.getElementById("streetRadio").onclick = function() {
     map.removeLayer(satellite); map.removeLayer(terrain); map.addLayer(street);
 };
-
 document.getElementById("satRadio").onclick = function() {
     map.removeLayer(street); map.removeLayer(terrain); map.addLayer(satellite);
 };
-
 document.getElementById("terrainRadio").onclick = function() {
     map.removeLayer(street); map.removeLayer(satellite); map.addLayer(terrain);
 };
-
 document.getElementById("trafficCheck").onchange = function() {
     this.checked ? map.addLayer(traffic) : map.removeLayer(traffic);
 };
-
 document.getElementById("transitCheck").onchange = function() {
     this.checked ? map.addLayer(transit) : map.removeLayer(transit);
 };
-
 document.getElementById("bikeCheck").onchange = function() {
     this.checked ? map.addLayer(bicycling) : map.removeLayer(bicycling);
 };
-
 document.getElementById("lotCheck").onchange = function() {
     this.checked ? map.addLayer(layer_LOTFINAL_0) : map.removeLayer(layer_LOTFINAL_0);
 };
-
 document.getElementById("tandaCheck").onchange = function() {
     this.checked ? map.addLayer(tandaLayer) : map.removeLayer(tandaLayer);
 };
 
-/* ================= DASHBOARD FUNCTION ================= */
+/* ========================================
+   DASHBOARD FUNCTION
+   ======================================== */
 
 var dashboard = document.getElementById("dashboard");
-var menuBtn = document.getElementById("menuBtn");
-var closeBtn = document.getElementById("closeDashboard");
+var menuBtn   = document.getElementById("menuBtn");
+var closeBtn  = document.getElementById("closeDashboard");
 
 menuBtn.onclick = function() {
     dashboard.classList.add("active");
     menuBtn.style.display = "none";
 };
-
 closeBtn.onclick = function() {
     dashboard.classList.remove("active");
     menuBtn.style.display = "block";
 };
 
-/* ================= TOTAL LOT ================= */
-
-document.getElementById("totalLot").innerHTML =
-    layer_LOTFINAL_0.getLayers().length;
-
-/* ================= LOT OPACITY ================= */
+document.getElementById("totalLot").innerHTML = layer_LOTFINAL_0.getLayers().length;
 
 document.getElementById("opacitySlider").oninput = function() {
     var value = this.value;
@@ -1080,17 +1404,13 @@ document.getElementById("opacitySlider").oninput = function() {
     });
 };
 
-/* ================= LAND EXPLORER ================= */
-
 document.getElementById("findLot").onclick = function() {
     var searchValue = document.getElementById("searchLot").value;
     layer_LOTFINAL_0.eachLayer(function(layer) {
         if (layer.feature.properties["NO_LOT"] == searchValue) {
             map.fitBounds(layer.getBounds());
             map.invalidateSize();
-            if (selectedLayer) {
-                selectedLayer.setStyle(style_LOTFINAL_0());
-            }
+            if (selectedLayer) selectedLayer.setStyle(style_LOTFINAL_0());
             selectedLayer = layer;
             layer.setStyle(highlightStyle());
             updateLotInfo(layer.feature.properties);
@@ -1100,29 +1420,26 @@ document.getElementById("findLot").onclick = function() {
 
 document.getElementById("resetLot").onclick = function() {
     document.getElementById("searchLot").value = "";
-    layer_LOTFINAL_0.eachLayer(function(layer) {
-        layer.setStyle(style_LOTFINAL_0());
-    });
+    layer_LOTFINAL_0.eachLayer(function(layer) { layer.setStyle(style_LOTFINAL_0()); });
     selectedLayer = null;
     document.getElementById("lotInfo").innerHTML = "Tiada lot dipilih";
 };
 
-/* ================= UPDATE INFO PANEL ================= */
-
 function updateLotInfo(properties) {
-    document.getElementById("lotInfo").innerHTML = `
-        <b>No PA:</b> ${properties["tsp — _1"]}<br>
-        <b>No Lot:</b> ${properties["NO_LOT"]}<br>
-        <b>Keluasan:</b> ${parseFloat(properties["AREA"]).toFixed(3)} m²<br>
-        <b>Pemilik:</b> ${properties["tsp — pe"]}
-    `;
+    document.getElementById("lotInfo").innerHTML =
+        '<b>No PA:</b> ' + properties["tsp — _1"] + '<br>' +
+        '<b>No Lot:</b> ' + properties["NO_LOT"] + '<br>' +
+        '<b>Keluasan:</b> ' + parseFloat(properties["AREA"]).toFixed(3) + ' m²<br>' +
+        '<b>Pemilik:</b> ' + properties["tsp — pe"];
 }
 
 layer_LOTFINAL_0.eachLayer(function(layer) {
-    layer.on("click", function() {
-        updateLotInfo(layer.feature.properties);
-    });
+    layer.on("click", function() { updateLotInfo(layer.feature.properties); });
 });
+
+/* ========================================
+   HELPER: Base64 Image
+   ======================================== */
 
 function getBase64Image(url, callback) {
     var img = new Image();
@@ -1131,25 +1448,23 @@ function getBase64Image(url, callback) {
         var canvas = document.createElement("canvas");
         canvas.width = img.width;
         canvas.height = img.height;
-        var ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
-        var dataURL = canvas.toDataURL("image/png");
-        callback(dataURL);
+        canvas.getContext("2d").drawImage(img, 0, 0);
+        callback(canvas.toDataURL("image/png"));
     };
     img.src = url;
 }
 
-/* ================= MODAL BUKA / TUTUP ================= */
+/* ========================================
+   MODAL PDF BUKA / TUTUP
+   ======================================== */
 
 var pdfModal  = document.getElementById("pdfModal");
 var inputNama = document.getElementById("inputNamaSemak");
 
 document.getElementById("generatePDF").onclick = function() {
-    if (!selectedLayer) {
-        alert("Sila pilih lot dahulu.");
-        return;
-    }
+    if (!selectedLayer) { alert("Sila pilih lot dahulu."); return; }
     inputNama.value = "";
+    inputNama.style.border = "";
     pdfModal.classList.add("show");
     setTimeout(function(){ inputNama.focus(); }, 300);
 };
@@ -1159,18 +1474,16 @@ document.getElementById("btnBatalModal").onclick = function() {
 };
 
 pdfModal.onclick = function(e) {
-    if (e.target === pdfModal) {
-        pdfModal.classList.remove("show");
-    }
+    if (e.target === pdfModal) pdfModal.classList.remove("show");
 };
 
 inputNama.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        document.getElementById("btnHantarModal").click();
-    }
+    if (e.key === "Enter") document.getElementById("btnHantarModal").click();
 });
 
-/* ================= GENERATE PDF A4 + LOGO ================= */
+/* ========================================
+   GENERATE PDF - LOT DI TENGAH PETA
+   ======================================== */
 
 document.getElementById("btnHantarModal").onclick = function() {
 
@@ -1189,96 +1502,157 @@ document.getElementById("btnHantarModal").onclick = function() {
     getBase64Image("PUO.png", function(logoBase64) {
         getBase64Image("north.png", function(northBase64) {
 
-            map.fitBounds(selectedLayer.getBounds(), {
-                padding: [120, 120],
-                animate: false,
-                maxZoom: 20
+            /* ── LANGKAH 1: Kira pusat lot ── */
+            var bounds = selectedLayer.getBounds();
+            var center = bounds.getCenter();
+
+            /* ── LANGKAH 2: Tetapkan zoom supaya lot kelihatan dengan jelas ── */
+            /* Gunakan zoom 19 - cukup dekat untuk lot kecil perumahan           */
+            map.setView(center, 19, { animate: false });
+
+            /* ── LANGKAH 3: Tunggu tiles load sepenuhnya ── */
+            map.once('moveend', function() {
+                map.invalidateSize(true);
+
+                setTimeout(function() {
+                    map.closePopup();
+                    map.closeTooltip();
+
+                    /* Sembunyikan elemen UI dari screenshot */
+                    var uiElements = ['menuBtn', 'northArrow', 'gmLayersBtn', 'footer'];
+                    uiElements.forEach(function(id) {
+                        var el = document.getElementById(id);
+                        if (el) el.style.visibility = 'hidden';
+                    });
+                    if (dashboard.classList.contains('active')) {
+                        dashboard.style.visibility = 'hidden';
+                    }
+
+                    html2canvas(document.getElementById("map"), {
+                        useCORS: true,
+                        scale: 3,
+                        logging: false
+                    }).then(function(canvas) {
+
+                        /* Pulihkan UI */
+                        uiElements.forEach(function(id) {
+                            var el = document.getElementById(id);
+                            if (el) el.style.visibility = '';
+                        });
+                        dashboard.style.visibility = '';
+
+                        const { jsPDF } = window.jspdf;
+                        var pdf  = new jsPDF("landscape", "mm", "a4");
+                        var prop = selectedLayer.feature.properties;
+
+                        /* Crop tengah canvas - ambil bahagian tengah sahaja */
+                        /* Ini memastikan lot berada di tengah gambar PDF     */
+                        var cw = canvas.width;
+                        var ch = canvas.height;
+
+                        /* Saiz crop: 80% lebar x 80% tinggi dari tengah */
+                        var cropW = cw * 0.78;
+                        var cropH = ch * 0.78;
+                        var cropX = (cw - cropW) / 2;
+                        var cropY = (ch - cropH) / 2;
+
+                        var cropCanvas = document.createElement("canvas");
+                        cropCanvas.width  = cropW;
+                        cropCanvas.height = cropH;
+                        cropCanvas.getContext("2d").drawImage(
+                            canvas,
+                            cropX, cropY, cropW, cropH,
+                            0, 0, cropW, cropH
+                        );
+
+                        var mapImg = cropCanvas.toDataURL("image/jpeg", 1.0);
+
+                        /* ── PDF LAYOUT ── */
+
+                        /* Sempadan luar */
+                        pdf.setLineWidth(1.5);
+                        pdf.rect(5, 5, 287, 200);
+
+                        /* Panel kiri */
+                        pdf.setLineWidth(0.8);
+                        pdf.rect(5, 5, 60, 200);
+
+                        /* Panel peta */
+                        pdf.rect(65, 5, 227, 165);
+
+                        /* Panel maklumat bawah */
+                        pdf.rect(65, 170, 227, 35);
+
+                        /* Logo */
+                        pdf.addImage(logoBase64, 'PNG', 15, 8, 40, 40);
+
+                        /* Nama institusi */
+                        pdf.setFont("times", "bold");
+                        pdf.setFontSize(10);
+                        pdf.text("POLITEKNIK UNGKU OMAR", 35, 52, { align: "center" });
+
+                        /* Lokasi */
+                        pdf.setFontSize(11);
+                        pdf.setFont("times", "bold");
+                        pdf.text("NEGERI JOHOR",   15, 68);
+                        pdf.setTextColor(200, 0, 0);
+                        pdf.text("DAERAH TANGKAK",  15, 78);
+                        pdf.setTextColor(0, 0, 0);
+                        pdf.text("MUKIM KESANG",    15, 88);
+
+                        /* Maklumat lot */
+                        pdf.setFontSize(11);
+                        pdf.text("INFORMASI LOT", 15, 108);
+                        pdf.setFont("times", "normal");
+
+                        pdf.text("NO. LOT:",     15, 118);
+                        pdf.text(prop["NO_LOT"], 40, 118);
+
+                        pdf.text("NAMA PEMILIK:", 15, 130);
+                        var owner = prop["tsp — pe"] || "-";
+                        pdf.text(pdf.splitTextToSize(owner, 42), 15, 137);
+
+                        pdf.text("KELUASAN:", 15, 155);
+                        pdf.text(parseFloat(prop["AREA"]).toFixed(2) + " m²", 40, 155);
+
+                        /* Tarikh & penyemak */
+                        var today = new Date().toLocaleDateString('en-GB');
+                        pdf.text("TARIKH CETAKAN:", 15, 168);
+                        pdf.text(today,              15, 174);
+                        pdf.text("DISEMAK OLEH:",   15, 184);
+                        pdf.text(pdf.splitTextToSize(namaSemak.toUpperCase(), 45), 15, 190);
+
+                        /* Tajuk */
+                        pdf.setFont("times", "bold");
+                        pdf.setFontSize(22);
+                        pdf.text("PELAN AKUI", 178, 16, { align: "center" });
+
+                        /* Gambar peta - memenuhi panel */
+                        pdf.addImage(mapImg, 'JPEG', 67, 17, 223, 151);
+
+                        /* Anak panah utara */
+                        pdf.addImage(northBase64, "PNG", 276, 20, 13, 13);
+
+                        /* No PA */
+                        pdf.setFontSize(26);
+                        pdf.setFont("times", "bold");
+                        pdf.text("PA " + (prop["tsp — _1"] || "-"), 178, 188, { align: "center" });
+
+                        /* Footer nota */
+                        pdf.setFontSize(7);
+                        pdf.setFont("times", "normal");
+                        pdf.text(
+                            "Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah",
+                            178, 203, { align: "center" }
+                        );
+
+                        pdf.save("Pelan_Akui_Lot_" + prop["NO_LOT"] + ".pdf");
+
+                    });
+
+                }, 1800); /* tunggu tiles render */
             });
 
-            map.invalidateSize();
-
-            setTimeout(function() {
-
-                map.closePopup();
-
-                html2canvas(document.getElementById("map"), {
-                    useCORS: true,
-                    scale: 4
-                }).then(function(canvas) {
-
-                    const { jsPDF } = window.jspdf;
-                    var pdf = new jsPDF("landscape", "mm", "a4");
-                    var mapImg = canvas.toDataURL("image/jpeg", 1.0);
-                    var prop   = selectedLayer.feature.properties;
-
-                    pdf.setLineWidth(1.5);
-                    pdf.rect(5, 5, 287, 200);
-                    pdf.setLineWidth(0.8);
-                    pdf.rect(5, 5, 60, 200);
-                    pdf.rect(65, 5, 227, 165);
-                    pdf.rect(65, 170, 227, 35);
-
-                    pdf.addImage(logoBase64, 'PNG', 15, 8, 40, 40);
-
-                    pdf.setFont("times", "bold");
-                    pdf.setFontSize(10);
-                    pdf.text("POLITEKNIK UNGKU OMAR", 35, 52, { align: "center" });
-
-                    pdf.setFontSize(11);
-                    pdf.setFont("times", "bold");
-                    pdf.text("NEGERI JOHOR",   15, 68);
-                    pdf.setTextColor(200, 0, 0);
-                    pdf.text("DAERAH TANGKAK",  15, 78);
-                    pdf.setTextColor(0, 0, 0);
-                    pdf.text("MUKIM KESANG",    15, 88);
-
-                    pdf.setFontSize(11);
-                    pdf.text("INFORMASI LOT",  15, 108);
-                    pdf.setFont("times", "normal");
-
-                    pdf.text("NO. LOT:",       15, 118);
-                    pdf.text(prop["NO_LOT"],   40, 118);
-
-                    pdf.text("NAMA PEMILIK:",  15, 130);
-                    var owner     = prop["tsp — pe"] || "-";
-                    var ownerText = pdf.splitTextToSize(owner, 42);
-                    pdf.text(ownerText,        15, 137);
-
-                    pdf.text("KELUASAN:",      15, 155);
-                    var luas = parseFloat(prop["AREA"]).toFixed(2);
-                    pdf.text(luas + " m²",     40, 155);
-
-                    var today = new Date().toLocaleDateString('en-GB');
-                    pdf.text("TARIKH CETAKAN:", 15, 168);
-                    pdf.text(today,              15, 174);
-
-                    pdf.text("DISEMAK OLEH:",   15, 184);
-                    var semakText = pdf.splitTextToSize(namaSemak.toUpperCase(), 45);
-                    pdf.text(semakText,          15, 190);
-
-                    pdf.setFont("times", "bold");
-                    pdf.setFontSize(22);
-                    pdf.text("PELAN AKUI", 178, 16, { align: "center" });
-
-                    pdf.addImage(mapImg, 'JPEG', 68, 18, 221, 149);
-                    pdf.addImage(northBase64, "PNG", 276, 20, 13, 13);
-
-                    pdf.setFontSize(26);
-                    pdf.setFont("times", "bold");
-                    var pa = prop["tsp — _1"] || "-";
-                    pdf.text("PA " + pa, 178, 188, { align: "center" });
-
-                    pdf.setFontSize(7);
-                    pdf.setFont("times", "normal");
-                    pdf.text(
-                        "Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah",
-                        178, 203, { align: "center" }
-                    );
-
-                    pdf.save("Pelan_Akui_Lot_" + prop["NO_LOT"] + ".pdf");
-                });
-
-            }, 2500);
         });
     });
 };
