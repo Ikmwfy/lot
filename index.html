@@ -273,6 +273,21 @@ html, body {
     pointer-events: none;
 }
 
+/* ================= LABEL NO LOT ================= */
+.lot-label {
+    background: transparent !important;
+    border: none !important;
+    box-shadow: none !important;
+    font-family: Arial, sans-serif;
+    font-size: 9px;
+    font-weight: bold;
+    color: #ffffff;
+    text-shadow: 0 0 3px #000, 0 0 3px #000, 0 0 3px #000;
+    white-space: nowrap;
+    pointer-events: none;
+    text-align: center;
+}
+
 /* ================= MODAL PDF CANTIK ================= */
 
 #pdfModal {
@@ -858,7 +873,6 @@ html, body {
     line-height: 1.5;
 }
 
-/* STEP 1 - email input */
 #forgotStep1, #forgotStep2, #forgotStep3 {
     width: 100%;
     background: rgba(22, 27, 34, 0.90);
@@ -912,7 +926,6 @@ html, body {
     box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
 }
 
-/* OTP boxes */
 #otpRow {
     display: flex;
     gap: 10px;
@@ -1284,6 +1297,8 @@ html, body {
 <h3>Data Layer</h3>
 <div class="gmOption"><input type="checkbox" id="lotCheck" checked>Lot Final</div>
 <div class="gmOption"><input type="checkbox" id="tandaCheck" checked>Tanda Sempadan</div>
+<!-- TAMBAHAN: Kawalan label nombor lot dalam Layers panel -->
+<div class="gmOption"><input type="checkbox" id="labelCheck">&nbsp;No Lot Label</div>
 
 </div>
 
@@ -1323,7 +1338,6 @@ html, body {
 
 /* ================================================
    ACCOUNT STORAGE (localStorage)
-   Akaun disimpan dalam browser storage
    ================================================ */
 
 function getAccounts() {
@@ -1344,7 +1358,6 @@ function findAccount(userOrEmail) {
     return null;
 }
 
-/* Inisialisasi — simpan akaun default jika belum ada */
 if (!localStorage.getItem("lh_accounts")) {
     saveAccounts([{ user: "admin", pass: "landhub123", email: "admin@landhub.my", name: "Administrator" }]);
 }
@@ -1418,9 +1431,6 @@ function doLogin() {
             mainApp.style.display = "block";
             if (typeof map !== "undefined") {
                 map.invalidateSize();
-                /* ================================================
-                   PERUBAHAN 1: Auto zoom in ke kawasan lot selepas login
-                   ================================================ */
                 setTimeout(function() {
                     map.fitBounds(layer_LOTFINAL_0.getBounds(), {
                         padding: [60, 60],
@@ -1471,7 +1481,6 @@ document.head.appendChild(shakeStyle);
    REGISTER LOGIC
    ================================================ */
 
-/* Password strength */
 document.getElementById("regPass").addEventListener("input", function() {
     var v = this.value;
     var wrap = document.getElementById("pwStrengthWrap");
@@ -1548,7 +1557,6 @@ document.getElementById("linkBackLogin").onclick = function(e) {
     showLogin();
 };
 
-/* Enter key dalam register form */
 ["regName","regEmail","regUser","regPass","regPassConfirm"].forEach(function(id, idx, arr) {
     document.getElementById(id).addEventListener("keydown", function(e) {
         if (e.key === "Enter") {
@@ -1583,7 +1591,6 @@ function resetForgotFlow() {
     document.getElementById("forgotInfo1").textContent = "";
     document.getElementById("forgotSubText").textContent = "Enter your email to receive a verification code";
     clearInterval(_otpTimer);
-    /* Reset OTP inputs */
     var boxes = document.querySelectorAll(".otp-input");
     boxes.forEach(function(b) { b.value = ""; b.classList.remove("filled"); });
     _otpCode = "";
@@ -1612,7 +1619,6 @@ function startOtpTimer(seconds) {
     }, 1000);
 }
 
-/* Step 1: Hantar OTP */
 document.getElementById("btnSendOtp").onclick = function() {
     var email = document.getElementById("forgotEmail").value.trim();
     var errEl = document.getElementById("forgotErr1");
@@ -1637,23 +1643,19 @@ document.getElementById("btnSendOtp").onclick = function() {
     _otpCode  = generateOTP();
     _otpEmail = email;
 
-    /* Simulasi hantar email — tunjuk OTP dalam toast (dalam sistem sebenar, hantar via email API) */
     showToast("📧 Kod OTP anda: " + _otpCode, 15000);
 
-    /* Pergi ke step 2 */
     document.getElementById("forgotStep1").style.display = "none";
     document.getElementById("forgotStep2").style.display = "block";
     document.getElementById("forgotSubText").textContent = "Enter the 6-digit code sent to " + email;
 
     startOtpTimer(120);
 
-    /* Focus kotak OTP pertama */
     setTimeout(function() {
         document.querySelectorAll(".otp-input")[0].focus();
     }, 200);
 };
 
-/* OTP input auto-advance */
 var otpBoxes = document.querySelectorAll(".otp-input");
 otpBoxes.forEach(function(box, idx) {
     box.addEventListener("input", function() {
@@ -1678,7 +1680,6 @@ otpBoxes.forEach(function(box, idx) {
         }
     });
 
-    /* Tampal semua digit sekaligus */
     box.addEventListener("paste", function(e) {
         e.preventDefault();
         var pasted = (e.clipboardData || window.clipboardData).getData("text").replace(/[^0-9]/g,"");
@@ -1691,7 +1692,6 @@ otpBoxes.forEach(function(box, idx) {
     });
 });
 
-/* Step 2: Sahkan OTP */
 document.getElementById("btnVerifyOtp").onclick = function() {
     var entered = "";
     otpBoxes.forEach(function(b) { entered += b.value; });
@@ -1714,7 +1714,6 @@ document.getElementById("btnVerifyOtp").onclick = function() {
     if (entered !== _otpCode) {
         errEl.innerHTML = "⚠️ Kod tidak betul. Cuba semula.";
         errEl.style.display = "block";
-        /* Goncang OTP boxes */
         var row = document.getElementById("otpRow");
         row.style.animation = "none";
         row.offsetHeight;
@@ -1724,14 +1723,12 @@ document.getElementById("btnVerifyOtp").onclick = function() {
 
     clearInterval(_otpTimer);
 
-    /* Pergi step 3 */
     document.getElementById("forgotStep2").style.display = "none";
     document.getElementById("forgotStep3").style.display = "block";
     document.getElementById("forgotSubText").textContent = "Choose a new password for your account";
     document.getElementById("newPass1").focus();
 };
 
-/* Step 3: Set password baru */
 document.getElementById("btnSetNewPass").onclick = function() {
     var p1    = document.getElementById("newPass1").value;
     var p2    = document.getElementById("newPass2").value;
@@ -1751,7 +1748,6 @@ document.getElementById("btnSetNewPass").onclick = function() {
         return;
     }
 
-    /* Kemaskini password dalam storage */
     var accs = getAccounts();
     for (var i = 0; i < accs.length; i++) {
         if (accs[i].email === _otpEmail) {
@@ -1769,7 +1765,6 @@ document.getElementById("btnSetNewPass").onclick = function() {
     }, 1500);
 };
 
-/* Back button */
 document.getElementById("linkForgotBack").onclick = function(e) {
     e.preventDefault();
     clearInterval(_otpTimer);
@@ -1777,7 +1772,6 @@ document.getElementById("linkForgotBack").onclick = function(e) {
     showLogin();
 };
 
-/* Enter key dalam forgot fields */
 document.getElementById("forgotEmail").addEventListener("keydown", function(e) {
     if (e.key === "Enter") document.getElementById("btnSendOtp").click();
 });
@@ -1961,11 +1955,33 @@ var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
             }
         });
     }
-/* ================================================
-   PERUBAHAN 2: tandaLayer terus ditambah ke map (.addTo(map))
-   tanpa perlu buka secara manual
-   ================================================ */
 }).addTo(map);
+
+/* ================================================
+   TAMBAHAN 1: LAYER LABEL NOMBOR LOT
+   Bina labelLayer dengan marker divIcon untuk
+   setiap lot. Boleh toggle ON/OFF dalam Layers panel.
+   Default: OFF (tidak dipaparkan)
+   ================================================ */
+
+var labelLayer = L.layerGroup();
+
+layer_LOTFINAL_0.eachLayer(function(lyr) {
+    var noLot  = lyr.feature.properties["NO_LOT"];
+    if (!noLot) return;
+    var center = lyr.getBounds().getCenter();
+    var marker = L.marker(center, {
+        icon: L.divIcon({
+            className: 'lot-label',
+            html: '<span>' + noLot + '</span>',
+            iconSize:   [0, 0],
+            iconAnchor: [0, 0]
+        }),
+        interactive: false,
+        keyboard:    false
+    });
+    labelLayer.addLayer(marker);
+});
 
 /* ================= PANEL FUNCTION ================= */
 
@@ -2005,6 +2021,11 @@ document.getElementById("lotCheck").onchange = function() {
 
 document.getElementById("tandaCheck").onchange = function() {
     this.checked ? map.addLayer(tandaLayer) : map.removeLayer(tandaLayer);
+};
+
+/* TAMBAHAN: Toggle label No Lot */
+document.getElementById("labelCheck").onchange = function() {
+    this.checked ? map.addLayer(labelLayer) : map.removeLayer(labelLayer);
 };
 
 /* ================= DASHBOARD FUNCTION ================= */
@@ -2097,7 +2118,7 @@ function getBase64Image(url, callback) {
 }
 
 /* ================================================
-   MODAL PDF — DIPERBETULKAN
+   MODAL PDF
    ================================================ */
 
 var pdfModal  = document.getElementById("pdfModal");
@@ -2156,12 +2177,17 @@ document.getElementById("btnHantarModal").addEventListener("click", function(e) 
     getBase64Image("PUO.png", function(logoBase64) {
         getBase64Image("north.png", function(northBase64) {
 
-            map.fitBounds(selectedLayer.getBounds(), {
-                padding: [120, 120],
-                animate: false,
-                maxZoom: 20
-            });
+            /* ================================================
+               PEMBETULAN PDF: Guna setView ke centroid lot
+               dengan zoom tetap supaya lot berada di TENGAH
+               viewport semasa screenshot diambil.
+               fitBounds dengan padding besar menyebabkan
+               viewport lari — setView lebih tepat & konsisten.
+               ================================================ */
+            var lotCenter = selectedLayer.getBounds().getCenter();
+            var pdfZoom   = Math.max(map.getZoom(), 18);
 
+            map.setView(lotCenter, pdfZoom, { animate: false });
             map.invalidateSize();
 
             setTimeout(function() {
