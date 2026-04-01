@@ -2154,12 +2154,11 @@ document.getElementById("btnHantarModal").addEventListener("click", function(e) 
     getBase64Image("PUO.png", function(logoBase64) {
         getBase64Image("north.png", function(northBase64) {
 
-            map.fitBounds(selectedLayer.getBounds(), {
-                padding: [120, 120],
-                animate: false,
-                maxZoom: 20
-            });
-
+           map.fitBounds(layer.getBounds(), {
+               padding: [20, 20],
+               maxZoom: 20
+           });
+            
             map.invalidateSize();
 
             setTimeout(function() {
