@@ -1376,7 +1376,7 @@ document.getElementById("btnHantarModal").onclick = function () {
             var center = selectedLayer.getBounds().getCenter();
             map.setView(center, 19, { animate: false });
 
-            map.once('moveend', function () {
+            setTimeout(function () {
                 map.invalidateSize(true);
                 setTimeout(function () {
                     map.closePopup();
