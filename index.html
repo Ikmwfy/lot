@@ -275,13 +275,14 @@ html, body {
 
 /* ================= MODAL PDF CANTIK ================= */
 
+/* DIPERBETULKAN: z-index dinaikkan melebihi loginScreen (999999) */
 #pdfModal {
     display: none;
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
     background: rgba(0,0,0,0.55);
-    z-index: 999998;
+    z-index: 9999999;
     align-items: center;
     justify-content: center;
     pointer-events: auto;
@@ -291,6 +292,7 @@ html, body {
     display: flex;
 }
 
+/* DIPERBETULKAN: tambah position relative + z-index + pointer-events */
 #pdfModalBox {
     background: white;
     border-radius: 18px;
@@ -300,7 +302,7 @@ html, body {
     font-family: Arial, sans-serif;
     animation: modalPop 0.25s ease;
     position: relative;
-    z-index: 999999;
+    z-index: 10000000;
     pointer-events: auto;
 }
 
@@ -381,6 +383,7 @@ html, body {
     gap: 10px;
 }
 
+/* DIPERBETULKAN: tambah position relative + z-index + pointer-events pada butang */
 #pdfModalFooter button {
     flex: 1;
     padding: 11px 0;
@@ -391,7 +394,7 @@ html, body {
     cursor: pointer;
     transition: opacity 0.2s, transform 0.1s;
     position: relative;
-    z-index: 1;
+    z-index: 10000001;
     pointer-events: auto;
 }
 
@@ -441,7 +444,7 @@ html, body {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0,0,0,0.52);
+    background: rgba(0, 0, 0, 0.52);
     z-index: 1;
 }
 
@@ -538,7 +541,9 @@ html, body {
     cursor: pointer;
 }
 
-.lf-pw-row a:hover { text-decoration: underline; }
+.lf-pw-row a:hover {
+    text-decoration: underline;
+}
 
 #btnSignIn {
     width: 100%;
@@ -601,151 +606,440 @@ html, body {
     to   { opacity: 0; pointer-events: none; }
 }
 
-/* ================= MODAL REGISTER & FORGOT ================= */
+/* ================= REGISTER SCREEN ================= */
 
-.auth-overlay {
+#registerScreen {
     display: none;
     position: fixed;
     top: 0; left: 0;
     width: 100%; height: 100%;
-    background: rgba(0,0,0,0.75);
-    z-index: 9999999;
+    z-index: 999999;
     align-items: center;
     justify-content: center;
     font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-}
-
-.auth-overlay.show { display: flex; }
-
-.auth-box {
-    background: #161b22;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 14px;
-    width: 360px;
     overflow: hidden;
-    box-shadow: 0 24px 60px rgba(0,0,0,0.7);
-    animation: modalPop 0.25s ease;
 }
 
-.auth-head {
-    padding: 20px 22px 16px;
-    text-align: center;
-    color: white;
+#registerScreen.show {
+    display: flex;
 }
 
-.auth-head.green { background: linear-gradient(135deg, #1a3a2a, #2d6a4f); }
-.auth-head.purple { background: linear-gradient(135deg, #2a1a3a, #4d2d6a); }
+#registerBgVideo {
+    position: absolute;
+    top: 50%; left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 0;
+}
 
-.auth-head .ah-icon { font-size: 32px; margin-bottom: 5px; }
+#registerScreen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.52);
+    z-index: 1;
+}
 
-.auth-head h3 {
+#registerBox {
+    position: relative;
+    z-index: 2;
+    width: 360px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+#registerBox h2 {
     margin: 0;
-    font-size: 17px;
-    letter-spacing: 0.4px;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
 }
 
-.auth-head p {
-    margin: 5px 0 0;
-    font-size: 11px;
-    opacity: 0.8;
+#registerBox p.reg-sub {
+    margin: -8px 0 0 0;
+    color: rgba(255,255,255,0.65);
+    font-size: 13px;
+    text-align: center;
 }
 
-.auth-body {
-    padding: 18px 22px 8px;
+#registerForm {
+    width: 100%;
+    background: rgba(22, 27, 34, 0.90);
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 12px;
+    padding: 20px 20px 18px;
+    box-sizing: border-box;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
 }
 
-.auth-body .ag {
+#registerForm .lf-group {
     margin-bottom: 12px;
 }
 
-.auth-body .ag label {
+#registerForm .lf-group label {
     display: block;
-    color: #c9d1d9;
-    font-size: 12px;
+    color: #e6edf3;
+    font-size: 13px;
     font-weight: 600;
     margin-bottom: 5px;
 }
 
-.auth-body .ag input {
+#registerForm .lf-group input {
     width: 100%;
     padding: 9px 12px;
     background: #0d1117;
     border: 1px solid rgba(255,255,255,0.15);
     border-radius: 7px;
     color: #e6edf3;
-    font-size: 13px;
+    font-size: 14px;
     outline: none;
     box-sizing: border-box;
     transition: border 0.2s, box-shadow 0.2s;
 }
 
-.auth-body .ag input:focus {
+#registerForm .lf-group input:focus {
     border-color: #5a8dee;
     box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
 }
 
-.auth-msg {
-    display: none;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 6px;
-    padding: 7px 10px;
-    border-radius: 6px;
+#btnCreateAcc {
+    width: 100%;
+    padding: 10px 0;
+    background: #238636;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 14px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 4px;
+    transition: background 0.2s, transform 0.1s;
 }
 
-.auth-msg.err {
+#btnCreateAcc:hover { background: #2ea043; }
+#btnCreateAcc:active { transform: scale(0.98); }
+
+#registerError {
+    display: none;
     color: #f85149;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 8px;
+    padding: 7px 10px;
     background: rgba(248,81,73,0.12);
+    border-radius: 6px;
     border: 1px solid rgba(248,81,73,0.3);
 }
 
-.auth-msg.ok {
-    color: #56d364;
-    background: rgba(86,211,100,0.1);
-    border: 1px solid rgba(86,211,100,0.3);
+#registerSuccess {
+    display: none;
+    color: #3fb950;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 8px;
+    padding: 7px 10px;
+    background: rgba(63,185,80,0.12);
+    border-radius: 6px;
+    border: 1px solid rgba(63,185,80,0.3);
 }
 
-.auth-foot {
-    padding: 12px 22px 20px;
+#registerExtra {
+    width: 100%;
+    background: rgba(22, 27, 34, 0.75);
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 12px;
+    padding: 14px 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #e6edf3;
+    box-sizing: border-box;
+    backdrop-filter: blur(12px);
+}
+
+#registerExtra a {
+    color: #5a8dee;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#registerExtra a:hover { text-decoration: underline; }
+
+/* password strength bar */
+#pwStrengthWrap {
+    margin-top: 6px;
+    display: none;
+}
+
+#pwStrengthBar {
+    height: 4px;
+    border-radius: 4px;
+    background: #21262d;
+    overflow: hidden;
+}
+
+#pwStrengthFill {
+    height: 100%;
+    width: 0%;
+    border-radius: 4px;
+    transition: width 0.3s, background 0.3s;
+}
+
+#pwStrengthLabel {
+    font-size: 11px;
+    margin-top: 3px;
+    color: #8b949e;
+}
+
+/* ================= FORGOT PASSWORD SCREEN ================= */
+
+#forgotScreen {
+    display: none;
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: 999999;
+    align-items: center;
+    justify-content: center;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+    overflow: hidden;
+}
+
+#forgotScreen.show {
+    display: flex;
+}
+
+#forgotBgVideo {
+    position: absolute;
+    top: 50%; left: 50%;
+    min-width: 100%;
+    min-height: 100%;
+    transform: translate(-50%, -50%);
+    object-fit: cover;
+    z-index: 0;
+}
+
+#forgotScreen::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.52);
+    z-index: 1;
+}
+
+#forgotBox {
+    position: relative;
+    z-index: 2;
+    width: 340px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 14px;
+}
+
+#forgotBox h2 {
+    margin: 0;
+    color: white;
+    font-size: 22px;
+    font-weight: 600;
+    text-align: center;
+    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
+}
+
+#forgotBox p.forgot-sub {
+    margin: -8px 0 0 0;
+    color: rgba(255,255,255,0.65);
+    font-size: 13px;
+    text-align: center;
+    line-height: 1.5;
+}
+
+/* STEP 1 - email input */
+#forgotStep1, #forgotStep2, #forgotStep3 {
+    width: 100%;
+    background: rgba(22, 27, 34, 0.90);
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 12px;
+    padding: 20px 20px 18px;
+    box-sizing: border-box;
+    backdrop-filter: blur(12px);
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
+}
+
+#forgotStep2, #forgotStep3 {
+    display: none;
+}
+
+#forgotStep1 .lf-group,
+#forgotStep2 .lf-group,
+#forgotStep3 .lf-group {
+    margin-bottom: 14px;
+}
+
+#forgotStep1 .lf-group label,
+#forgotStep2 .lf-group label,
+#forgotStep3 .lf-group label {
+    display: block;
+    color: #e6edf3;
+    font-size: 13px;
+    font-weight: 600;
+    margin-bottom: 6px;
+}
+
+#forgotStep1 .lf-group input,
+#forgotStep2 .lf-group input,
+#forgotStep3 .lf-group input {
+    width: 100%;
+    padding: 9px 12px;
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,0.15);
+    border-radius: 7px;
+    color: #e6edf3;
+    font-size: 14px;
+    outline: none;
+    box-sizing: border-box;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+#forgotStep1 .lf-group input:focus,
+#forgotStep2 .lf-group input:focus,
+#forgotStep3 .lf-group input:focus {
+    border-color: #5a8dee;
+    box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
+}
+
+/* OTP boxes */
+#otpRow {
     display: flex;
     gap: 10px;
+    justify-content: center;
+    margin-top: 4px;
 }
 
-.auth-foot button {
-    flex: 1;
-    padding: 10px 0;
-    border: none;
+.otp-input {
+    width: 44px;
+    height: 50px;
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    background: #0d1117;
+    border: 1px solid rgba(255,255,255,0.15);
     border-radius: 8px;
-    font-size: 13px;
+    color: #e6edf3;
+    outline: none;
+    transition: border 0.2s, box-shadow 0.2s;
+}
+
+.otp-input:focus {
+    border-color: #5a8dee;
+    box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
+}
+
+.otp-input.filled {
+    border-color: #3fb950;
+    box-shadow: 0 0 0 2px rgba(63,185,80,0.2);
+}
+
+.forgot-btn {
+    width: 100%;
+    padding: 10px 0;
+    background: #238636;
+    color: white;
+    border: none;
+    border-radius: 7px;
+    font-size: 14px;
     font-weight: bold;
     cursor: pointer;
-    transition: opacity 0.2s, transform 0.1s;
+    margin-top: 4px;
+    transition: background 0.2s, transform 0.1s;
 }
 
-.auth-foot button:active { transform: scale(0.97); }
+.forgot-btn:hover { background: #2ea043; }
+.forgot-btn:active { transform: scale(0.98); }
 
-.ab-cancel {
-    background: rgba(255,255,255,0.08);
-    color: #c9d1d9;
-    border: 1px solid rgba(255,255,255,0.12) !important;
+.forgot-error {
+    display: none;
+    color: #f85149;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 8px;
+    padding: 7px 10px;
+    background: rgba(248,81,73,0.12);
+    border-radius: 6px;
+    border: 1px solid rgba(248,81,73,0.3);
 }
 
-.ab-submit {
-    color: white;
-    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+.forgot-info {
+    color: #8b949e;
+    font-size: 12px;
+    text-align: center;
+    margin-top: 8px;
 }
 
-.ab-submit.green { background: linear-gradient(135deg, #238636, #2ea043); }
-.ab-submit.purple { background: linear-gradient(135deg, #6e40c9, #8a63d2); }
+#forgotExtra {
+    width: 100%;
+    background: rgba(22, 27, 34, 0.75);
+    border: 1px solid rgba(255,255,255,0.13);
+    border-radius: 12px;
+    padding: 14px 20px;
+    text-align: center;
+    font-size: 13px;
+    color: #e6edf3;
+    box-sizing: border-box;
+    backdrop-filter: blur(12px);
+}
 
-.ab-cancel:hover { opacity: 0.8; }
-.ab-submit:hover { opacity: 0.9; }
+#forgotExtra a {
+    color: #5a8dee;
+    text-decoration: none;
+    font-weight: 600;
+    cursor: pointer;
+}
+
+#forgotExtra a:hover { text-decoration: underline; }
+
+/* ================= TOAST NOTIFICATION ================= */
+
+#toastNotif {
+    position: fixed;
+    bottom: 30px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    background: rgba(22,27,34,0.95);
+    color: #e6edf3;
+    border: 1px solid rgba(255,255,255,0.15);
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-family: Arial, sans-serif;
+    font-size: 14px;
+    z-index: 9999999;
+    opacity: 0;
+    transition: all 0.35s ease;
+    backdrop-filter: blur(10px);
+    white-space: nowrap;
+}
+
+#toastNotif.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
 
 </style>
 
 <title>TAMAN SAUJANA PUTRA</title>
 </head>
+
 <body>
+
+<!-- ================= TOAST NOTIFICATION ================= -->
+<div id="toastNotif"></div>
 
 <!-- ================= LOGIN SCREEN ================= -->
 <div id="loginScreen">
@@ -755,78 +1049,163 @@ html, body {
     </video>
 
     <div id="loginBox">
+
         <div id="loginLogo">🗺️</div>
+
         <h2>Sign in to LandHub</h2>
 
         <div id="loginForm">
+
             <div class="lf-group">
                 <label>Username or email address</label>
-                <input type="text" id="loginUser" autocomplete="off">
+                <input type="text" id="loginUser" autocomplete="username" placeholder="">
             </div>
+
             <div class="lf-group">
                 <div class="lf-pw-row">
                     <label>Password</label>
-                    <a id="linkForgot">Forgot password?</a>
+                    <a href="#" id="linkForgot">Forgot password?</a>
                 </div>
-                <input type="password" id="loginPass" autocomplete="off">
+                <input type="password" id="loginPass" autocomplete="current-password" placeholder="">
             </div>
+
             <button id="btnSignIn">Sign in</button>
-            <div id="loginError" class="auth-msg err">⚠️ Username atau password tidak betul.</div>
+
+            <div id="loginError">⚠️ Username atau password tidak betul.</div>
+
         </div>
 
         <div id="loginExtra">
-            New to LandHub? <a id="linkRegister">Create an account</a>
+            New to LandHub? <a href="#" id="linkCreateAcc">Create an account</a>
         </div>
+
     </div>
 </div>
 
-<!-- ================= MODAL REGISTER ================= -->
-<div class="auth-overlay" id="modalRegister">
-    <div class="auth-box">
-        <div class="auth-head green">
-            <div class="ah-icon">👤</div>
-            <h3>Create an Account</h3>
-            <p>Daftarkan akaun LandHub baharu anda</p>
+<!-- ================= REGISTER SCREEN ================= -->
+<div id="registerScreen">
+
+    <video id="registerBgVideo" autoplay muted loop playsinline>
+        <source src="INTRO.mp4" type="video/mp4">
+    </video>
+
+    <div id="registerBox">
+
+        <div id="loginLogo" style="position:static;">🗺️</div>
+
+        <h2>Create your account</h2>
+        <p class="reg-sub">Join LandHub to explore land parcels</p>
+
+        <div id="registerForm">
+
+            <div class="lf-group">
+                <label>Full Name</label>
+                <input type="text" id="regName" placeholder="Contoh: Ahmad bin Ali" maxlength="60">
+            </div>
+
+            <div class="lf-group">
+                <label>Email address</label>
+                <input type="email" id="regEmail" placeholder="email@example.com">
+            </div>
+
+            <div class="lf-group">
+                <label>Username</label>
+                <input type="text" id="regUser" placeholder="min. 4 aksara" maxlength="30">
+            </div>
+
+            <div class="lf-group">
+                <label>Password</label>
+                <input type="password" id="regPass" placeholder="min. 6 aksara" maxlength="50">
+                <div id="pwStrengthWrap">
+                    <div id="pwStrengthBar"><div id="pwStrengthFill"></div></div>
+                    <div id="pwStrengthLabel"></div>
+                </div>
+            </div>
+
+            <div class="lf-group">
+                <label>Confirm Password</label>
+                <input type="password" id="regPassConfirm" placeholder="taip semula password" maxlength="50">
+            </div>
+
+            <button id="btnCreateAcc">Create account</button>
+
+            <div id="registerError"></div>
+            <div id="registerSuccess"></div>
+
         </div>
-        <div class="auth-body">
-            <div class="ag"><label>Full Name</label><input type="text" id="regName" placeholder="Nama penuh"></div>
-            <div class="ag"><label>Email Address</label><input type="email" id="regEmail" placeholder="contoh@email.com"></div>
-            <div class="ag"><label>Username</label><input type="text" id="regUser" placeholder="Pilih username unik"></div>
-            <div class="ag"><label>Password</label><input type="password" id="regPass" placeholder="Minimum 6 aksara"></div>
-            <div class="ag"><label>Confirm Password</label><input type="password" id="regPass2" placeholder="Ulang password"></div>
-            <div class="auth-msg err" id="regErr"></div>
-            <div class="auth-msg ok"  id="regOk">✅ Akaun berjaya didaftarkan! Sila log masuk.</div>
+
+        <div id="registerExtra">
+            Already have an account? <a href="#" id="linkBackLogin">Sign in</a>
         </div>
-        <div class="auth-foot">
-            <button class="ab-cancel" id="btnRegCancel">✖ Batal</button>
-            <button class="ab-submit green" id="btnRegDaftar">✔ Daftar Sekarang</button>
-        </div>
+
     </div>
 </div>
 
-<!-- ================= MODAL FORGOT PASSWORD ================= -->
-<div class="auth-overlay" id="modalForgot">
-    <div class="auth-box">
-        <div class="auth-head purple">
-            <div class="ah-icon">🔑</div>
-            <h3>Reset Password</h3>
-            <p>Masukkan username dan tetapkan password baharu</p>
+<!-- ================= FORGOT PASSWORD SCREEN ================= -->
+<div id="forgotScreen">
+
+    <video id="forgotBgVideo" autoplay muted loop playsinline>
+        <source src="INTRO.mp4" type="video/mp4">
+    </video>
+
+    <div id="forgotBox">
+
+        <div style="width:56px;height:56px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,0.35);font-size:28px;">🔑</div>
+
+        <h2>Reset your password</h2>
+        <p class="forgot-sub" id="forgotSubText">Enter your email to receive a verification code</p>
+
+        <!-- STEP 1: EMAIL -->
+        <div id="forgotStep1">
+            <div class="lf-group">
+                <label>Email address</label>
+                <input type="email" id="forgotEmail" placeholder="email@example.com">
+            </div>
+            <button class="forgot-btn" id="btnSendOtp">Send verification code</button>
+            <div class="forgot-error" id="forgotErr1"></div>
+            <div class="forgot-info" id="forgotInfo1"></div>
         </div>
-        <div class="auth-body">
-            <div class="ag"><label>Username</label><input type="text" id="fgUser" placeholder="Username anda"></div>
-            <div class="ag"><label>Password Baharu</label><input type="password" id="fgPass" placeholder="Minimum 6 aksara"></div>
-            <div class="ag"><label>Confirm Password Baharu</label><input type="password" id="fgPass2" placeholder="Ulang password baharu"></div>
-            <div class="auth-msg err" id="fgErr"></div>
-            <div class="auth-msg ok"  id="fgOk">✅ Password berjaya ditukar! Sila log masuk semula.</div>
+
+        <!-- STEP 2: OTP -->
+        <div id="forgotStep2">
+            <div class="lf-group">
+                <label style="text-align:center; display:block;">Enter 6-digit code</label>
+                <div id="otpRow">
+                    <input class="otp-input" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="otp-input" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="otp-input" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="otp-input" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="otp-input" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                    <input class="otp-input" maxlength="1" type="text" inputmode="numeric" pattern="[0-9]">
+                </div>
+            </div>
+            <button class="forgot-btn" id="btnVerifyOtp">Verify code</button>
+            <div class="forgot-error" id="forgotErr2"></div>
+            <div class="forgot-info" id="otpTimer"></div>
         </div>
-        <div class="auth-foot">
-            <button class="ab-cancel" id="btnFgCancel">✖ Batal</button>
-            <button class="ab-submit purple" id="btnFgTukar">🔑 Tukar Password</button>
+
+        <!-- STEP 3: NEW PASSWORD -->
+        <div id="forgotStep3">
+            <div class="lf-group">
+                <label>New Password</label>
+                <input type="password" id="newPass1" placeholder="min. 6 aksara" maxlength="50">
+            </div>
+            <div class="lf-group">
+                <label>Confirm New Password</label>
+                <input type="password" id="newPass2" placeholder="taip semula password" maxlength="50">
+            </div>
+            <button class="forgot-btn" id="btnSetNewPass">Set new password</button>
+            <div class="forgot-error" id="forgotErr3"></div>
         </div>
+
+        <div id="forgotExtra">
+            Remember your password? <a href="#" id="linkForgotBack">Back to sign in</a>
+        </div>
+
     </div>
 </div>
 
-<!-- ================= MAIN APP ================= -->
+<!-- ================= MAIN APP (DISEMBUNYIKAN SEHINGGA LOGIN) ================= -->
 <div id="mainApp" style="display:none; width:100%; height:100%;">
 
 <div id="header">
@@ -842,33 +1221,40 @@ html, body {
 <div id="northArrow">
     <img src="north.png" width="65">
 </div>
-
+    
 <div id="menuBtn">☰ Menu</div>
 
 <div id="dashboard">
     <video autoplay muted loop playsinline class="dashboard-video">
         <source src="DASHBOARD.mp4" type="video/mp4">
     </video>
+
     <div style="display:flex; justify-content:space-between; align-items:center; background: rgba(255,255,255,0.7); padding: 5px; border-radius: 8px;">
         <h2 style="margin:0; color: #5a3e2b;">DASHBOARD</h2>
         <button id="closeDashboard" style="background:#5a3e2b;color:white;border:none;padding:5px 10px;border-radius:6px;cursor:pointer;">✖</button>
     </div>
-    <br><hr>
+    
+    <br>
+    <hr>
+    
     <div style="background: rgba(255,255,255,0.7); padding: 10px; border-radius: 8px;">
         <div class="dashboard-section">
             <label>Total Lot</label>
             <div id="totalLot" class="dashboard-info"></div>
         </div>
+
         <div class="dashboard-section">
             <label>Lot Opacity</label>
             <input type="range" id="opacitySlider" min="0" max="1" step="0.1" value="1">
         </div>
+
         <div class="dashboard-section">
             <label>Land Explorer</label>
             <input type="text" id="searchLot" placeholder="Masukkan No Lot">
             <button id="findLot">Find Lot</button>
             <button id="resetLot">Reset Lot</button>
         </div>
+
         <div class="dashboard-section">
             <label>Maklumat Lot Dipilih</label>
             <div id="lotInfo" class="dashboard-info">Tiada lot dipilih</div>
@@ -883,26 +1269,32 @@ html, body {
 </div>
 
 <div id="gmPanel">
-    <h3>Map Type</h3>
-    <div class="gmOption"><input type="radio" name="basemap" id="streetRadio" checked> Street</div>
-    <div class="gmOption"><input type="radio" name="basemap" id="satRadio"> Satellite</div>
-    <div class="gmOption"><input type="radio" name="basemap" id="terrainRadio"> Terrain</div>
-    <div class="gmDivider"></div>
-    <h3>Map Details</h3>
-    <div class="gmOption"><input type="checkbox" id="trafficCheck"> Traffic</div>
-    <div class="gmOption"><input type="checkbox" id="transitCheck"> Transit</div>
-    <div class="gmOption"><input type="checkbox" id="bikeCheck"> Bicycling</div>
-    <div class="gmDivider"></div>
-    <h3>Data Layer</h3>
-    <div class="gmOption"><input type="checkbox" id="lotCheck" checked> Lot Final</div>
-    <div class="gmOption"><input type="checkbox" id="tandaCheck" checked> Tanda Sempadan</div>
+
+<h3>Map Type</h3>
+<div class="gmOption"><input type="radio" name="basemap" id="streetRadio" checked>Street</div>
+<div class="gmOption"><input type="radio" name="basemap" id="satRadio">Satellite</div>
+<div class="gmOption"><input type="radio" name="basemap" id="terrainRadio">Terrain</div>
+
+<div class="gmDivider"></div>
+
+<h3>Map Details</h3>
+<div class="gmOption"><input type="checkbox" id="trafficCheck">Traffic</div>
+<div class="gmOption"><input type="checkbox" id="transitCheck">Transit</div>
+<div class="gmOption"><input type="checkbox" id="bikeCheck">Bicycling</div>
+
+<div class="gmDivider"></div>
+
+<h3>Data Layer</h3>
+<div class="gmOption"><input type="checkbox" id="lotCheck" checked>Lot Final</div>
+<div class="gmOption"><input type="checkbox" id="tandaCheck" checked>Tanda Sempadan</div>
+
 </div>
 
 <div id="footer">
     Hak Cipta Terpelihara 2026 @ Ikmwfy | Politeknik Ungku Omar
 </div>
 
-<!-- ================= MODAL PDF ================= -->
+<!-- MODAL PDF -->
 <div id="pdfModal">
     <div id="pdfModalBox">
         <div id="pdfModalHeader">
@@ -916,13 +1308,13 @@ html, body {
             <div class="modal-divider"></div>
         </div>
         <div id="pdfModalFooter">
-            <button id="btnBatalModal" type="button">✖ &nbsp;Batal</button>
-            <button id="btnHantarModal" type="button">🖨️ &nbsp;Jana PDF</button>
+            <button type="button" id="btnBatalModal">✖ &nbsp;Batal</button>
+            <button type="button" id="btnHantarModal">🖨️ &nbsp;Jana PDF</button>
         </div>
     </div>
 </div>
 
-</div><!-- /mainApp -->
+</div> <!-- /mainApp -->
 
 <script src="js/leaflet.js"></script>
 <script src="data/LOTFINAL_0.js"></script>
@@ -931,290 +1323,572 @@ html, body {
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
 <script>
-/* =====================================================
-   AKAUN - simpan dalam variable (dalam sesi sahaja)
-   Jika nak kekal, tukar kepada localStorage
-   ===================================================== */
-var ACCOUNTS = [
-    { u: "admin", p: "landhub123" }
-];
 
-function findAcc(username, password) {
-    for (var i = 0; i < ACCOUNTS.length; i++) {
-        if (ACCOUNTS[i].u.toLowerCase() === username.toLowerCase() &&
-            ACCOUNTS[i].p === password) {
-            return true;
-        }
+/* ================================================
+   ACCOUNT STORAGE (localStorage)
+   Akaun disimpan dalam browser storage
+   ================================================ */
+
+function getAccounts() {
+    var raw = localStorage.getItem("lh_accounts");
+    if (!raw) return [{ user: "admin", pass: "landhub123", email: "admin@landhub.my", name: "Administrator" }];
+    try { return JSON.parse(raw); } catch(e) { return []; }
+}
+
+function saveAccounts(arr) {
+    localStorage.setItem("lh_accounts", JSON.stringify(arr));
+}
+
+function findAccount(userOrEmail) {
+    var accs = getAccounts();
+    for (var i = 0; i < accs.length; i++) {
+        if (accs[i].user === userOrEmail || accs[i].email === userOrEmail) return accs[i];
     }
-    return false;
+    return null;
 }
 
-function usernameExists(username) {
-    for (var i = 0; i < ACCOUNTS.length; i++) {
-        if (ACCOUNTS[i].u.toLowerCase() === username.toLowerCase()) return i;
-    }
-    return -1;
+/* Inisialisasi — simpan akaun default jika belum ada */
+if (!localStorage.getItem("lh_accounts")) {
+    saveAccounts([{ user: "admin", pass: "landhub123", email: "admin@landhub.my", name: "Administrator" }]);
 }
 
-/* =====================================================
-   ANIMASI SHAKE
-   ===================================================== */
-var ss = document.createElement("style");
-ss.textContent = "@keyframes lhShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-5px)}80%{transform:translateX(5px)}}";
-document.head.appendChild(ss);
+/* ================================================
+   TOAST HELPER
+   ================================================ */
 
-function shakeEl(el) {
-    el.style.animation = "none";
-    void el.offsetHeight;
-    el.style.animation = "lhShake 0.4s ease";
+function showToast(msg, duration) {
+    var t = document.getElementById("toastNotif");
+    t.textContent = msg;
+    t.classList.add("show");
+    setTimeout(function() { t.classList.remove("show"); }, duration || 3000);
 }
 
-/* =====================================================
-   SHOW / HIDE HELPER
-   ===================================================== */
-function showMsg(elId, type, text) {
-    var el = document.getElementById(elId);
-    el.className = "auth-msg " + type;
-    el.textContent = text;
-    el.style.display = "block";
+/* ================================================
+   SCREEN SWITCHER
+   ================================================ */
+
+function showLogin() {
+    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("loginScreen").classList.remove("fadeOut");
+    document.getElementById("registerScreen").classList.remove("show");
+    document.getElementById("forgotScreen").classList.remove("show");
+    document.getElementById("loginUser").value = "";
+    document.getElementById("loginPass").value = "";
+    document.getElementById("loginError").style.display = "none";
 }
 
-function hideMsg(elId) {
-    document.getElementById(elId).style.display = "none";
+function showRegister() {
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("forgotScreen").classList.remove("show");
+    document.getElementById("registerScreen").classList.add("show");
+    document.getElementById("regName").value = "";
+    document.getElementById("regEmail").value = "";
+    document.getElementById("regUser").value = "";
+    document.getElementById("regPass").value = "";
+    document.getElementById("regPassConfirm").value = "";
+    document.getElementById("registerError").style.display = "none";
+    document.getElementById("registerSuccess").style.display = "none";
+    document.getElementById("pwStrengthWrap").style.display = "none";
 }
 
-/* =====================================================
-   LOGIN
-   ===================================================== */
-var elLoginScreen = document.getElementById("loginScreen");
-var elMainApp     = document.getElementById("mainApp");
-var elLoginUser   = document.getElementById("loginUser");
-var elLoginPass   = document.getElementById("loginPass");
-var elLoginError  = document.getElementById("loginError");
-var elLoginForm   = document.getElementById("loginForm");
+function showForgot() {
+    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("registerScreen").classList.remove("show");
+    document.getElementById("forgotScreen").classList.add("show");
+    resetForgotFlow();
+}
+
+/* ================================================
+   LOGIN LOGIC
+   ================================================ */
+
+var loginUser  = document.getElementById("loginUser");
+var loginPass  = document.getElementById("loginPass");
+var loginError = document.getElementById("loginError");
+var loginScreen= document.getElementById("loginScreen");
+var mainApp    = document.getElementById("mainApp");
 
 function doLogin() {
-    var u = elLoginUser.value.trim();
-    var p = elLoginPass.value;
+    var u = loginUser.value.trim();
+    var p = loginPass.value;
+    var acc = findAccount(u);
 
-    elLoginError.style.display = "none";
-
-    if (!u || !p) {
-        elLoginError.textContent = "⚠️ Sila isi username dan password.";
-        elLoginError.style.display = "block";
-        shakeEl(elLoginForm);
-        return;
-    }
-
-    if (findAcc(u, p)) {
-        /* Berjaya */
-        elLoginScreen.style.animation = "loginFade 0.5s ease forwards";
-        setTimeout(function () {
-            elLoginScreen.style.display = "none";
-            elMainApp.style.display = "block";
-            setTimeout(function () {
-                if (typeof map !== "undefined") {
-                    map.invalidateSize(true);
-                    map.fitBounds([
-                        [2.10309049233999,  102.52084635053448],
-                        [2.1044455032659752, 102.52331439237805]
-                    ]);
-                }
-            }, 200);
-        }, 500);
+    if (acc && acc.pass === p) {
+        loginError.style.display = "none";
+        loginScreen.classList.add("fadeOut");
+        setTimeout(function() {
+            loginScreen.style.display = "none";
+            mainApp.style.display = "block";
+            if (typeof map !== "undefined") { map.invalidateSize(); }
+        }, 600);
     } else {
-        elLoginError.textContent = "⚠️ Username atau password tidak betul.";
-        elLoginError.style.display = "block";
-        elLoginPass.value = "";
-        elLoginPass.focus();
-        shakeEl(elLoginForm);
+        loginError.style.display = "block";
+        loginPass.value = "";
+        loginPass.focus();
+        var box = document.getElementById("loginForm");
+        box.style.animation = "none";
+        box.offsetHeight;
+        box.style.animation = "shake 0.4s ease";
     }
 }
 
-document.getElementById("btnSignIn").addEventListener("click", doLogin);
-elLoginUser.addEventListener("keydown", function (e) { if (e.key === "Enter") elLoginPass.focus(); });
-elLoginPass.addEventListener("keydown", function (e) { if (e.key === "Enter") doLogin(); });
+document.getElementById("btnSignIn").onclick = doLogin;
+loginUser.addEventListener("keydown", function(e){ if(e.key==="Enter") loginPass.focus(); });
+loginPass.addEventListener("keydown", function(e){ if(e.key==="Enter") doLogin(); });
 
-/* =====================================================
-   MODAL REGISTER
-   ===================================================== */
-var elModalReg = document.getElementById("modalRegister");
+document.getElementById("linkCreateAcc").onclick = function(e) {
+    e.preventDefault();
+    showRegister();
+};
 
-document.getElementById("linkRegister").addEventListener("click", function () {
-    ["regName","regEmail","regUser","regPass","regPass2"].forEach(function(id){
-        document.getElementById(id).value = "";
-    });
-    hideMsg("regErr"); hideMsg("regOk");
-    elModalReg.classList.add("show");
-    document.getElementById("regName").focus();
+document.getElementById("linkForgot").onclick = function(e) {
+    e.preventDefault();
+    showForgot();
+};
+
+var shakeStyle = document.createElement("style");
+shakeStyle.textContent = `
+@keyframes shake {
+    0%,100%{ transform: translateX(0); }
+    20%     { transform: translateX(-8px); }
+    40%     { transform: translateX(8px); }
+    60%     { transform: translateX(-6px); }
+    80%     { transform: translateX(6px); }
+}`;
+document.head.appendChild(shakeStyle);
+
+/* ================================================
+   REGISTER LOGIC
+   ================================================ */
+
+/* Password strength */
+document.getElementById("regPass").addEventListener("input", function() {
+    var v = this.value;
+    var wrap = document.getElementById("pwStrengthWrap");
+    var fill  = document.getElementById("pwStrengthFill");
+    var label = document.getElementById("pwStrengthLabel");
+
+    if (!v) { wrap.style.display = "none"; return; }
+    wrap.style.display = "block";
+
+    var score = 0;
+    if (v.length >= 6)  score++;
+    if (v.length >= 10) score++;
+    if (/[A-Z]/.test(v)) score++;
+    if (/[0-9]/.test(v)) score++;
+    if (/[^a-zA-Z0-9]/.test(v)) score++;
+
+    var pct   = [0, 20, 40, 60, 80, 100][score];
+    var color = ["#f85149","#f0883e","#d29922","#3fb950","#3fb950"][score - 1] || "#f85149";
+    var text  = ["","Lemah","Sederhana","Cukup","Kuat","Sangat Kuat"][score] || "Lemah";
+
+    fill.style.width = pct + "%";
+    fill.style.background = color;
+    label.style.color = color;
+    label.textContent = text;
 });
 
-document.getElementById("btnRegCancel").addEventListener("click", function () {
-    elModalReg.classList.remove("show");
-});
-
-elModalReg.addEventListener("click", function (e) {
-    if (e.target === elModalReg) elModalReg.classList.remove("show");
-});
-
-document.getElementById("btnRegDaftar").addEventListener("click", function () {
-    hideMsg("regErr"); hideMsg("regOk");
-
+document.getElementById("btnCreateAcc").onclick = function() {
     var name  = document.getElementById("regName").value.trim();
     var email = document.getElementById("regEmail").value.trim();
     var user  = document.getElementById("regUser").value.trim();
     var pass  = document.getElementById("regPass").value;
-    var pass2 = document.getElementById("regPass2").value;
+    var conf  = document.getElementById("regPassConfirm").value;
 
-    if (!name || !email || !user || !pass || !pass2) {
-        showMsg("regErr", "err", "⚠️ Sila isi semua medan.");
-        return;
-    }
-    if (!/\S+@\S+\.\S+/.test(email)) {
-        showMsg("regErr", "err", "⚠️ Format email tidak sah.");
-        return;
-    }
-    if (pass.length < 6) {
-        showMsg("regErr", "err", "⚠️ Password minimum 6 aksara.");
-        return;
-    }
-    if (pass !== pass2) {
-        showMsg("regErr", "err", "⚠️ Password tidak sepadan.");
-        return;
-    }
-    if (usernameExists(user) !== -1) {
-        showMsg("regErr", "err", "⚠️ Username sudah digunakan. Pilih lain.");
-        return;
+    var errEl  = document.getElementById("registerError");
+    var succEl = document.getElementById("registerSuccess");
+
+    errEl.style.display  = "none";
+    succEl.style.display = "none";
+
+    function showRegErr(msg) {
+        errEl.innerHTML = "⚠️ " + msg;
+        errEl.style.display = "block";
     }
 
-    ACCOUNTS.push({ u: user, p: pass });
-    showMsg("regOk", "ok", "✅ Akaun berjaya didaftarkan! Sila log masuk.");
-    setTimeout(function () { elModalReg.classList.remove("show"); }, 2200);
-});
+    if (!name)  { showRegErr("Nama penuh diperlukan."); return; }
+    if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) { showRegErr("Email tidak sah."); return; }
+    if (user.length < 4) { showRegErr("Username mestilah sekurang-kurangnya 4 aksara."); return; }
+    if (pass.length < 6) { showRegErr("Password mestilah sekurang-kurangnya 6 aksara."); return; }
+    if (pass !== conf)   { showRegErr("Password tidak sepadan."); return; }
 
-/* =====================================================
-   MODAL FORGOT PASSWORD
-   ===================================================== */
-var elModalFg = document.getElementById("modalForgot");
+    var accs = getAccounts();
+    for (var i = 0; i < accs.length; i++) {
+        if (accs[i].user === user)  { showRegErr("Username sudah digunakan."); return; }
+        if (accs[i].email === email){ showRegErr("Email sudah didaftarkan."); return; }
+    }
 
-document.getElementById("linkForgot").addEventListener("click", function () {
-    ["fgUser","fgPass","fgPass2"].forEach(function(id){
-        document.getElementById(id).value = "";
+    accs.push({ user: user, pass: pass, email: email, name: name });
+    saveAccounts(accs);
+
+    succEl.innerHTML = "✅ Akaun berjaya dicipta! Anda boleh log masuk sekarang.";
+    succEl.style.display = "block";
+
+    showToast("✅ Akaun berjaya dicipta!", 3000);
+
+    setTimeout(function() {
+        showLogin();
+        document.getElementById("loginUser").value = user;
+        document.getElementById("loginPass").focus();
+    }, 2000);
+};
+
+document.getElementById("linkBackLogin").onclick = function(e) {
+    e.preventDefault();
+    showLogin();
+};
+
+/* Enter key dalam register form */
+["regName","regEmail","regUser","regPass","regPassConfirm"].forEach(function(id, idx, arr) {
+    document.getElementById(id).addEventListener("keydown", function(e) {
+        if (e.key === "Enter") {
+            if (idx < arr.length - 1) {
+                document.getElementById(arr[idx + 1]).focus();
+            } else {
+                document.getElementById("btnCreateAcc").click();
+            }
+        }
     });
-    hideMsg("fgErr"); hideMsg("fgOk");
-    elModalFg.classList.add("show");
-    document.getElementById("fgUser").focus();
 });
 
-document.getElementById("btnFgCancel").addEventListener("click", function () {
-    elModalFg.classList.remove("show");
+/* ================================================
+   FORGOT PASSWORD LOGIC
+   ================================================ */
+
+var _otpCode    = "";
+var _otpEmail   = "";
+var _otpTimer   = null;
+var _otpSeconds = 0;
+
+function resetForgotFlow() {
+    document.getElementById("forgotStep1").style.display = "block";
+    document.getElementById("forgotStep2").style.display = "none";
+    document.getElementById("forgotStep3").style.display = "none";
+    document.getElementById("forgotEmail").value = "";
+    document.getElementById("newPass1").value = "";
+    document.getElementById("newPass2").value = "";
+    document.getElementById("forgotErr1").style.display = "none";
+    document.getElementById("forgotErr2").style.display = "none";
+    document.getElementById("forgotErr3").style.display = "none";
+    document.getElementById("forgotInfo1").textContent = "";
+    document.getElementById("forgotSubText").textContent = "Enter your email to receive a verification code";
+    clearInterval(_otpTimer);
+    /* Reset OTP inputs */
+    var boxes = document.querySelectorAll(".otp-input");
+    boxes.forEach(function(b) { b.value = ""; b.classList.remove("filled"); });
+    _otpCode = "";
+    _otpEmail = "";
+}
+
+function generateOTP() {
+    return Math.floor(100000 + Math.random() * 900000).toString();
+}
+
+function startOtpTimer(seconds) {
+    _otpSeconds = seconds;
+    var el = document.getElementById("otpTimer");
+    clearInterval(_otpTimer);
+    _otpTimer = setInterval(function() {
+        _otpSeconds--;
+        if (_otpSeconds <= 0) {
+            clearInterval(_otpTimer);
+            el.textContent = "Kod telah tamat tempoh. Sila minta kod baru.";
+            el.style.color = "#f85149";
+            _otpCode = "";
+        } else {
+            el.style.color = "#8b949e";
+            el.textContent = "Kod sah selama " + _otpSeconds + " saat lagi";
+        }
+    }, 1000);
+}
+
+/* Step 1: Hantar OTP */
+document.getElementById("btnSendOtp").onclick = function() {
+    var email = document.getElementById("forgotEmail").value.trim();
+    var errEl = document.getElementById("forgotErr1");
+    var infoEl= document.getElementById("forgotInfo1");
+
+    errEl.style.display = "none";
+    infoEl.textContent  = "";
+
+    if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
+        errEl.innerHTML = "⚠️ Sila masukkan alamat email yang sah.";
+        errEl.style.display = "block";
+        return;
+    }
+
+    var acc = findAccount(email);
+    if (!acc) {
+        errEl.innerHTML = "⚠️ Email ini tidak didaftarkan dalam sistem.";
+        errEl.style.display = "block";
+        return;
+    }
+
+    _otpCode  = generateOTP();
+    _otpEmail = email;
+
+    /* Simulasi hantar email — tunjuk OTP dalam toast (dalam sistem sebenar, hantar via email API) */
+    showToast("📧 Kod OTP anda: " + _otpCode, 15000);
+
+    /* Pergi ke step 2 */
+    document.getElementById("forgotStep1").style.display = "none";
+    document.getElementById("forgotStep2").style.display = "block";
+    document.getElementById("forgotSubText").textContent = "Enter the 6-digit code sent to " + email;
+
+    startOtpTimer(120);
+
+    /* Focus kotak OTP pertama */
+    setTimeout(function() {
+        document.querySelectorAll(".otp-input")[0].focus();
+    }, 200);
+};
+
+/* OTP input auto-advance */
+var otpBoxes = document.querySelectorAll(".otp-input");
+otpBoxes.forEach(function(box, idx) {
+    box.addEventListener("input", function() {
+        var val = this.value.replace(/[^0-9]/g, "");
+        this.value = val;
+        if (val) {
+            this.classList.add("filled");
+            if (idx < otpBoxes.length - 1) otpBoxes[idx + 1].focus();
+        } else {
+            this.classList.remove("filled");
+        }
+    });
+
+    box.addEventListener("keydown", function(e) {
+        if (e.key === "Backspace" && !this.value && idx > 0) {
+            otpBoxes[idx - 1].focus();
+            otpBoxes[idx - 1].value = "";
+            otpBoxes[idx - 1].classList.remove("filled");
+        }
+        if (e.key === "Enter") {
+            document.getElementById("btnVerifyOtp").click();
+        }
+    });
+
+    /* Tampal semua digit sekaligus */
+    box.addEventListener("paste", function(e) {
+        e.preventDefault();
+        var pasted = (e.clipboardData || window.clipboardData).getData("text").replace(/[^0-9]/g,"");
+        for (var i = 0; i < pasted.length && (idx + i) < otpBoxes.length; i++) {
+            otpBoxes[idx + i].value = pasted[i];
+            otpBoxes[idx + i].classList.add("filled");
+        }
+        var next = idx + pasted.length;
+        if (next < otpBoxes.length) otpBoxes[next].focus();
+    });
 });
 
-elModalFg.addEventListener("click", function (e) {
-    if (e.target === elModalFg) elModalFg.classList.remove("show");
+/* Step 2: Sahkan OTP */
+document.getElementById("btnVerifyOtp").onclick = function() {
+    var entered = "";
+    otpBoxes.forEach(function(b) { entered += b.value; });
+
+    var errEl = document.getElementById("forgotErr2");
+    errEl.style.display = "none";
+
+    if (entered.length < 6) {
+        errEl.innerHTML = "⚠️ Sila masukkan 6 digit kod pengesahan.";
+        errEl.style.display = "block";
+        return;
+    }
+
+    if (!_otpCode) {
+        errEl.innerHTML = "⚠️ Kod telah tamat tempoh. Sila minta kod baru.";
+        errEl.style.display = "block";
+        return;
+    }
+
+    if (entered !== _otpCode) {
+        errEl.innerHTML = "⚠️ Kod tidak betul. Cuba semula.";
+        errEl.style.display = "block";
+        /* Goncang OTP boxes */
+        var row = document.getElementById("otpRow");
+        row.style.animation = "none";
+        row.offsetHeight;
+        row.style.animation = "shake 0.4s ease";
+        return;
+    }
+
+    clearInterval(_otpTimer);
+
+    /* Pergi step 3 */
+    document.getElementById("forgotStep2").style.display = "none";
+    document.getElementById("forgotStep3").style.display = "block";
+    document.getElementById("forgotSubText").textContent = "Choose a new password for your account";
+    document.getElementById("newPass1").focus();
+};
+
+/* Step 3: Set password baru */
+document.getElementById("btnSetNewPass").onclick = function() {
+    var p1    = document.getElementById("newPass1").value;
+    var p2    = document.getElementById("newPass2").value;
+    var errEl = document.getElementById("forgotErr3");
+
+    errEl.style.display = "none";
+
+    if (p1.length < 6) {
+        errEl.innerHTML = "⚠️ Password mestilah sekurang-kurangnya 6 aksara.";
+        errEl.style.display = "block";
+        return;
+    }
+
+    if (p1 !== p2) {
+        errEl.innerHTML = "⚠️ Password tidak sepadan. Cuba semula.";
+        errEl.style.display = "block";
+        return;
+    }
+
+    /* Kemaskini password dalam storage */
+    var accs = getAccounts();
+    for (var i = 0; i < accs.length; i++) {
+        if (accs[i].email === _otpEmail) {
+            accs[i].pass = p1;
+            break;
+        }
+    }
+    saveAccounts(accs);
+
+    showToast("✅ Password berjaya ditukar! Sila log masuk.", 4000);
+
+    setTimeout(function() {
+        document.getElementById("forgotScreen").classList.remove("show");
+        showLogin();
+    }, 1500);
+};
+
+/* Back button */
+document.getElementById("linkForgotBack").onclick = function(e) {
+    e.preventDefault();
+    clearInterval(_otpTimer);
+    document.getElementById("forgotScreen").classList.remove("show");
+    showLogin();
+};
+
+/* Enter key dalam forgot fields */
+document.getElementById("forgotEmail").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") document.getElementById("btnSendOtp").click();
+});
+document.getElementById("newPass1").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") document.getElementById("newPass2").focus();
+});
+document.getElementById("newPass2").addEventListener("keydown", function(e) {
+    if (e.key === "Enter") document.getElementById("btnSetNewPass").click();
 });
 
-document.getElementById("btnFgTukar").addEventListener("click", function () {
-    hideMsg("fgErr"); hideMsg("fgOk");
+/* ================================================
+   MAP SETTING (TIDAK DIUBAH)
+   ================================================ */
 
-    var user  = document.getElementById("fgUser").value.trim();
-    var pass  = document.getElementById("fgPass").value;
-    var pass2 = document.getElementById("fgPass2").value;
-
-    if (!user || !pass || !pass2) {
-        showMsg("fgErr", "err", "⚠️ Sila isi semua medan.");
-        return;
-    }
-    if (pass.length < 6) {
-        showMsg("fgErr", "err", "⚠️ Password minimum 6 aksara.");
-        return;
-    }
-    if (pass !== pass2) {
-        showMsg("fgErr", "err", "⚠️ Password tidak sepadan.");
-        return;
-    }
-
-    var idx = usernameExists(user);
-    if (idx === -1) {
-        showMsg("fgErr", "err", "⚠️ Username tidak dijumpai.");
-        return;
-    }
-
-    ACCOUNTS[idx].p = pass;
-    showMsg("fgOk", "ok", "✅ Password berjaya ditukar! Sila log masuk.");
-    setTimeout(function () { elModalFg.classList.remove("show"); }, 2200);
-});
-
-/* =====================================================
-   MAP SETTING
-   ===================================================== */
 var map = L.map('map', {
     zoomControl: false,
     maxZoom: 22,
     minZoom: 5
-map.fitBounds([
-    [2.10309049233999,  102.52084635053448],
-    [2.1044455032659752, 102.52331439237805]
-], {
-    maxZoom: 19
-});
+}).fitBounds([
+[2.10309049233999,102.52084635053448],
+[2.1044455032659752,102.52331439237805]
+]);
 
-L.control.zoom({ position: 'topleft' }).addTo(map);
-L.control.scale({ metric: true, imperial: false }).addTo(map);
+L.control.zoom({
+    position: 'topleft'
+}).addTo(map);
 
-/* =====================================================
-   BASEMAP
-   ===================================================== */
-var street    = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', { maxZoom: 22 });
-var satellite = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}', { maxZoom: 22 }).addTo(map);
-var terrain   = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}', { maxZoom: 22 });
-var traffic   = L.tileLayer('https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}', { maxZoom: 22 });
-var transit   = L.tileLayer('https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}', { maxZoom: 22 });
-var bicycling = L.tileLayer('https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}', { maxZoom: 22 });
+L.control.scale({
+    metric:true,
+    imperial:false
+}).addTo(map);
 
-/* =====================================================
-   LOT FINAL
-   ===================================================== */
+/* ================= BASEMAP ================= */
+
+var street = L.tileLayer(
+'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
+{ maxZoom: 22 });
+
+var satellite = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
+{ maxZoom: 22 }).addTo(map);
+
+var terrain = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+var traffic = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+var transit = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+var bicycling = L.tileLayer(
+'https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}',
+{ maxZoom: 22 });
+
+/* ================= LOT FINAL INTERACTIVE ================= */
+
 function style_LOTFINAL_0() {
-    return { color: '#5a3e2b', weight: 1, fillColor: '#a47148', fillOpacity: 1 };
+    return {
+        color: '#5a3e2b',
+        weight: 1,
+        fillColor: '#a47148',
+        fillOpacity: 1
+    };
 }
+
 function highlightStyle() {
-    return { color: '#000000', weight: 2, fillColor: 'yellow', fillOpacity: 1 };
+    return {
+        color: '#000000',
+        weight: 2,
+        fillColor: 'yellow',
+        fillOpacity: 1
+    };
 }
 
 var selectedLayer = null;
 
 function onEachFeature_LOTFINAL_0(feature, layer) {
     layer.on({
-        click: function () {
-            if (selectedLayer) selectedLayer.setStyle(style_LOTFINAL_0());
+        click: function(e) {
+            if (selectedLayer) {
+                selectedLayer.setStyle(style_LOTFINAL_0());
+            }
             selectedLayer = layer;
             layer.setStyle(highlightStyle());
             updateLotInfo(feature.properties);
             layer.bringToFront();
-            layer.bindPopup(
-                '<div style="font-family:Arial;font-size:14px;">' +
-                '<h4 style="margin:0;color:#5a3e2b;">Maklumat Lot</h4>' +
-                '<hr style="margin:6px 0;">' +
-                '<b>No PA:</b> '      + feature.properties["tsp — _1"] + '<br>' +
-                '<b>No Lot:</b> '     + feature.properties["NO_LOT"]   + '<br>' +
-                '<b>Keluasan:</b> '   + parseFloat(feature.properties["AREA"]).toFixed(3) + ' m²<br>' +
-                '<b>Pemilik:</b> '    + feature.properties["tsp — pe"] +
-                '</div>'
-            ).openPopup();
+
+            var popupContent = `
+<div style="font-family: Arial; font-size:14px;">
+    <h4 style="margin:0; color:#5a3e2b;">Maklumat Lot</h4>
+    <hr style="margin:6px 0;">
+    <b>No PA:</b> ${feature.properties["tsp — _1"]}<br>
+    <b>No Lot:</b> ${feature.properties["NO_LOT"]}<br>
+    <b>Keluasan:</b> ${parseFloat(feature.properties["AREA"]).toFixed(3)} m²<br>
+    <b>Pemilik:</b> ${feature.properties["tsp — pe"]}
+</div>
+`;
+            layer.bindPopup(popupContent).openPopup();
         },
-        mouseover: function () {
-            var p = feature.properties;
-            layer.bindTooltip(
+
+        mouseover: function(e) {
+            var props = feature.properties;
+            var tooltipContent =
                 '<b style="color:#5a3e2b;">📦 Lot</b><br>' +
-                '<b>No Lot:</b> '   + p["NO_LOT"] + '<br>' +
-                '<b>No PA:</b> '    + p["tsp — _1"] + '<br>' +
-                '<b>Pemilik:</b> '  + p["tsp — pe"] + '<br>' +
-                '<b>Keluasan:</b> ' + parseFloat(p["AREA"]).toFixed(3) + ' m²',
-                { sticky: true, opacity: 1, className: 'lot-tooltip' }
-            ).openTooltip();
+                '<b>No Lot:</b> ' + props["NO_LOT"] + '<br>' +
+                '<b>No PA:</b> ' + props["tsp — _1"] + '<br>' +
+                '<b>Pemilik:</b> ' + props["tsp — pe"] + '<br>' +
+                '<b>Keluasan:</b> ' + parseFloat(props["AREA"]).toFixed(3) + ' m²';
+
+            layer.bindTooltip(tooltipContent, {
+                sticky: true,
+                opacity: 1,
+                className: 'lot-tooltip'
+            }).openTooltip();
         },
-        mouseout: function () {
+
+        mouseout: function(e) {
             layer.closeTooltip();
             layer.unbindTooltip();
         }
@@ -1226,83 +1900,140 @@ var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0, {
     onEachFeature: onEachFeature_LOTFINAL_0
 }).addTo(map);
 
-/* =====================================================
-   TANDA SEMPADAN
-   ===================================================== */
+/* ================= TANDA SEMPADAN + POPUP + HOVER ================= */
+
 var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
-    pointToLayer: function (feature, latlng) {
-        return L.circleMarker(latlng, { radius: 4, color: '#232323', fillColor: '#d5b43c', fillOpacity: 1 });
+    pointToLayer: function(feature, latlng) {
+        return L.circleMarker(latlng, {
+            radius: 4,
+            color: '#232323',
+            fillColor: '#d5b43c',
+            fillOpacity: 1
+        });
     },
-    onEachFeature: function (feature, layer) {
+    onEachFeature: function(feature, layer) {
         layer.on({
-            click: function () {
+            click: function(e) {
                 var props = feature.properties;
-                var c = '<div style="font-family:Arial;font-size:13px;"><h4 style="margin:0 0 6px 0;color:#5a3e2b;">🔶 Tanda Sempadan</h4><hr style="margin:4px 0 8px 0;">';
-                for (var k in props) {
-                    if (props[k] !== null && props[k] !== "" && props[k] !== undefined)
-                        c += '<b>' + k + ':</b> ' + props[k] + '<br>';
+                var content = '<div style="font-family:Arial; font-size:13px;">';
+                content += '<h4 style="margin:0 0 6px 0; color:#5a3e2b;">🔶 Tanda Sempadan</h4>';
+                content += '<hr style="margin:4px 0 8px 0;">';
+                for (var key in props) {
+                    if (props[key] !== null && props[key] !== "" && props[key] !== undefined) {
+                        content += '<b>' + key + ':</b> ' + props[key] + '<br>';
+                    }
                 }
-                if (!Object.keys(props).length) c += 'Tiada maklumat tambahan.';
-                layer.bindPopup(c + '</div>').openPopup();
+                if (Object.keys(props).length === 0) {
+                    content += 'Tiada maklumat tambahan.';
+                }
+                content += '</div>';
+                layer.bindPopup(content).openPopup();
             },
-            mouseover: function () {
-                var ll = layer.getLatLng();
-                layer.bindTooltip(
+
+            mouseover: function(e) {
+                var latlng = layer.getLatLng();
+                var barat  = latlng.lng.toFixed(6) + '° BARAT';
+                var utara  = latlng.lat.toFixed(6) + '° UTARA';
+                var tooltipContent =
                     '<b style="color:#b8860b;">📍 Tanda Sempadan</b><br>' +
-                    '<b>BARAT:</b> ' + ll.lng.toFixed(6) + '° BARAT<br>' +
-                    '<b>UTARA:</b> ' + ll.lat.toFixed(6) + '° UTARA',
-                    { sticky: true, opacity: 1, className: 'tanda-tooltip' }
-                ).openTooltip();
+                    '<b>BARAT:</b> ' + barat + '<br>' +
+                    '<b>UTARA:</b> ' + utara;
+                layer.bindTooltip(tooltipContent, {
+                    sticky: true,
+                    opacity: 1,
+                    className: 'tanda-tooltip'
+                }).openTooltip();
             },
-            mouseout: function () { layer.closeTooltip(); layer.unbindTooltip(); }
+
+            mouseout: function(e) {
+                layer.closeTooltip();
+                layer.unbindTooltip();
+            }
         });
     }
 });
 
-/* =====================================================
-   PANEL / LAYERS
-   ===================================================== */
+/* ================= PANEL FUNCTION ================= */
+
 var gmPanel = document.getElementById("gmPanel");
-document.getElementById("gmLayersBtn").onclick = function () {
+
+document.getElementById("gmLayersBtn").onclick = function() {
     gmPanel.style.display = gmPanel.style.display === "block" ? "none" : "block";
 };
-document.getElementById("streetRadio").onclick  = function () { map.removeLayer(satellite); map.removeLayer(terrain);   map.addLayer(street);    };
-document.getElementById("satRadio").onclick     = function () { map.removeLayer(street);    map.removeLayer(terrain);   map.addLayer(satellite); };
-document.getElementById("terrainRadio").onclick = function () { map.removeLayer(street);    map.removeLayer(satellite); map.addLayer(terrain);   };
-document.getElementById("trafficCheck").onchange = function () { this.checked ? map.addLayer(traffic)   : map.removeLayer(traffic);   };
-document.getElementById("transitCheck").onchange = function () { this.checked ? map.addLayer(transit)   : map.removeLayer(transit);   };
-document.getElementById("bikeCheck").onchange    = function () { this.checked ? map.addLayer(bicycling) : map.removeLayer(bicycling); };
-document.getElementById("lotCheck").onchange     = function () { this.checked ? map.addLayer(layer_LOTFINAL_0) : map.removeLayer(layer_LOTFINAL_0); };
-document.getElementById("tandaCheck").onchange   = function () { this.checked ? map.addLayer(tandaLayer)      : map.removeLayer(tandaLayer);       };
 
-/* =====================================================
-   DASHBOARD
-   ===================================================== */
+document.getElementById("streetRadio").onclick = function() {
+    map.removeLayer(satellite); map.removeLayer(terrain); map.addLayer(street);
+};
+
+document.getElementById("satRadio").onclick = function() {
+    map.removeLayer(street); map.removeLayer(terrain); map.addLayer(satellite);
+};
+
+document.getElementById("terrainRadio").onclick = function() {
+    map.removeLayer(street); map.removeLayer(satellite); map.addLayer(terrain);
+};
+
+document.getElementById("trafficCheck").onchange = function() {
+    this.checked ? map.addLayer(traffic) : map.removeLayer(traffic);
+};
+
+document.getElementById("transitCheck").onchange = function() {
+    this.checked ? map.addLayer(transit) : map.removeLayer(transit);
+};
+
+document.getElementById("bikeCheck").onchange = function() {
+    this.checked ? map.addLayer(bicycling) : map.removeLayer(bicycling);
+};
+
+document.getElementById("lotCheck").onchange = function() {
+    this.checked ? map.addLayer(layer_LOTFINAL_0) : map.removeLayer(layer_LOTFINAL_0);
+};
+
+document.getElementById("tandaCheck").onchange = function() {
+    this.checked ? map.addLayer(tandaLayer) : map.removeLayer(tandaLayer);
+};
+
+/* ================= DASHBOARD FUNCTION ================= */
+
 var dashboard = document.getElementById("dashboard");
-var menuBtn   = document.getElementById("menuBtn");
-document.getElementById("menuBtn").onclick = function () {
+var menuBtn = document.getElementById("menuBtn");
+var closeBtn = document.getElementById("closeDashboard");
+
+menuBtn.onclick = function() {
     dashboard.classList.add("active");
     menuBtn.style.display = "none";
 };
-document.getElementById("closeDashboard").onclick = function () {
+
+closeBtn.onclick = function() {
     dashboard.classList.remove("active");
     menuBtn.style.display = "block";
 };
 
-document.getElementById("totalLot").innerHTML = layer_LOTFINAL_0.getLayers().length;
+/* ================= TOTAL LOT ================= */
 
-document.getElementById("opacitySlider").oninput = function () {
-    var v = this.value;
-    layer_LOTFINAL_0.eachLayer(function (l) { l.setStyle({ fillOpacity: v }); });
+document.getElementById("totalLot").innerHTML =
+    layer_LOTFINAL_0.getLayers().length;
+
+/* ================= LOT OPACITY ================= */
+
+document.getElementById("opacitySlider").oninput = function() {
+    var value = this.value;
+    layer_LOTFINAL_0.eachLayer(function(layer) {
+        layer.setStyle({ fillOpacity: value });
+    });
 };
 
-document.getElementById("findLot").onclick = function () {
-    var sv = document.getElementById("searchLot").value;
-    layer_LOTFINAL_0.eachLayer(function (layer) {
-        if (layer.feature.properties["NO_LOT"] == sv) {
+/* ================= LAND EXPLORER ================= */
+
+document.getElementById("findLot").onclick = function() {
+    var searchValue = document.getElementById("searchLot").value;
+    layer_LOTFINAL_0.eachLayer(function(layer) {
+        if (layer.feature.properties["NO_LOT"] == searchValue) {
             map.fitBounds(layer.getBounds());
             map.invalidateSize();
-            if (selectedLayer) selectedLayer.setStyle(style_LOTFINAL_0());
+            if (selectedLayer) {
+                selectedLayer.setStyle(style_LOTFINAL_0());
+            }
             selectedLayer = layer;
             layer.setStyle(highlightStyle());
             updateLotInfo(layer.feature.properties);
@@ -1310,169 +2041,213 @@ document.getElementById("findLot").onclick = function () {
     });
 };
 
-document.getElementById("resetLot").onclick = function () {
+document.getElementById("resetLot").onclick = function() {
     document.getElementById("searchLot").value = "";
-    layer_LOTFINAL_0.eachLayer(function (l) { l.setStyle(style_LOTFINAL_0()); });
+    layer_LOTFINAL_0.eachLayer(function(layer) {
+        layer.setStyle(style_LOTFINAL_0());
+    });
     selectedLayer = null;
     document.getElementById("lotInfo").innerHTML = "Tiada lot dipilih";
 };
 
-function updateLotInfo(p) {
-    document.getElementById("lotInfo").innerHTML =
-        '<b>No PA:</b> '    + p["tsp — _1"] + '<br>' +
-        '<b>No Lot:</b> '   + p["NO_LOT"]   + '<br>' +
-        '<b>Keluasan:</b> ' + parseFloat(p["AREA"]).toFixed(3) + ' m²<br>' +
-        '<b>Pemilik:</b> '  + p["tsp — pe"];
+/* ================= UPDATE INFO PANEL ================= */
+
+function updateLotInfo(properties) {
+    document.getElementById("lotInfo").innerHTML = `
+        <b>No PA:</b> ${properties["tsp — _1"]}<br>
+        <b>No Lot:</b> ${properties["NO_LOT"]}<br>
+        <b>Keluasan:</b> ${parseFloat(properties["AREA"]).toFixed(3)} m²<br>
+        <b>Pemilik:</b> ${properties["tsp — pe"]}
+    `;
 }
 
-layer_LOTFINAL_0.eachLayer(function (layer) {
-    layer.on("click", function () { updateLotInfo(layer.feature.properties); });
+layer_LOTFINAL_0.eachLayer(function(layer) {
+    layer.on("click", function() {
+        updateLotInfo(layer.feature.properties);
+    });
 });
 
-/* =====================================================
-   HELPER BASE64
-   ===================================================== */
-function getBase64Image(url, cb) {
+function getBase64Image(url, callback) {
     var img = new Image();
     img.crossOrigin = "Anonymous";
-    img.onload = function () {
-        var c = document.createElement("canvas");
-        c.width = img.width; c.height = img.height;
-        c.getContext("2d").drawImage(img, 0, 0);
-        cb(c.toDataURL("image/png"));
+    img.onload = function() {
+        var canvas = document.createElement("canvas");
+        canvas.width = img.width;
+        canvas.height = img.height;
+        var ctx = canvas.getContext("2d");
+        ctx.drawImage(img, 0, 0);
+        var dataURL = canvas.toDataURL("image/png");
+        callback(dataURL);
     };
     img.src = url;
 }
 
-/* =====================================================
-   MODAL PDF
-   ===================================================== */
+/* ================================================
+   MODAL PDF — DIPERBETULKAN
+   Masalah asal: z-index terlalu rendah berbanding
+   loginScreen (999999), menyebabkan elemen invisible
+   menangkap klik dan butang tidak responsif.
+   Penyelesaian:
+   1. z-index modal dinaikkan melebihi semua screen
+   2. stopPropagation() pada btnBatalModal & btnHantarModal
+   3. stopPropagation() pada pdfModalBox supaya klik
+      dalam kotak tidak bubble ke overlay
+   ================================================ */
+
 var pdfModal  = document.getElementById("pdfModal");
 var inputNama = document.getElementById("inputNamaSemak");
 
-document.getElementById("generatePDF").onclick = function () {
-    if (!selectedLayer) { alert("Sila pilih lot dahulu."); return; }
+document.getElementById("generatePDF").onclick = function() {
+    if (!selectedLayer) {
+        alert("Sila pilih lot dahulu.");
+        return;
+    }
     inputNama.value = "";
     inputNama.style.border = "";
+    inputNama.placeholder = "Contoh: MOHD AMIN BIN AHMAD";
     pdfModal.classList.add("show");
-    setTimeout(function () { inputNama.focus(); }, 300);
+    setTimeout(function(){ inputNama.focus(); }, 300);
 };
 
-document.getElementById("btnBatalModal").addEventListener("click", function (e) {
+/* DIPERBETULKAN: guna addEventListener + stopPropagation */
+document.getElementById("btnBatalModal").addEventListener("click", function(e) {
     e.stopPropagation();
     pdfModal.classList.remove("show");
 });
 
-pdfModal.addEventListener("click", function (e) {
-    if (e.target === pdfModal) pdfModal.classList.remove("show");
+/* DIPERBETULKAN: klik pada overlay sahaja yang tutup modal */
+pdfModal.addEventListener("click", function(e) {
+    if (e.target === pdfModal) {
+        pdfModal.classList.remove("show");
+    }
 });
 
-document.getElementById("pdfModalBox").addEventListener("click", function (e) {
+/* DIPERBETULKAN: klik dalam pdfModalBox tidak bubble ke overlay */
+document.getElementById("pdfModalBox").addEventListener("click", function(e) {
     e.stopPropagation();
 });
 
-inputNama.addEventListener("keydown", function (e) {
-    if (e.key === "Enter") document.getElementById("btnHantarModal").click();
+inputNama.addEventListener("keydown", function(e) {
+    if (e.key === "Enter") {
+        document.getElementById("btnHantarModal").click();
+    }
 });
 
-/* =====================================================
-   GENERATE PDF
-   ===================================================== */
-document.getElementById("btnHantarModal").addEventListener("click", function (e) {
+/* ================= GENERATE PDF A4 + LOGO ================= */
+
+/* DIPERBETULKAN: guna addEventListener + stopPropagation */
+document.getElementById("btnHantarModal").addEventListener("click", function(e) {
     e.stopPropagation();
 
     var namaSemak = inputNama.value.trim();
+
     if (!namaSemak) {
         inputNama.style.border = "2px solid red";
         inputNama.placeholder  = "⚠️ Nama wajib diisi!";
         inputNama.focus();
         return;
     }
+
     inputNama.style.border = "";
     pdfModal.classList.remove("show");
 
-    getBase64Image("PUO.png", function (logoBase64) {
-        getBase64Image("north.png", function (northBase64) {
+    getBase64Image("PUO.png", function(logoBase64) {
+        getBase64Image("north.png", function(northBase64) {
 
-            var center = selectedLayer.getBounds().getCenter();
-            map.setView(center, 19, { animate: false });
-
-            setTimeout(function () {
-                map.invalidateSize(true);
-                setTimeout(function () {
-                    map.closePopup();
-                    map.closeTooltip();
-
-                    html2canvas(document.getElementById("map"), {
-                        useCORS: true,
-                        scale: 3,
-                        logging: false
-                    }).then(function (canvas) {
-
-                        var cw = canvas.width, ch = canvas.height;
-                        var cropW = cw * 0.78, cropH = ch * 0.78;
-                        var cc = document.createElement("canvas");
-                        cc.width = cropW; cc.height = cropH;
-                        cc.getContext("2d").drawImage(canvas,
-                            (cw - cropW) / 2, (ch - cropH) / 2, cropW, cropH,
-                            0, 0, cropW, cropH);
-                        var mapImg = cc.toDataURL("image/jpeg", 1.0);
-
-                        const { jsPDF } = window.jspdf;
-                        var pdf  = new jsPDF("landscape", "mm", "a4");
-                        var prop = selectedLayer.feature.properties;
-
-                        pdf.setLineWidth(1.5); pdf.rect(5, 5, 287, 200);
-                        pdf.setLineWidth(0.8); pdf.rect(5, 5, 60, 200);
-                        pdf.rect(65, 5, 227, 165);
-                        pdf.rect(65, 170, 227, 35);
-
-                        pdf.addImage(logoBase64, 'PNG', 15, 8, 40, 40);
-                        pdf.setFont("times", "bold"); pdf.setFontSize(10);
-                        pdf.text("POLITEKNIK UNGKU OMAR", 35, 52, { align: "center" });
-
-                        pdf.setFontSize(11); pdf.setFont("times", "bold");
-                        pdf.text("NEGERI JOHOR",   15, 68);
-                        pdf.setTextColor(200, 0, 0);
-                        pdf.text("DAERAH TANGKAK",  15, 78);
-                        pdf.setTextColor(0, 0, 0);
-                        pdf.text("MUKIM KESANG",    15, 88);
-
-                        pdf.setFontSize(11);
-                        pdf.text("INFORMASI LOT", 15, 108);
-                        pdf.setFont("times", "normal");
-                        pdf.text("NO. LOT:",      15, 118);
-                        pdf.text(prop["NO_LOT"],  40, 118);
-                        pdf.text("NAMA PEMILIK:", 15, 130);
-                        pdf.text(pdf.splitTextToSize(prop["tsp — pe"] || "-", 42), 15, 137);
-                        pdf.text("KELUASAN:",     15, 155);
-                        pdf.text(parseFloat(prop["AREA"]).toFixed(2) + " m²", 40, 155);
-
-                        var today = new Date().toLocaleDateString('en-GB');
-                        pdf.text("TARIKH CETAKAN:", 15, 168);
-                        pdf.text(today,              15, 174);
-                        pdf.text("DISEMAK OLEH:",   15, 184);
-                        pdf.text(pdf.splitTextToSize(namaSemak.toUpperCase(), 45), 15, 190);
-
-                        pdf.setFont("times", "bold"); pdf.setFontSize(22);
-                        pdf.text("PELAN AKUI", 178, 16, { align: "center" });
-
-                        pdf.addImage(mapImg, 'JPEG', 67, 17, 223, 151);
-                        pdf.addImage(northBase64, "PNG", 276, 20, 13, 13);
-
-                        pdf.setFontSize(26); pdf.setFont("times", "bold");
-                        pdf.text("PA " + (prop["tsp — _1"] || "-"), 178, 188, { align: "center" });
-
-                        pdf.setFontSize(7); pdf.setFont("times", "normal");
-                        pdf.text("Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah", 178, 203, { align: "center" });
-
-                        pdf.save("Pelan_Akui_Lot_" + prop["NO_LOT"] + ".pdf");
-                    });
-                }, 1800);
+            map.fitBounds(selectedLayer.getBounds(), {
+                padding: [120, 120],
+                animate: false,
+                maxZoom: 20
             });
+
+            map.invalidateSize();
+
+            setTimeout(function() {
+
+                map.closePopup();
+
+                html2canvas(document.getElementById("map"), {
+                    useCORS: true,
+                    scale: 4
+                }).then(function(canvas) {
+
+                    const { jsPDF } = window.jspdf;
+                    var pdf = new jsPDF("landscape", "mm", "a4");
+                    var mapImg = canvas.toDataURL("image/jpeg", 1.0);
+                    var prop   = selectedLayer.feature.properties;
+
+                    pdf.setLineWidth(1.5);
+                    pdf.rect(5, 5, 287, 200);
+                    pdf.setLineWidth(0.8);
+                    pdf.rect(5, 5, 60, 200);
+                    pdf.rect(65, 5, 227, 165);
+                    pdf.rect(65, 170, 227, 35);
+
+                    pdf.addImage(logoBase64, 'PNG', 15, 8, 40, 40);
+
+                    pdf.setFont("times", "bold");
+                    pdf.setFontSize(10);
+                    pdf.text("POLITEKNIK UNGKU OMAR", 35, 52, { align: "center" });
+
+                    pdf.setFontSize(11);
+                    pdf.setFont("times", "bold");
+                    pdf.text("NEGERI JOHOR",   15, 68);
+                    pdf.setTextColor(200, 0, 0);
+                    pdf.text("DAERAH TANGKAK",  15, 78);
+                    pdf.setTextColor(0, 0, 0);
+                    pdf.text("MUKIM KESANG",    15, 88);
+
+                    pdf.setFontSize(11);
+                    pdf.text("INFORMASI LOT",  15, 108);
+                    pdf.setFont("times", "normal");
+
+                    pdf.text("NO. LOT:",       15, 118);
+                    pdf.text(prop["NO_LOT"],   40, 118);
+
+                    pdf.text("NAMA PEMILIK:",  15, 130);
+                    var owner     = prop["tsp — pe"] || "-";
+                    var ownerText = pdf.splitTextToSize(owner, 42);
+                    pdf.text(ownerText,        15, 137);
+
+                    pdf.text("KELUASAN:",      15, 155);
+                    var luas = parseFloat(prop["AREA"]).toFixed(2);
+                    pdf.text(luas + " m²",     40, 155);
+
+                    var today = new Date().toLocaleDateString('en-GB');
+                    pdf.text("TARIKH CETAKAN:", 15, 168);
+                    pdf.text(today,              15, 174);
+
+                    pdf.text("DISEMAK OLEH:",   15, 184);
+                    var semakText = pdf.splitTextToSize(namaSemak.toUpperCase(), 45);
+                    pdf.text(semakText,          15, 190);
+
+                    pdf.setFont("times", "bold");
+                    pdf.setFontSize(22);
+                    pdf.text("PELAN AKUI", 178, 16, { align: "center" });
+
+                    pdf.addImage(mapImg, 'JPEG', 68, 18, 221, 149);
+                    pdf.addImage(northBase64, "PNG", 276, 20, 13, 13);
+
+                    pdf.setFontSize(26);
+                    pdf.setFont("times", "bold");
+                    var pa = prop["tsp — _1"] || "-";
+                    pdf.text("PA " + pa, 178, 188, { align: "center" });
+
+                    pdf.setFontSize(7);
+                    pdf.setFont("times", "normal");
+                    pdf.text(
+                        "Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah",
+                        178, 203, { align: "center" }
+                    );
+
+                    pdf.save("Pelan_Akui_Lot_" + prop["NO_LOT"] + ".pdf");
+                });
+
+            }, 2500);
         });
     });
 });
+
 </script>
 
 </body>
