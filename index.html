@@ -275,7 +275,6 @@ html, body {
 
 /* ================= MODAL PDF CANTIK ================= */
 
-/* DIPERBETULKAN: z-index dinaikkan melebihi loginScreen (999999) */
 #pdfModal {
     display: none;
     position: fixed;
@@ -292,7 +291,6 @@ html, body {
     display: flex;
 }
 
-/* DIPERBETULKAN: tambah position relative + z-index + pointer-events */
 #pdfModalBox {
     background: white;
     border-radius: 18px;
@@ -383,7 +381,6 @@ html, body {
     gap: 10px;
 }
 
-/* DIPERBETULKAN: tambah position relative + z-index + pointer-events pada butang */
 #pdfModalFooter button {
     flex: 1;
     padding: 11px 0;
@@ -1419,7 +1416,20 @@ function doLogin() {
         setTimeout(function() {
             loginScreen.style.display = "none";
             mainApp.style.display = "block";
-            if (typeof map !== "undefined") { map.invalidateSize(); }
+            if (typeof map !== "undefined") {
+                map.invalidateSize();
+                /* ================================================
+                   PERUBAHAN 1: Auto zoom in ke kawasan lot selepas login
+                   ================================================ */
+                setTimeout(function() {
+                    map.fitBounds(layer_LOTFINAL_0.getBounds(), {
+                        padding: [60, 60],
+                        animate: true,
+                        duration: 1.2,
+                        maxZoom: 19
+                    });
+                }, 300);
+            }
         }, 600);
     } else {
         loginError.style.display = "block";
@@ -1951,7 +1961,11 @@ var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
             }
         });
     }
-});
+/* ================================================
+   PERUBAHAN 2: tandaLayer terus ditambah ke map (.addTo(map))
+   tanpa perlu buka secara manual
+   ================================================ */
+}).addTo(map);
 
 /* ================= PANEL FUNCTION ================= */
 
@@ -2084,14 +2098,6 @@ function getBase64Image(url, callback) {
 
 /* ================================================
    MODAL PDF — DIPERBETULKAN
-   Masalah asal: z-index terlalu rendah berbanding
-   loginScreen (999999), menyebabkan elemen invisible
-   menangkap klik dan butang tidak responsif.
-   Penyelesaian:
-   1. z-index modal dinaikkan melebihi semua screen
-   2. stopPropagation() pada btnBatalModal & btnHantarModal
-   3. stopPropagation() pada pdfModalBox supaya klik
-      dalam kotak tidak bubble ke overlay
    ================================================ */
 
 var pdfModal  = document.getElementById("pdfModal");
@@ -2109,20 +2115,17 @@ document.getElementById("generatePDF").onclick = function() {
     setTimeout(function(){ inputNama.focus(); }, 300);
 };
 
-/* DIPERBETULKAN: guna addEventListener + stopPropagation */
 document.getElementById("btnBatalModal").addEventListener("click", function(e) {
     e.stopPropagation();
     pdfModal.classList.remove("show");
 });
 
-/* DIPERBETULKAN: klik pada overlay sahaja yang tutup modal */
 pdfModal.addEventListener("click", function(e) {
     if (e.target === pdfModal) {
         pdfModal.classList.remove("show");
     }
 });
 
-/* DIPERBETULKAN: klik dalam pdfModalBox tidak bubble ke overlay */
 document.getElementById("pdfModalBox").addEventListener("click", function(e) {
     e.stopPropagation();
 });
@@ -2135,7 +2138,6 @@ inputNama.addEventListener("keydown", function(e) {
 
 /* ================= GENERATE PDF A4 + LOGO ================= */
 
-/* DIPERBETULKAN: guna addEventListener + stopPropagation */
 document.getElementById("btnHantarModal").addEventListener("click", function(e) {
     e.stopPropagation();
 
@@ -2154,11 +2156,12 @@ document.getElementById("btnHantarModal").addEventListener("click", function(e) 
     getBase64Image("PUO.png", function(logoBase64) {
         getBase64Image("north.png", function(northBase64) {
 
-           map.fitBounds(layer.getBounds(), {
-               padding: [20, 20],
-               maxZoom: 20
-           });
-            
+            map.fitBounds(selectedLayer.getBounds(), {
+                padding: [120, 120],
+                animate: false,
+                maxZoom: 20
+            });
+
             map.invalidateSize();
 
             setTimeout(function() {
