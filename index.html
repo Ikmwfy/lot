@@ -273,7 +273,6 @@ html, body {
     pointer-events: none;
 }
 
-/* ================= LABEL NO LOT ================= */
 .lot-label {
     background: transparent !important;
     border: none !important;
@@ -287,8 +286,6 @@ html, body {
     pointer-events: none;
     text-align: center;
 }
-
-/* ================= MODAL PDF CANTIK ================= */
 
 #pdfModal {
     display: none;
@@ -331,26 +328,11 @@ html, body {
     color: white;
 }
 
-#pdfModalHeader .modal-icon {
-    font-size: 38px;
-    margin-bottom: 6px;
-}
+#pdfModalHeader .modal-icon { font-size: 38px; margin-bottom: 6px; }
+#pdfModalHeader h3 { margin: 0; font-size: 18px; letter-spacing: 0.5px; }
+#pdfModalHeader p  { margin: 6px 0 0; font-size: 12px; opacity: 0.85; }
 
-#pdfModalHeader h3 {
-    margin: 0;
-    font-size: 18px;
-    letter-spacing: 0.5px;
-}
-
-#pdfModalHeader p {
-    margin: 6px 0 0;
-    font-size: 12px;
-    opacity: 0.85;
-}
-
-#pdfModalBody {
-    padding: 24px 24px 10px;
-}
+#pdfModalBody { padding: 24px 24px 10px; }
 
 #pdfModalBody label {
     display: block;
@@ -374,21 +356,10 @@ html, body {
     background: #fffaf5;
 }
 
-#pdfModalBody input:focus {
-    border-color: #8b5e3c;
-    background: #fff8f0;
-}
+#pdfModalBody input:focus   { border-color: #8b5e3c; background: #fff8f0; }
+#pdfModalBody input::placeholder { color: #bbb; font-style: italic; }
 
-#pdfModalBody input::placeholder {
-    color: #bbb;
-    font-style: italic;
-}
-
-.modal-divider {
-    height: 1px;
-    background: #f0e6da;
-    margin: 18px 0 16px;
-}
+.modal-divider { height: 1px; background: #f0e6da; margin: 18px 0 16px; }
 
 #pdfModalFooter {
     padding: 0 24px 22px;
@@ -410,25 +381,11 @@ html, body {
     pointer-events: auto;
 }
 
-#pdfModalFooter button:active {
-    transform: scale(0.97);
-}
-
-#btnBatalModal {
-    background: #f0e6da;
-    color: #5a3e2b;
-}
-
-#btnHantarModal {
-    background: linear-gradient(135deg, #5a3e2b, #8b5e3c);
-    color: white;
-    box-shadow: 0 4px 12px rgba(90,62,43,0.35);
-}
-
-#btnBatalModal:hover { opacity: 0.8; }
+#pdfModalFooter button:active { transform: scale(0.97); }
+#btnBatalModal  { background: #f0e6da; color: #5a3e2b; }
+#btnHantarModal { background: linear-gradient(135deg, #5a3e2b, #8b5e3c); color: white; box-shadow: 0 4px 12px rgba(90,62,43,0.35); }
+#btnBatalModal:hover  { opacity: 0.8; }
 #btnHantarModal:hover { opacity: 0.9; }
-
-/* ================= LOGIN SCREEN ================= */
 
 #loginScreen {
     position: fixed;
@@ -445,8 +402,7 @@ html, body {
 #loginBgVideo {
     position: absolute;
     top: 50%; left: 50%;
-    min-width: 100%;
-    min-height: 100%;
+    min-width: 100%; min-height: 100%;
     transform: translate(-50%, -50%);
     object-fit: cover;
     z-index: 0;
@@ -456,7 +412,7 @@ html, body {
     content: "";
     position: absolute;
     inset: 0;
-    background: rgba(0, 0, 0, 0.52);
+    background: rgba(0,0,0,0.52);
     z-index: 1;
 }
 
@@ -471,8 +427,7 @@ html, body {
 }
 
 #loginLogo {
-    width: 56px;
-    height: 56px;
+    width: 56px; height: 56px;
     background: white;
     border-radius: 50%;
     display: flex;
@@ -494,7 +449,7 @@ html, body {
 
 #loginForm {
     width: 100%;
-    background: rgba(22, 27, 34, 0.88);
+    background: rgba(22,27,34,0.88);
     border: 1px solid rgba(255,255,255,0.13);
     border-radius: 12px;
     padding: 20px 20px 18px;
@@ -503,9 +458,7 @@ html, body {
     box-shadow: 0 8px 32px rgba(0,0,0,0.45);
 }
 
-#loginForm .lf-group {
-    margin-bottom: 14px;
-}
+#loginForm .lf-group { margin-bottom: 14px; }
 
 #loginForm .lf-group label {
     display: block;
@@ -528,34 +481,12 @@ html, body {
     transition: border 0.2s, box-shadow 0.2s;
 }
 
-#loginForm .lf-group input:focus {
-    border-color: #5a8dee;
-    box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
-}
+#loginForm .lf-group input:focus { border-color: #5a8dee; box-shadow: 0 0 0 3px rgba(90,141,238,0.18); }
 
-.lf-pw-row {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 6px;
-}
-
-.lf-pw-row label {
-    color: #e6edf3;
-    font-size: 13px;
-    font-weight: 600;
-}
-
-.lf-pw-row a {
-    color: #5a8dee;
-    font-size: 12px;
-    text-decoration: none;
-    cursor: pointer;
-}
-
-.lf-pw-row a:hover {
-    text-decoration: underline;
-}
+.lf-pw-row { display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px; }
+.lf-pw-row label { color: #e6edf3; font-size: 13px; font-weight: 600; }
+.lf-pw-row a { color: #5a8dee; font-size: 12px; text-decoration: none; cursor: pointer; }
+.lf-pw-row a:hover { text-decoration: underline; }
 
 #btnSignIn {
     width: 100%;
@@ -572,7 +503,7 @@ html, body {
     letter-spacing: 0.2px;
 }
 
-#btnSignIn:hover { background: #2ea043; }
+#btnSignIn:hover  { background: #2ea043; }
 #btnSignIn:active { transform: scale(0.98); }
 
 #loginError {
@@ -589,7 +520,7 @@ html, body {
 
 #loginExtra {
     width: 100%;
-    background: rgba(22, 27, 34, 0.75);
+    background: rgba(22,27,34,0.75);
     border: 1px solid rgba(255,255,255,0.13);
     border-radius: 12px;
     padding: 14px 20px;
@@ -600,25 +531,15 @@ html, body {
     backdrop-filter: blur(12px);
 }
 
-#loginExtra a {
-    color: #5a8dee;
-    text-decoration: none;
-    font-weight: 600;
-    cursor: pointer;
-}
-
+#loginExtra a { color: #5a8dee; text-decoration: none; font-weight: 600; cursor: pointer; }
 #loginExtra a:hover { text-decoration: underline; }
 
-#loginScreen.fadeOut {
-    animation: loginFade 0.6s ease forwards;
-}
+#loginScreen.fadeOut { animation: loginFade 0.6s ease forwards; }
 
 @keyframes loginFade {
     from { opacity: 1; }
     to   { opacity: 0; pointer-events: none; }
 }
-
-/* ================= REGISTER SCREEN ================= */
 
 #registerScreen {
     display: none;
@@ -632,27 +553,18 @@ html, body {
     overflow: hidden;
 }
 
-#registerScreen.show {
-    display: flex;
-}
+#registerScreen.show { display: flex; }
 
 #registerBgVideo {
     position: absolute;
     top: 50%; left: 50%;
-    min-width: 100%;
-    min-height: 100%;
+    min-width: 100%; min-height: 100%;
     transform: translate(-50%, -50%);
     object-fit: cover;
     z-index: 0;
 }
 
-#registerScreen::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.52);
-    z-index: 1;
-}
+#registerScreen::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.52); z-index: 1; }
 
 #registerBox {
     position: relative;
@@ -664,25 +576,12 @@ html, body {
     gap: 14px;
 }
 
-#registerBox h2 {
-    margin: 0;
-    color: white;
-    font-size: 22px;
-    font-weight: 600;
-    text-align: center;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-}
-
-#registerBox p.reg-sub {
-    margin: -8px 0 0 0;
-    color: rgba(255,255,255,0.65);
-    font-size: 13px;
-    text-align: center;
-}
+#registerBox h2 { margin: 0; color: white; font-size: 22px; font-weight: 600; text-align: center; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+#registerBox p.reg-sub { margin: -8px 0 0 0; color: rgba(255,255,255,0.65); font-size: 13px; text-align: center; }
 
 #registerForm {
     width: 100%;
-    background: rgba(22, 27, 34, 0.90);
+    background: rgba(22,27,34,0.90);
     border: 1px solid rgba(255,255,255,0.13);
     border-radius: 12px;
     padding: 20px 20px 18px;
@@ -691,386 +590,82 @@ html, body {
     box-shadow: 0 8px 32px rgba(0,0,0,0.45);
 }
 
-#registerForm .lf-group {
-    margin-bottom: 12px;
-}
+#registerForm .lf-group { margin-bottom: 12px; }
+#registerForm .lf-group label { display: block; color: #e6edf3; font-size: 13px; font-weight: 600; margin-bottom: 5px; }
+#registerForm .lf-group input { width: 100%; padding: 9px 12px; background: #0d1117; border: 1px solid rgba(255,255,255,0.15); border-radius: 7px; color: #e6edf3; font-size: 14px; outline: none; box-sizing: border-box; transition: border 0.2s, box-shadow 0.2s; }
+#registerForm .lf-group input:focus { border-color: #5a8dee; box-shadow: 0 0 0 3px rgba(90,141,238,0.18); }
 
-#registerForm .lf-group label {
-    display: block;
-    color: #e6edf3;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 5px;
-}
-
-#registerForm .lf-group input {
-    width: 100%;
-    padding: 9px 12px;
-    background: #0d1117;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 7px;
-    color: #e6edf3;
-    font-size: 14px;
-    outline: none;
-    box-sizing: border-box;
-    transition: border 0.2s, box-shadow 0.2s;
-}
-
-#registerForm .lf-group input:focus {
-    border-color: #5a8dee;
-    box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
-}
-
-#btnCreateAcc {
-    width: 100%;
-    padding: 10px 0;
-    background: #238636;
-    color: white;
-    border: none;
-    border-radius: 7px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 4px;
-    transition: background 0.2s, transform 0.1s;
-}
-
-#btnCreateAcc:hover { background: #2ea043; }
+#btnCreateAcc { width: 100%; padding: 10px 0; background: #238636; color: white; border: none; border-radius: 7px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 4px; transition: background 0.2s, transform 0.1s; }
+#btnCreateAcc:hover  { background: #2ea043; }
 #btnCreateAcc:active { transform: scale(0.98); }
 
-#registerError {
-    display: none;
-    color: #f85149;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 8px;
-    padding: 7px 10px;
-    background: rgba(248,81,73,0.12);
-    border-radius: 6px;
-    border: 1px solid rgba(248,81,73,0.3);
-}
+#registerError  { display: none; color: #f85149; font-size: 12px; text-align: center; margin-top: 8px; padding: 7px 10px; background: rgba(248,81,73,0.12); border-radius: 6px; border: 1px solid rgba(248,81,73,0.3); }
+#registerSuccess{ display: none; color: #3fb950; font-size: 12px; text-align: center; margin-top: 8px; padding: 7px 10px; background: rgba(63,185,80,0.12);  border-radius: 6px; border: 1px solid rgba(63,185,80,0.3); }
 
-#registerSuccess {
-    display: none;
-    color: #3fb950;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 8px;
-    padding: 7px 10px;
-    background: rgba(63,185,80,0.12);
-    border-radius: 6px;
-    border: 1px solid rgba(63,185,80,0.3);
-}
-
-#registerExtra {
-    width: 100%;
-    background: rgba(22, 27, 34, 0.75);
-    border: 1px solid rgba(255,255,255,0.13);
-    border-radius: 12px;
-    padding: 14px 20px;
-    text-align: center;
-    font-size: 13px;
-    color: #e6edf3;
-    box-sizing: border-box;
-    backdrop-filter: blur(12px);
-}
-
-#registerExtra a {
-    color: #5a8dee;
-    text-decoration: none;
-    font-weight: 600;
-    cursor: pointer;
-}
-
+#registerExtra { width: 100%; background: rgba(22,27,34,0.75); border: 1px solid rgba(255,255,255,0.13); border-radius: 12px; padding: 14px 20px; text-align: center; font-size: 13px; color: #e6edf3; box-sizing: border-box; backdrop-filter: blur(12px); }
+#registerExtra a { color: #5a8dee; text-decoration: none; font-weight: 600; cursor: pointer; }
 #registerExtra a:hover { text-decoration: underline; }
 
-/* password strength bar */
-#pwStrengthWrap {
-    margin-top: 6px;
-    display: none;
-}
+#pwStrengthWrap { margin-top: 6px; display: none; }
+#pwStrengthBar  { height: 4px; border-radius: 4px; background: #21262d; overflow: hidden; }
+#pwStrengthFill { height: 100%; width: 0%; border-radius: 4px; transition: width 0.3s, background 0.3s; }
+#pwStrengthLabel{ font-size: 11px; margin-top: 3px; color: #8b949e; }
 
-#pwStrengthBar {
-    height: 4px;
-    border-radius: 4px;
-    background: #21262d;
-    overflow: hidden;
-}
+#forgotScreen { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: 999999; align-items: center; justify-content: center; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif; overflow: hidden; }
+#forgotScreen.show { display: flex; }
 
-#pwStrengthFill {
-    height: 100%;
-    width: 0%;
-    border-radius: 4px;
-    transition: width 0.3s, background 0.3s;
-}
+#forgotBgVideo { position: absolute; top: 50%; left: 50%; min-width: 100%; min-height: 100%; transform: translate(-50%, -50%); object-fit: cover; z-index: 0; }
+#forgotScreen::after { content: ""; position: absolute; inset: 0; background: rgba(0,0,0,0.52); z-index: 1; }
 
-#pwStrengthLabel {
-    font-size: 11px;
-    margin-top: 3px;
-    color: #8b949e;
-}
+#forgotBox { position: relative; z-index: 2; width: 340px; display: flex; flex-direction: column; align-items: center; gap: 14px; }
+#forgotBox h2 { margin: 0; color: white; font-size: 22px; font-weight: 600; text-align: center; text-shadow: 0 2px 8px rgba(0,0,0,0.5); }
+#forgotBox p.forgot-sub { margin: -8px 0 0 0; color: rgba(255,255,255,0.65); font-size: 13px; text-align: center; line-height: 1.5; }
 
-/* ================= FORGOT PASSWORD SCREEN ================= */
+#forgotStep1, #forgotStep2, #forgotStep3 { width: 100%; background: rgba(22,27,34,0.90); border: 1px solid rgba(255,255,255,0.13); border-radius: 12px; padding: 20px 20px 18px; box-sizing: border-box; backdrop-filter: blur(12px); box-shadow: 0 8px 32px rgba(0,0,0,0.45); }
+#forgotStep2, #forgotStep3 { display: none; }
 
-#forgotScreen {
-    display: none;
-    position: fixed;
-    top: 0; left: 0;
-    width: 100%; height: 100%;
-    z-index: 999999;
-    align-items: center;
-    justify-content: center;
-    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
-    overflow: hidden;
-}
+#forgotStep1 .lf-group, #forgotStep2 .lf-group, #forgotStep3 .lf-group { margin-bottom: 14px; }
+#forgotStep1 .lf-group label, #forgotStep2 .lf-group label, #forgotStep3 .lf-group label { display: block; color: #e6edf3; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+#forgotStep1 .lf-group input, #forgotStep2 .lf-group input, #forgotStep3 .lf-group input { width: 100%; padding: 9px 12px; background: #0d1117; border: 1px solid rgba(255,255,255,0.15); border-radius: 7px; color: #e6edf3; font-size: 14px; outline: none; box-sizing: border-box; transition: border 0.2s, box-shadow 0.2s; }
+#forgotStep1 .lf-group input:focus, #forgotStep2 .lf-group input:focus, #forgotStep3 .lf-group input:focus { border-color: #5a8dee; box-shadow: 0 0 0 3px rgba(90,141,238,0.18); }
 
-#forgotScreen.show {
-    display: flex;
-}
+#otpRow { display: flex; gap: 10px; justify-content: center; margin-top: 4px; }
 
-#forgotBgVideo {
-    position: absolute;
-    top: 50%; left: 50%;
-    min-width: 100%;
-    min-height: 100%;
-    transform: translate(-50%, -50%);
-    object-fit: cover;
-    z-index: 0;
-}
+.otp-input { width: 44px; height: 50px; text-align: center; font-size: 20px; font-weight: bold; background: #0d1117; border: 1px solid rgba(255,255,255,0.15); border-radius: 8px; color: #e6edf3; outline: none; transition: border 0.2s, box-shadow 0.2s; }
+.otp-input:focus  { border-color: #5a8dee; box-shadow: 0 0 0 3px rgba(90,141,238,0.18); }
+.otp-input.filled { border-color: #3fb950; box-shadow: 0 0 0 2px rgba(63,185,80,0.2); }
 
-#forgotScreen::after {
-    content: "";
-    position: absolute;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.52);
-    z-index: 1;
-}
-
-#forgotBox {
-    position: relative;
-    z-index: 2;
-    width: 340px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 14px;
-}
-
-#forgotBox h2 {
-    margin: 0;
-    color: white;
-    font-size: 22px;
-    font-weight: 600;
-    text-align: center;
-    text-shadow: 0 2px 8px rgba(0,0,0,0.5);
-}
-
-#forgotBox p.forgot-sub {
-    margin: -8px 0 0 0;
-    color: rgba(255,255,255,0.65);
-    font-size: 13px;
-    text-align: center;
-    line-height: 1.5;
-}
-
-#forgotStep1, #forgotStep2, #forgotStep3 {
-    width: 100%;
-    background: rgba(22, 27, 34, 0.90);
-    border: 1px solid rgba(255,255,255,0.13);
-    border-radius: 12px;
-    padding: 20px 20px 18px;
-    box-sizing: border-box;
-    backdrop-filter: blur(12px);
-    box-shadow: 0 8px 32px rgba(0,0,0,0.45);
-}
-
-#forgotStep2, #forgotStep3 {
-    display: none;
-}
-
-#forgotStep1 .lf-group,
-#forgotStep2 .lf-group,
-#forgotStep3 .lf-group {
-    margin-bottom: 14px;
-}
-
-#forgotStep1 .lf-group label,
-#forgotStep2 .lf-group label,
-#forgotStep3 .lf-group label {
-    display: block;
-    color: #e6edf3;
-    font-size: 13px;
-    font-weight: 600;
-    margin-bottom: 6px;
-}
-
-#forgotStep1 .lf-group input,
-#forgotStep2 .lf-group input,
-#forgotStep3 .lf-group input {
-    width: 100%;
-    padding: 9px 12px;
-    background: #0d1117;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 7px;
-    color: #e6edf3;
-    font-size: 14px;
-    outline: none;
-    box-sizing: border-box;
-    transition: border 0.2s, box-shadow 0.2s;
-}
-
-#forgotStep1 .lf-group input:focus,
-#forgotStep2 .lf-group input:focus,
-#forgotStep3 .lf-group input:focus {
-    border-color: #5a8dee;
-    box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
-}
-
-#otpRow {
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    margin-top: 4px;
-}
-
-.otp-input {
-    width: 44px;
-    height: 50px;
-    text-align: center;
-    font-size: 20px;
-    font-weight: bold;
-    background: #0d1117;
-    border: 1px solid rgba(255,255,255,0.15);
-    border-radius: 8px;
-    color: #e6edf3;
-    outline: none;
-    transition: border 0.2s, box-shadow 0.2s;
-}
-
-.otp-input:focus {
-    border-color: #5a8dee;
-    box-shadow: 0 0 0 3px rgba(90,141,238,0.18);
-}
-
-.otp-input.filled {
-    border-color: #3fb950;
-    box-shadow: 0 0 0 2px rgba(63,185,80,0.2);
-}
-
-.forgot-btn {
-    width: 100%;
-    padding: 10px 0;
-    background: #238636;
-    color: white;
-    border: none;
-    border-radius: 7px;
-    font-size: 14px;
-    font-weight: bold;
-    cursor: pointer;
-    margin-top: 4px;
-    transition: background 0.2s, transform 0.1s;
-}
-
-.forgot-btn:hover { background: #2ea043; }
+.forgot-btn { width: 100%; padding: 10px 0; background: #238636; color: white; border: none; border-radius: 7px; font-size: 14px; font-weight: bold; cursor: pointer; margin-top: 4px; transition: background 0.2s, transform 0.1s; }
+.forgot-btn:hover  { background: #2ea043; }
 .forgot-btn:active { transform: scale(0.98); }
 
-.forgot-error {
-    display: none;
-    color: #f85149;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 8px;
-    padding: 7px 10px;
-    background: rgba(248,81,73,0.12);
-    border-radius: 6px;
-    border: 1px solid rgba(248,81,73,0.3);
-}
+.forgot-error { display: none; color: #f85149; font-size: 12px; text-align: center; margin-top: 8px; padding: 7px 10px; background: rgba(248,81,73,0.12); border-radius: 6px; border: 1px solid rgba(248,81,73,0.3); }
+.forgot-info  { color: #8b949e; font-size: 12px; text-align: center; margin-top: 8px; }
 
-.forgot-info {
-    color: #8b949e;
-    font-size: 12px;
-    text-align: center;
-    margin-top: 8px;
-}
-
-#forgotExtra {
-    width: 100%;
-    background: rgba(22, 27, 34, 0.75);
-    border: 1px solid rgba(255,255,255,0.13);
-    border-radius: 12px;
-    padding: 14px 20px;
-    text-align: center;
-    font-size: 13px;
-    color: #e6edf3;
-    box-sizing: border-box;
-    backdrop-filter: blur(12px);
-}
-
-#forgotExtra a {
-    color: #5a8dee;
-    text-decoration: none;
-    font-weight: 600;
-    cursor: pointer;
-}
-
+#forgotExtra { width: 100%; background: rgba(22,27,34,0.75); border: 1px solid rgba(255,255,255,0.13); border-radius: 12px; padding: 14px 20px; text-align: center; font-size: 13px; color: #e6edf3; box-sizing: border-box; backdrop-filter: blur(12px); }
+#forgotExtra a { color: #5a8dee; text-decoration: none; font-weight: 600; cursor: pointer; }
 #forgotExtra a:hover { text-decoration: underline; }
 
-/* ================= TOAST NOTIFICATION ================= */
-
-#toastNotif {
-    position: fixed;
-    bottom: 30px;
-    left: 50%;
-    transform: translateX(-50%) translateY(80px);
-    background: rgba(22,27,34,0.95);
-    color: #e6edf3;
-    border: 1px solid rgba(255,255,255,0.15);
-    padding: 12px 24px;
-    border-radius: 10px;
-    font-family: Arial, sans-serif;
-    font-size: 14px;
-    z-index: 9999999;
-    opacity: 0;
-    transition: all 0.35s ease;
-    backdrop-filter: blur(10px);
-    white-space: nowrap;
-}
-
-#toastNotif.show {
-    opacity: 1;
-    transform: translateX(-50%) translateY(0);
-}
-
+#toastNotif { position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%) translateY(80px); background: rgba(22,27,34,0.95); color: #e6edf3; border: 1px solid rgba(255,255,255,0.15); padding: 12px 24px; border-radius: 10px; font-family: Arial, sans-serif; font-size: 14px; z-index: 9999999; opacity: 0; transition: all 0.35s ease; backdrop-filter: blur(10px); white-space: nowrap; }
+#toastNotif.show { opacity: 1; transform: translateX(-50%) translateY(0); }
 </style>
 
 <title>TAMAN SAUJANA PUTRA</title>
 </head>
-
 <body>
 
-<!-- ================= TOAST NOTIFICATION ================= -->
 <div id="toastNotif"></div>
 
-<!-- ================= LOGIN SCREEN ================= -->
 <div id="loginScreen">
-
-    <video id="loginBgVideo" autoplay muted loop playsinline>
-        <source src="INTRO.mp4" type="video/mp4">
-    </video>
-
+    <video id="loginBgVideo" autoplay muted loop playsinline><source src="INTRO.mp4" type="video/mp4"></video>
     <div id="loginBox">
-
         <div id="loginLogo">🗺️</div>
-
         <h2>Sign in to LandHub</h2>
-
         <div id="loginForm">
-
             <div class="lf-group">
                 <label>Username or email address</label>
                 <input type="text" id="loginUser" autocomplete="username" placeholder="">
             </div>
-
             <div class="lf-group">
                 <div class="lf-pw-row">
                     <label>Password</label>
@@ -1078,105 +673,49 @@ html, body {
                 </div>
                 <input type="password" id="loginPass" autocomplete="current-password" placeholder="">
             </div>
-
             <button id="btnSignIn">Sign in</button>
-
             <div id="loginError">⚠️ Username atau password tidak betul.</div>
-
         </div>
-
-        <div id="loginExtra">
-            New to LandHub? <a href="#" id="linkCreateAcc">Create an account</a>
-        </div>
-
+        <div id="loginExtra">New to LandHub? <a href="#" id="linkCreateAcc">Create an account</a></div>
     </div>
 </div>
 
-<!-- ================= REGISTER SCREEN ================= -->
 <div id="registerScreen">
-
-    <video id="registerBgVideo" autoplay muted loop playsinline>
-        <source src="INTRO.mp4" type="video/mp4">
-    </video>
-
+    <video id="registerBgVideo" autoplay muted loop playsinline><source src="INTRO.mp4" type="video/mp4"></video>
     <div id="registerBox">
-
         <div id="loginLogo" style="position:static;">🗺️</div>
-
         <h2>Create your account</h2>
         <p class="reg-sub">Join LandHub to explore land parcels</p>
-
         <div id="registerForm">
-
-            <div class="lf-group">
-                <label>Full Name</label>
-                <input type="text" id="regName" placeholder="Contoh: Ahmad bin Ali" maxlength="60">
-            </div>
-
-            <div class="lf-group">
-                <label>Email address</label>
-                <input type="email" id="regEmail" placeholder="email@example.com">
-            </div>
-
-            <div class="lf-group">
-                <label>Username</label>
-                <input type="text" id="regUser" placeholder="min. 4 aksara" maxlength="30">
-            </div>
-
+            <div class="lf-group"><label>Full Name</label><input type="text" id="regName" placeholder="Contoh: Ahmad bin Ali" maxlength="60"></div>
+            <div class="lf-group"><label>Email address</label><input type="email" id="regEmail" placeholder="email@example.com"></div>
+            <div class="lf-group"><label>Username</label><input type="text" id="regUser" placeholder="min. 4 aksara" maxlength="30"></div>
             <div class="lf-group">
                 <label>Password</label>
                 <input type="password" id="regPass" placeholder="min. 6 aksara" maxlength="50">
-                <div id="pwStrengthWrap">
-                    <div id="pwStrengthBar"><div id="pwStrengthFill"></div></div>
-                    <div id="pwStrengthLabel"></div>
-                </div>
+                <div id="pwStrengthWrap"><div id="pwStrengthBar"><div id="pwStrengthFill"></div></div><div id="pwStrengthLabel"></div></div>
             </div>
-
-            <div class="lf-group">
-                <label>Confirm Password</label>
-                <input type="password" id="regPassConfirm" placeholder="taip semula password" maxlength="50">
-            </div>
-
+            <div class="lf-group"><label>Confirm Password</label><input type="password" id="regPassConfirm" placeholder="taip semula password" maxlength="50"></div>
             <button id="btnCreateAcc">Create account</button>
-
             <div id="registerError"></div>
             <div id="registerSuccess"></div>
-
         </div>
-
-        <div id="registerExtra">
-            Already have an account? <a href="#" id="linkBackLogin">Sign in</a>
-        </div>
-
+        <div id="registerExtra">Already have an account? <a href="#" id="linkBackLogin">Sign in</a></div>
     </div>
 </div>
 
-<!-- ================= FORGOT PASSWORD SCREEN ================= -->
 <div id="forgotScreen">
-
-    <video id="forgotBgVideo" autoplay muted loop playsinline>
-        <source src="INTRO.mp4" type="video/mp4">
-    </video>
-
+    <video id="forgotBgVideo" autoplay muted loop playsinline><source src="INTRO.mp4" type="video/mp4"></video>
     <div id="forgotBox">
-
         <div style="width:56px;height:56px;background:white;border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 4px 18px rgba(0,0,0,0.35);font-size:28px;">🔑</div>
-
         <h2>Reset your password</h2>
         <p class="forgot-sub" id="forgotSubText">Enter your email to receive a verification code</p>
-
-        <!-- STEP 1: EMAIL -->
         <div id="forgotStep1">
-            <div class="lf-group">
-                <label>Email address</label>
-                <input type="email" id="forgotEmail" placeholder="email@example.com">
-            </div>
+            <div class="lf-group"><label>Email address</label><input type="email" id="forgotEmail" placeholder="email@example.com"></div>
             <button class="forgot-btn" id="btnSendOtp">Send verification code</button>
             <div class="forgot-error" id="forgotErr1"></div>
             <div class="forgot-info" id="forgotInfo1"></div>
         </div>
-
-        <!-- STEP 2: OTP -->
         <div id="forgotStep2">
             <div class="lf-group">
                 <label style="text-align:center; display:block;">Enter 6-digit code</label>
@@ -1193,78 +732,46 @@ html, body {
             <div class="forgot-error" id="forgotErr2"></div>
             <div class="forgot-info" id="otpTimer"></div>
         </div>
-
-        <!-- STEP 3: NEW PASSWORD -->
         <div id="forgotStep3">
-            <div class="lf-group">
-                <label>New Password</label>
-                <input type="password" id="newPass1" placeholder="min. 6 aksara" maxlength="50">
-            </div>
-            <div class="lf-group">
-                <label>Confirm New Password</label>
-                <input type="password" id="newPass2" placeholder="taip semula password" maxlength="50">
-            </div>
+            <div class="lf-group"><label>New Password</label><input type="password" id="newPass1" placeholder="min. 6 aksara" maxlength="50"></div>
+            <div class="lf-group"><label>Confirm New Password</label><input type="password" id="newPass2" placeholder="taip semula password" maxlength="50"></div>
             <button class="forgot-btn" id="btnSetNewPass">Set new password</button>
             <div class="forgot-error" id="forgotErr3"></div>
         </div>
-
-        <div id="forgotExtra">
-            Remember your password? <a href="#" id="linkForgotBack">Back to sign in</a>
-        </div>
-
+        <div id="forgotExtra">Remember your password? <a href="#" id="linkForgotBack">Back to sign in</a></div>
     </div>
 </div>
 
-<!-- ================= MAIN APP (DISEMBUNYIKAN SEHINGGA LOGIN) ================= -->
 <div id="mainApp" style="display:none; width:100%; height:100%;">
 
 <div id="header">
-    <video autoplay muted loop playsinline>
-        <source src="VIDEO 1.mp4" type="video/mp4">
-    </video>
+    <video autoplay muted loop playsinline><source src="VIDEO 1.mp4" type="video/mp4"></video>
     <img src="PUO.png">
     <h1>TAMAN SAUJANA PUTRA</h1>
 </div>
 
 <div id="map"></div>
 
-<div id="northArrow">
-    <img src="north.png" width="65">
-</div>
-    
+<div id="northArrow"><img src="north.png" width="65"></div>
+
 <div id="menuBtn">☰ Menu</div>
 
 <div id="dashboard">
-    <video autoplay muted loop playsinline class="dashboard-video">
-        <source src="DASHBOARD.mp4" type="video/mp4">
-    </video>
-
+    <video autoplay muted loop playsinline class="dashboard-video"><source src="DASHBOARD.mp4" type="video/mp4"></video>
     <div style="display:flex; justify-content:space-between; align-items:center; background: rgba(255,255,255,0.7); padding: 5px; border-radius: 8px;">
         <h2 style="margin:0; color: #5a3e2b;">DASHBOARD</h2>
         <button id="closeDashboard" style="background:#5a3e2b;color:white;border:none;padding:5px 10px;border-radius:6px;cursor:pointer;">✖</button>
     </div>
-    
-    <br>
-    <hr>
-    
+    <br><hr>
     <div style="background: rgba(255,255,255,0.7); padding: 10px; border-radius: 8px;">
-        <div class="dashboard-section">
-            <label>Total Lot</label>
-            <div id="totalLot" class="dashboard-info"></div>
-        </div>
-
-        <div class="dashboard-section">
-            <label>Lot Opacity</label>
-            <input type="range" id="opacitySlider" min="0" max="1" step="0.1" value="1">
-        </div>
-
+        <div class="dashboard-section"><label>Total Lot</label><div id="totalLot" class="dashboard-info"></div></div>
+        <div class="dashboard-section"><label>Lot Opacity</label><input type="range" id="opacitySlider" min="0" max="1" step="0.1" value="1"></div>
         <div class="dashboard-section">
             <label>Land Explorer</label>
             <input type="text" id="searchLot" placeholder="Masukkan No Lot">
             <button id="findLot">Find Lot</button>
             <button id="resetLot">Reset Lot</button>
         </div>
-
         <div class="dashboard-section">
             <label>Maklumat Lot Dipilih</label>
             <div id="lotInfo" class="dashboard-info">Tiada lot dipilih</div>
@@ -1273,40 +780,27 @@ html, body {
     </div>
 </div>
 
-<div id="gmLayersBtn">
-    <img src="MAPS.png">
-    <span>Layers</span>
-</div>
+<div id="gmLayersBtn"><img src="MAPS.png"><span>Layers</span></div>
 
 <div id="gmPanel">
-
-<h3>Map Type</h3>
-<div class="gmOption"><input type="radio" name="basemap" id="streetRadio" checked>Street</div>
-<div class="gmOption"><input type="radio" name="basemap" id="satRadio">Satellite</div>
-<div class="gmOption"><input type="radio" name="basemap" id="terrainRadio">Terrain</div>
-
-<div class="gmDivider"></div>
-
-<h3>Map Details</h3>
-<div class="gmOption"><input type="checkbox" id="trafficCheck">Traffic</div>
-<div class="gmOption"><input type="checkbox" id="transitCheck">Transit</div>
-<div class="gmOption"><input type="checkbox" id="bikeCheck">Bicycling</div>
-
-<div class="gmDivider"></div>
-
-<h3>Data Layer</h3>
-<div class="gmOption"><input type="checkbox" id="lotCheck" checked>Lot Final</div>
-<div class="gmOption"><input type="checkbox" id="tandaCheck" checked>Tanda Sempadan</div>
-<!-- TAMBAHAN: Kawalan label nombor lot dalam Layers panel -->
-<div class="gmOption"><input type="checkbox" id="labelCheck">&nbsp;No Lot Label</div>
-
+    <h3>Map Type</h3>
+    <div class="gmOption"><input type="radio" name="basemap" id="streetRadio" checked>Street</div>
+    <div class="gmOption"><input type="radio" name="basemap" id="satRadio">Satellite</div>
+    <div class="gmOption"><input type="radio" name="basemap" id="terrainRadio">Terrain</div>
+    <div class="gmDivider"></div>
+    <h3>Map Details</h3>
+    <div class="gmOption"><input type="checkbox" id="trafficCheck">Traffic</div>
+    <div class="gmOption"><input type="checkbox" id="transitCheck">Transit</div>
+    <div class="gmOption"><input type="checkbox" id="bikeCheck">Bicycling</div>
+    <div class="gmDivider"></div>
+    <h3>Data Layer</h3>
+    <div class="gmOption"><input type="checkbox" id="lotCheck" checked>Lot Final</div>
+    <div class="gmOption"><input type="checkbox" id="tandaCheck" checked>Tanda Sempadan</div>
+    <div class="gmOption"><input type="checkbox" id="labelCheck">&nbsp;No Lot Label</div>
 </div>
 
-<div id="footer">
-    Hak Cipta Terpelihara 2026 @ Ikmwfy | Politeknik Ungku Omar
-</div>
+<div id="footer">Hak Cipta Terpelihara 2026 @ Ikmwfy | Politeknik Ungku Omar</div>
 
-<!-- MODAL PDF -->
 <div id="pdfModal">
     <div id="pdfModalBox">
         <div id="pdfModalHeader">
@@ -1326,7 +820,7 @@ html, body {
     </div>
 </div>
 
-</div> <!-- /mainApp -->
+</div>
 
 <script src="js/leaflet.js"></script>
 <script src="data/LOTFINAL_0.js"></script>
@@ -1337,950 +831,433 @@ html, body {
 <script>
 
 /* ================================================
-   ACCOUNT STORAGE (localStorage)
+   ACCOUNTS
    ================================================ */
-
 function getAccounts() {
     var raw = localStorage.getItem("lh_accounts");
-    if (!raw) return [{ user: "admin", pass: "landhub123", email: "admin@landhub.my", name: "Administrator" }];
+    if (!raw) return [{ user:"admin", pass:"landhub123", email:"admin@landhub.my", name:"Administrator" }];
     try { return JSON.parse(raw); } catch(e) { return []; }
 }
-
-function saveAccounts(arr) {
-    localStorage.setItem("lh_accounts", JSON.stringify(arr));
-}
-
+function saveAccounts(arr) { localStorage.setItem("lh_accounts", JSON.stringify(arr)); }
 function findAccount(userOrEmail) {
     var accs = getAccounts();
-    for (var i = 0; i < accs.length; i++) {
-        if (accs[i].user === userOrEmail || accs[i].email === userOrEmail) return accs[i];
+    for (var i=0; i<accs.length; i++) {
+        if (accs[i].user===userOrEmail || accs[i].email===userOrEmail) return accs[i];
     }
     return null;
 }
-
 if (!localStorage.getItem("lh_accounts")) {
-    saveAccounts([{ user: "admin", pass: "landhub123", email: "admin@landhub.my", name: "Administrator" }]);
+    saveAccounts([{ user:"admin", pass:"landhub123", email:"admin@landhub.my", name:"Administrator" }]);
 }
 
 /* ================================================
-   TOAST HELPER
+   TOAST
    ================================================ */
-
 function showToast(msg, duration) {
     var t = document.getElementById("toastNotif");
-    t.textContent = msg;
-    t.classList.add("show");
-    setTimeout(function() { t.classList.remove("show"); }, duration || 3000);
+    t.textContent = msg; t.classList.add("show");
+    setTimeout(function(){ t.classList.remove("show"); }, duration||3000);
 }
 
 /* ================================================
-   SCREEN SWITCHER
+   SCREENS
    ================================================ */
-
 function showLogin() {
-    document.getElementById("loginScreen").style.display = "flex";
+    document.getElementById("loginScreen").style.display="flex";
     document.getElementById("loginScreen").classList.remove("fadeOut");
     document.getElementById("registerScreen").classList.remove("show");
     document.getElementById("forgotScreen").classList.remove("show");
-    document.getElementById("loginUser").value = "";
-    document.getElementById("loginPass").value = "";
-    document.getElementById("loginError").style.display = "none";
+    document.getElementById("loginUser").value="";
+    document.getElementById("loginPass").value="";
+    document.getElementById("loginError").style.display="none";
 }
-
 function showRegister() {
-    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("loginScreen").style.display="none";
     document.getElementById("forgotScreen").classList.remove("show");
     document.getElementById("registerScreen").classList.add("show");
-    document.getElementById("regName").value = "";
-    document.getElementById("regEmail").value = "";
-    document.getElementById("regUser").value = "";
-    document.getElementById("regPass").value = "";
-    document.getElementById("regPassConfirm").value = "";
-    document.getElementById("registerError").style.display = "none";
-    document.getElementById("registerSuccess").style.display = "none";
-    document.getElementById("pwStrengthWrap").style.display = "none";
+    ["regName","regEmail","regUser","regPass","regPassConfirm"].forEach(function(id){ document.getElementById(id).value=""; });
+    document.getElementById("registerError").style.display="none";
+    document.getElementById("registerSuccess").style.display="none";
+    document.getElementById("pwStrengthWrap").style.display="none";
 }
-
 function showForgot() {
-    document.getElementById("loginScreen").style.display = "none";
+    document.getElementById("loginScreen").style.display="none";
     document.getElementById("registerScreen").classList.remove("show");
     document.getElementById("forgotScreen").classList.add("show");
     resetForgotFlow();
 }
 
 /* ================================================
-   LOGIN LOGIC
+   LOGIN
    ================================================ */
-
-var loginUser  = document.getElementById("loginUser");
-var loginPass  = document.getElementById("loginPass");
-var loginError = document.getElementById("loginError");
-var loginScreen= document.getElementById("loginScreen");
-var mainApp    = document.getElementById("mainApp");
+var loginUser=document.getElementById("loginUser"), loginPass=document.getElementById("loginPass");
+var loginError=document.getElementById("loginError"), loginScreen=document.getElementById("loginScreen");
+var mainApp=document.getElementById("mainApp");
 
 function doLogin() {
-    var u = loginUser.value.trim();
-    var p = loginPass.value;
-    var acc = findAccount(u);
-
-    if (acc && acc.pass === p) {
-        loginError.style.display = "none";
+    var acc = findAccount(loginUser.value.trim());
+    if (acc && acc.pass===loginPass.value) {
+        loginError.style.display="none";
         loginScreen.classList.add("fadeOut");
-        setTimeout(function() {
-            loginScreen.style.display = "none";
-            mainApp.style.display = "block";
-            if (typeof map !== "undefined") {
+        setTimeout(function(){
+            loginScreen.style.display="none";
+            mainApp.style.display="block";
+            if (typeof map!=="undefined") {
                 map.invalidateSize();
-                setTimeout(function() {
-                    map.fitBounds(layer_LOTFINAL_0.getBounds(), {
-                        padding: [60, 60],
-                        animate: true,
-                        duration: 1.2,
-                        maxZoom: 19
-                    });
-                }, 300);
+                setTimeout(function(){
+                    map.fitBounds(layer_LOTFINAL_0.getBounds(),{padding:[60,60],animate:true,duration:1.2,maxZoom:19});
+                },300);
             }
-        }, 600);
+        },600);
     } else {
-        loginError.style.display = "block";
-        loginPass.value = "";
-        loginPass.focus();
-        var box = document.getElementById("loginForm");
-        box.style.animation = "none";
-        box.offsetHeight;
-        box.style.animation = "shake 0.4s ease";
+        loginError.style.display="block"; loginPass.value=""; loginPass.focus();
+        var box=document.getElementById("loginForm"); box.style.animation="none"; box.offsetHeight; box.style.animation="shake 0.4s ease";
     }
 }
 
-document.getElementById("btnSignIn").onclick = doLogin;
-loginUser.addEventListener("keydown", function(e){ if(e.key==="Enter") loginPass.focus(); });
-loginPass.addEventListener("keydown", function(e){ if(e.key==="Enter") doLogin(); });
+document.getElementById("btnSignIn").onclick=doLogin;
+loginUser.addEventListener("keydown",function(e){if(e.key==="Enter")loginPass.focus();});
+loginPass.addEventListener("keydown",function(e){if(e.key==="Enter")doLogin();});
+document.getElementById("linkCreateAcc").onclick=function(e){e.preventDefault();showRegister();};
+document.getElementById("linkForgot").onclick=function(e){e.preventDefault();showForgot();};
 
-document.getElementById("linkCreateAcc").onclick = function(e) {
-    e.preventDefault();
-    showRegister();
-};
-
-document.getElementById("linkForgot").onclick = function(e) {
-    e.preventDefault();
-    showForgot();
-};
-
-var shakeStyle = document.createElement("style");
-shakeStyle.textContent = `
-@keyframes shake {
-    0%,100%{ transform: translateX(0); }
-    20%     { transform: translateX(-8px); }
-    40%     { transform: translateX(8px); }
-    60%     { transform: translateX(-6px); }
-    80%     { transform: translateX(6px); }
-}`;
+var shakeStyle=document.createElement("style");
+shakeStyle.textContent="@keyframes shake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(6px)}}";
 document.head.appendChild(shakeStyle);
 
 /* ================================================
-   REGISTER LOGIC
+   REGISTER
    ================================================ */
-
-document.getElementById("regPass").addEventListener("input", function() {
-    var v = this.value;
-    var wrap = document.getElementById("pwStrengthWrap");
-    var fill  = document.getElementById("pwStrengthFill");
-    var label = document.getElementById("pwStrengthLabel");
-
-    if (!v) { wrap.style.display = "none"; return; }
-    wrap.style.display = "block";
-
-    var score = 0;
-    if (v.length >= 6)  score++;
-    if (v.length >= 10) score++;
-    if (/[A-Z]/.test(v)) score++;
-    if (/[0-9]/.test(v)) score++;
-    if (/[^a-zA-Z0-9]/.test(v)) score++;
-
-    var pct   = [0, 20, 40, 60, 80, 100][score];
-    var color = ["#f85149","#f0883e","#d29922","#3fb950","#3fb950"][score - 1] || "#f85149";
-    var text  = ["","Lemah","Sederhana","Cukup","Kuat","Sangat Kuat"][score] || "Lemah";
-
-    fill.style.width = pct + "%";
-    fill.style.background = color;
-    label.style.color = color;
-    label.textContent = text;
+document.getElementById("regPass").addEventListener("input",function(){
+    var v=this.value, wrap=document.getElementById("pwStrengthWrap"),fill=document.getElementById("pwStrengthFill"),label=document.getElementById("pwStrengthLabel");
+    if(!v){wrap.style.display="none";return;}wrap.style.display="block";
+    var score=0;if(v.length>=6)score++;if(v.length>=10)score++;if(/[A-Z]/.test(v))score++;if(/[0-9]/.test(v))score++;if(/[^a-zA-Z0-9]/.test(v))score++;
+    var pct=[0,20,40,60,80,100][score],color=["#f85149","#f0883e","#d29922","#3fb950","#3fb950"][score-1]||"#f85149",text=["","Lemah","Sederhana","Cukup","Kuat","Sangat Kuat"][score]||"Lemah";
+    fill.style.width=pct+"%";fill.style.background=color;label.style.color=color;label.textContent=text;
 });
 
-document.getElementById("btnCreateAcc").onclick = function() {
-    var name  = document.getElementById("regName").value.trim();
-    var email = document.getElementById("regEmail").value.trim();
-    var user  = document.getElementById("regUser").value.trim();
-    var pass  = document.getElementById("regPass").value;
-    var conf  = document.getElementById("regPassConfirm").value;
-
-    var errEl  = document.getElementById("registerError");
-    var succEl = document.getElementById("registerSuccess");
-
-    errEl.style.display  = "none";
-    succEl.style.display = "none";
-
-    function showRegErr(msg) {
-        errEl.innerHTML = "⚠️ " + msg;
-        errEl.style.display = "block";
-    }
-
-    if (!name)  { showRegErr("Nama penuh diperlukan."); return; }
-    if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) { showRegErr("Email tidak sah."); return; }
-    if (user.length < 4) { showRegErr("Username mestilah sekurang-kurangnya 4 aksara."); return; }
-    if (pass.length < 6) { showRegErr("Password mestilah sekurang-kurangnya 6 aksara."); return; }
-    if (pass !== conf)   { showRegErr("Password tidak sepadan."); return; }
-
-    var accs = getAccounts();
-    for (var i = 0; i < accs.length; i++) {
-        if (accs[i].user === user)  { showRegErr("Username sudah digunakan."); return; }
-        if (accs[i].email === email){ showRegErr("Email sudah didaftarkan."); return; }
-    }
-
-    accs.push({ user: user, pass: pass, email: email, name: name });
-    saveAccounts(accs);
-
-    succEl.innerHTML = "✅ Akaun berjaya dicipta! Anda boleh log masuk sekarang.";
-    succEl.style.display = "block";
-
-    showToast("✅ Akaun berjaya dicipta!", 3000);
-
-    setTimeout(function() {
-        showLogin();
-        document.getElementById("loginUser").value = user;
-        document.getElementById("loginPass").focus();
-    }, 2000);
+document.getElementById("btnCreateAcc").onclick=function(){
+    var name=document.getElementById("regName").value.trim(),email=document.getElementById("regEmail").value.trim(),
+        user=document.getElementById("regUser").value.trim(),pass=document.getElementById("regPass").value,
+        conf=document.getElementById("regPassConfirm").value;
+    var errEl=document.getElementById("registerError"),succEl=document.getElementById("registerSuccess");
+    errEl.style.display="none";succEl.style.display="none";
+    function showRegErr(msg){errEl.innerHTML="⚠️ "+msg;errEl.style.display="block";}
+    if(!name){showRegErr("Nama penuh diperlukan.");return;}
+    if(!email||!/^[^@]+@[^@]+\.[^@]+$/.test(email)){showRegErr("Email tidak sah.");return;}
+    if(user.length<4){showRegErr("Username mestilah sekurang-kurangnya 4 aksara.");return;}
+    if(pass.length<6){showRegErr("Password mestilah sekurang-kurangnya 6 aksara.");return;}
+    if(pass!==conf){showRegErr("Password tidak sepadan.");return;}
+    var accs=getAccounts();
+    for(var i=0;i<accs.length;i++){if(accs[i].user===user){showRegErr("Username sudah digunakan.");return;}if(accs[i].email===email){showRegErr("Email sudah didaftarkan.");return;}}
+    accs.push({user:user,pass:pass,email:email,name:name});saveAccounts(accs);
+    succEl.innerHTML="✅ Akaun berjaya dicipta! Anda boleh log masuk sekarang.";succEl.style.display="block";
+    showToast("✅ Akaun berjaya dicipta!",3000);
+    setTimeout(function(){showLogin();document.getElementById("loginUser").value=user;document.getElementById("loginPass").focus();},2000);
 };
 
-document.getElementById("linkBackLogin").onclick = function(e) {
-    e.preventDefault();
-    showLogin();
-};
-
-["regName","regEmail","regUser","regPass","regPassConfirm"].forEach(function(id, idx, arr) {
-    document.getElementById(id).addEventListener("keydown", function(e) {
-        if (e.key === "Enter") {
-            if (idx < arr.length - 1) {
-                document.getElementById(arr[idx + 1]).focus();
-            } else {
-                document.getElementById("btnCreateAcc").click();
-            }
-        }
-    });
+document.getElementById("linkBackLogin").onclick=function(e){e.preventDefault();showLogin();};
+["regName","regEmail","regUser","regPass","regPassConfirm"].forEach(function(id,idx,arr){
+    document.getElementById(id).addEventListener("keydown",function(e){if(e.key==="Enter"){if(idx<arr.length-1)document.getElementById(arr[idx+1]).focus();else document.getElementById("btnCreateAcc").click();}});
 });
 
 /* ================================================
-   FORGOT PASSWORD LOGIC
+   FORGOT PASSWORD
    ================================================ */
+var _otpCode="",_otpEmail="",_otpTimer=null,_otpSeconds=0;
 
-var _otpCode    = "";
-var _otpEmail   = "";
-var _otpTimer   = null;
-var _otpSeconds = 0;
-
-function resetForgotFlow() {
-    document.getElementById("forgotStep1").style.display = "block";
-    document.getElementById("forgotStep2").style.display = "none";
-    document.getElementById("forgotStep3").style.display = "none";
-    document.getElementById("forgotEmail").value = "";
-    document.getElementById("newPass1").value = "";
-    document.getElementById("newPass2").value = "";
-    document.getElementById("forgotErr1").style.display = "none";
-    document.getElementById("forgotErr2").style.display = "none";
-    document.getElementById("forgotErr3").style.display = "none";
-    document.getElementById("forgotInfo1").textContent = "";
-    document.getElementById("forgotSubText").textContent = "Enter your email to receive a verification code";
+function resetForgotFlow(){
+    document.getElementById("forgotStep1").style.display="block";
+    document.getElementById("forgotStep2").style.display="none";
+    document.getElementById("forgotStep3").style.display="none";
+    ["forgotEmail","newPass1","newPass2"].forEach(function(id){document.getElementById(id).value="";});
+    ["forgotErr1","forgotErr2","forgotErr3"].forEach(function(id){document.getElementById(id).style.display="none";});
+    document.getElementById("forgotInfo1").textContent="";
+    document.getElementById("forgotSubText").textContent="Enter your email to receive a verification code";
     clearInterval(_otpTimer);
-    var boxes = document.querySelectorAll(".otp-input");
-    boxes.forEach(function(b) { b.value = ""; b.classList.remove("filled"); });
-    _otpCode = "";
-    _otpEmail = "";
+    document.querySelectorAll(".otp-input").forEach(function(b){b.value="";b.classList.remove("filled");});
+    _otpCode="";_otpEmail="";
 }
 
-function generateOTP() {
-    return Math.floor(100000 + Math.random() * 900000).toString();
-}
+function generateOTP(){return Math.floor(100000+Math.random()*900000).toString();}
 
-function startOtpTimer(seconds) {
-    _otpSeconds = seconds;
-    var el = document.getElementById("otpTimer");
-    clearInterval(_otpTimer);
-    _otpTimer = setInterval(function() {
+function startOtpTimer(seconds){
+    _otpSeconds=seconds;var el=document.getElementById("otpTimer");clearInterval(_otpTimer);
+    _otpTimer=setInterval(function(){
         _otpSeconds--;
-        if (_otpSeconds <= 0) {
-            clearInterval(_otpTimer);
-            el.textContent = "Kod telah tamat tempoh. Sila minta kod baru.";
-            el.style.color = "#f85149";
-            _otpCode = "";
-        } else {
-            el.style.color = "#8b949e";
-            el.textContent = "Kod sah selama " + _otpSeconds + " saat lagi";
-        }
-    }, 1000);
+        if(_otpSeconds<=0){clearInterval(_otpTimer);el.textContent="Kod telah tamat tempoh. Sila minta kod baru.";el.style.color="#f85149";_otpCode="";}
+        else{el.style.color="#8b949e";el.textContent="Kod sah selama "+_otpSeconds+" saat lagi";}
+    },1000);
 }
 
-document.getElementById("btnSendOtp").onclick = function() {
-    var email = document.getElementById("forgotEmail").value.trim();
-    var errEl = document.getElementById("forgotErr1");
-    var infoEl= document.getElementById("forgotInfo1");
-
-    errEl.style.display = "none";
-    infoEl.textContent  = "";
-
-    if (!email || !/^[^@]+@[^@]+\.[^@]+$/.test(email)) {
-        errEl.innerHTML = "⚠️ Sila masukkan alamat email yang sah.";
-        errEl.style.display = "block";
-        return;
-    }
-
-    var acc = findAccount(email);
-    if (!acc) {
-        errEl.innerHTML = "⚠️ Email ini tidak didaftarkan dalam sistem.";
-        errEl.style.display = "block";
-        return;
-    }
-
-    _otpCode  = generateOTP();
-    _otpEmail = email;
-
-    showToast("📧 Kod OTP anda: " + _otpCode, 15000);
-
-    document.getElementById("forgotStep1").style.display = "none";
-    document.getElementById("forgotStep2").style.display = "block";
-    document.getElementById("forgotSubText").textContent = "Enter the 6-digit code sent to " + email;
-
+document.getElementById("btnSendOtp").onclick=function(){
+    var email=document.getElementById("forgotEmail").value.trim();
+    var errEl=document.getElementById("forgotErr1");errEl.style.display="none";document.getElementById("forgotInfo1").textContent="";
+    if(!email||!/^[^@]+@[^@]+\.[^@]+$/.test(email)){errEl.innerHTML="⚠️ Sila masukkan alamat email yang sah.";errEl.style.display="block";return;}
+    var acc=findAccount(email);
+    if(!acc){errEl.innerHTML="⚠️ Email ini tidak didaftarkan dalam sistem.";errEl.style.display="block";return;}
+    _otpCode=generateOTP();_otpEmail=email;
+    showToast("📧 Kod OTP anda: "+_otpCode,15000);
+    document.getElementById("forgotStep1").style.display="none";
+    document.getElementById("forgotStep2").style.display="block";
+    document.getElementById("forgotSubText").textContent="Enter the 6-digit code sent to "+email;
     startOtpTimer(120);
-
-    setTimeout(function() {
-        document.querySelectorAll(".otp-input")[0].focus();
-    }, 200);
+    setTimeout(function(){document.querySelectorAll(".otp-input")[0].focus();},200);
 };
 
-var otpBoxes = document.querySelectorAll(".otp-input");
-otpBoxes.forEach(function(box, idx) {
-    box.addEventListener("input", function() {
-        var val = this.value.replace(/[^0-9]/g, "");
-        this.value = val;
-        if (val) {
-            this.classList.add("filled");
-            if (idx < otpBoxes.length - 1) otpBoxes[idx + 1].focus();
-        } else {
-            this.classList.remove("filled");
-        }
-    });
-
-    box.addEventListener("keydown", function(e) {
-        if (e.key === "Backspace" && !this.value && idx > 0) {
-            otpBoxes[idx - 1].focus();
-            otpBoxes[idx - 1].value = "";
-            otpBoxes[idx - 1].classList.remove("filled");
-        }
-        if (e.key === "Enter") {
-            document.getElementById("btnVerifyOtp").click();
-        }
-    });
-
-    box.addEventListener("paste", function(e) {
-        e.preventDefault();
-        var pasted = (e.clipboardData || window.clipboardData).getData("text").replace(/[^0-9]/g,"");
-        for (var i = 0; i < pasted.length && (idx + i) < otpBoxes.length; i++) {
-            otpBoxes[idx + i].value = pasted[i];
-            otpBoxes[idx + i].classList.add("filled");
-        }
-        var next = idx + pasted.length;
-        if (next < otpBoxes.length) otpBoxes[next].focus();
-    });
+var otpBoxes=document.querySelectorAll(".otp-input");
+otpBoxes.forEach(function(box,idx){
+    box.addEventListener("input",function(){var val=this.value.replace(/[^0-9]/g,"");this.value=val;if(val){this.classList.add("filled");if(idx<otpBoxes.length-1)otpBoxes[idx+1].focus();}else{this.classList.remove("filled");}});
+    box.addEventListener("keydown",function(e){if(e.key==="Backspace"&&!this.value&&idx>0){otpBoxes[idx-1].focus();otpBoxes[idx-1].value="";otpBoxes[idx-1].classList.remove("filled");}if(e.key==="Enter")document.getElementById("btnVerifyOtp").click();});
+    box.addEventListener("paste",function(e){e.preventDefault();var pasted=(e.clipboardData||window.clipboardData).getData("text").replace(/[^0-9]/g,"");for(var i=0;i<pasted.length&&(idx+i)<otpBoxes.length;i++){otpBoxes[idx+i].value=pasted[i];otpBoxes[idx+i].classList.add("filled");}var next=idx+pasted.length;if(next<otpBoxes.length)otpBoxes[next].focus();});
 });
 
-document.getElementById("btnVerifyOtp").onclick = function() {
-    var entered = "";
-    otpBoxes.forEach(function(b) { entered += b.value; });
-
-    var errEl = document.getElementById("forgotErr2");
-    errEl.style.display = "none";
-
-    if (entered.length < 6) {
-        errEl.innerHTML = "⚠️ Sila masukkan 6 digit kod pengesahan.";
-        errEl.style.display = "block";
-        return;
-    }
-
-    if (!_otpCode) {
-        errEl.innerHTML = "⚠️ Kod telah tamat tempoh. Sila minta kod baru.";
-        errEl.style.display = "block";
-        return;
-    }
-
-    if (entered !== _otpCode) {
-        errEl.innerHTML = "⚠️ Kod tidak betul. Cuba semula.";
-        errEl.style.display = "block";
-        var row = document.getElementById("otpRow");
-        row.style.animation = "none";
-        row.offsetHeight;
-        row.style.animation = "shake 0.4s ease";
-        return;
-    }
-
+document.getElementById("btnVerifyOtp").onclick=function(){
+    var entered="";otpBoxes.forEach(function(b){entered+=b.value;});
+    var errEl=document.getElementById("forgotErr2");errEl.style.display="none";
+    if(entered.length<6){errEl.innerHTML="⚠️ Sila masukkan 6 digit kod pengesahan.";errEl.style.display="block";return;}
+    if(!_otpCode){errEl.innerHTML="⚠️ Kod telah tamat tempoh. Sila minta kod baru.";errEl.style.display="block";return;}
+    if(entered!==_otpCode){errEl.innerHTML="⚠️ Kod tidak betul. Cuba semula.";errEl.style.display="block";var row=document.getElementById("otpRow");row.style.animation="none";row.offsetHeight;row.style.animation="shake 0.4s ease";return;}
     clearInterval(_otpTimer);
-
-    document.getElementById("forgotStep2").style.display = "none";
-    document.getElementById("forgotStep3").style.display = "block";
-    document.getElementById("forgotSubText").textContent = "Choose a new password for your account";
+    document.getElementById("forgotStep2").style.display="none";
+    document.getElementById("forgotStep3").style.display="block";
+    document.getElementById("forgotSubText").textContent="Choose a new password for your account";
     document.getElementById("newPass1").focus();
 };
 
-document.getElementById("btnSetNewPass").onclick = function() {
-    var p1    = document.getElementById("newPass1").value;
-    var p2    = document.getElementById("newPass2").value;
-    var errEl = document.getElementById("forgotErr3");
-
-    errEl.style.display = "none";
-
-    if (p1.length < 6) {
-        errEl.innerHTML = "⚠️ Password mestilah sekurang-kurangnya 6 aksara.";
-        errEl.style.display = "block";
-        return;
-    }
-
-    if (p1 !== p2) {
-        errEl.innerHTML = "⚠️ Password tidak sepadan. Cuba semula.";
-        errEl.style.display = "block";
-        return;
-    }
-
-    var accs = getAccounts();
-    for (var i = 0; i < accs.length; i++) {
-        if (accs[i].email === _otpEmail) {
-            accs[i].pass = p1;
-            break;
-        }
-    }
-    saveAccounts(accs);
-
-    showToast("✅ Password berjaya ditukar! Sila log masuk.", 4000);
-
-    setTimeout(function() {
-        document.getElementById("forgotScreen").classList.remove("show");
-        showLogin();
-    }, 1500);
+document.getElementById("btnSetNewPass").onclick=function(){
+    var p1=document.getElementById("newPass1").value,p2=document.getElementById("newPass2").value;
+    var errEl=document.getElementById("forgotErr3");errEl.style.display="none";
+    if(p1.length<6){errEl.innerHTML="⚠️ Password mestilah sekurang-kurangnya 6 aksara.";errEl.style.display="block";return;}
+    if(p1!==p2){errEl.innerHTML="⚠️ Password tidak sepadan. Cuba semula.";errEl.style.display="block";return;}
+    var accs=getAccounts();for(var i=0;i<accs.length;i++){if(accs[i].email===_otpEmail){accs[i].pass=p1;break;}}saveAccounts(accs);
+    showToast("✅ Password berjaya ditukar! Sila log masuk.",4000);
+    setTimeout(function(){document.getElementById("forgotScreen").classList.remove("show");showLogin();},1500);
 };
 
-document.getElementById("linkForgotBack").onclick = function(e) {
-    e.preventDefault();
-    clearInterval(_otpTimer);
-    document.getElementById("forgotScreen").classList.remove("show");
-    showLogin();
-};
-
-document.getElementById("forgotEmail").addEventListener("keydown", function(e) {
-    if (e.key === "Enter") document.getElementById("btnSendOtp").click();
-});
-document.getElementById("newPass1").addEventListener("keydown", function(e) {
-    if (e.key === "Enter") document.getElementById("newPass2").focus();
-});
-document.getElementById("newPass2").addEventListener("keydown", function(e) {
-    if (e.key === "Enter") document.getElementById("btnSetNewPass").click();
-});
+document.getElementById("linkForgotBack").onclick=function(e){e.preventDefault();clearInterval(_otpTimer);document.getElementById("forgotScreen").classList.remove("show");showLogin();};
+document.getElementById("forgotEmail").addEventListener("keydown",function(e){if(e.key==="Enter")document.getElementById("btnSendOtp").click();});
+document.getElementById("newPass1").addEventListener("keydown",function(e){if(e.key==="Enter")document.getElementById("newPass2").focus();});
+document.getElementById("newPass2").addEventListener("keydown",function(e){if(e.key==="Enter")document.getElementById("btnSetNewPass").click();});
 
 /* ================================================
-   MAP SETTING (TIDAK DIUBAH)
+   MAP
    ================================================ */
-
-var map = L.map('map', {
-    zoomControl: false,
-    maxZoom: 22,
-    minZoom: 5
-}).fitBounds([
-[2.10309049233999,102.52084635053448],
-[2.1044455032659752,102.52331439237805]
+var map=L.map('map',{zoomControl:false,maxZoom:22,minZoom:5}).fitBounds([
+    [2.10309049233999,102.52084635053448],
+    [2.1044455032659752,102.52331439237805]
 ]);
+L.control.zoom({position:'topleft'}).addTo(map);
+L.control.scale({metric:true,imperial:false}).addTo(map);
 
-L.control.zoom({
-    position: 'topleft'
-}).addTo(map);
+var street    = L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{maxZoom:22});
+var satellite = L.tileLayer('https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',{maxZoom:22}).addTo(map);
+var terrain   = L.tileLayer('https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',{maxZoom:22});
+var traffic   = L.tileLayer('https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}',{maxZoom:22});
+var transit   = L.tileLayer('https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}',{maxZoom:22});
+var bicycling = L.tileLayer('https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}',{maxZoom:22});
 
-L.control.scale({
-    metric:true,
-    imperial:false
-}).addTo(map);
+function style_LOTFINAL_0(){return{color:'#5a3e2b',weight:1,fillColor:'#a47148',fillOpacity:1};}
+function highlightStyle(){return{color:'#000000',weight:2,fillColor:'yellow',fillOpacity:1};}
 
-/* ================= BASEMAP ================= */
+var selectedLayer=null;
 
-var street = L.tileLayer(
-'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
-{ maxZoom: 22 });
-
-var satellite = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
-{ maxZoom: 22 }).addTo(map);
-
-var terrain = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=p&x={x}&y={y}&z={z}',
-{ maxZoom: 22 });
-
-var traffic = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=h,traffic&x={x}&y={y}&z={z}',
-{ maxZoom: 22 });
-
-var transit = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=m,transit&x={x}&y={y}&z={z}',
-{ maxZoom: 22 });
-
-var bicycling = L.tileLayer(
-'https://mt1.google.com/vt/lyrs=m,bike&x={x}&y={y}&z={z}',
-{ maxZoom: 22 });
-
-/* ================= LOT FINAL INTERACTIVE ================= */
-
-function style_LOTFINAL_0() {
-    return {
-        color: '#5a3e2b',
-        weight: 1,
-        fillColor: '#a47148',
-        fillOpacity: 1
-    };
-}
-
-function highlightStyle() {
-    return {
-        color: '#000000',
-        weight: 2,
-        fillColor: 'yellow',
-        fillOpacity: 1
-    };
-}
-
-var selectedLayer = null;
-
-function onEachFeature_LOTFINAL_0(feature, layer) {
+function onEachFeature_LOTFINAL_0(feature,layer){
     layer.on({
-        click: function(e) {
-            if (selectedLayer) {
-                selectedLayer.setStyle(style_LOTFINAL_0());
-            }
-            selectedLayer = layer;
-            layer.setStyle(highlightStyle());
-            updateLotInfo(feature.properties);
-            layer.bringToFront();
-
-            var popupContent = `
-<div style="font-family: Arial; font-size:14px;">
-    <h4 style="margin:0; color:#5a3e2b;">Maklumat Lot</h4>
-    <hr style="margin:6px 0;">
-    <b>No PA:</b> ${feature.properties["tsp — _1"]}<br>
-    <b>No Lot:</b> ${feature.properties["NO_LOT"]}<br>
-    <b>Keluasan:</b> ${parseFloat(feature.properties["AREA"]).toFixed(3)} m²<br>
-    <b>Pemilik:</b> ${feature.properties["tsp — pe"]}
-</div>
-`;
-            layer.bindPopup(popupContent).openPopup();
+        click:function(e){
+            if(selectedLayer)selectedLayer.setStyle(style_LOTFINAL_0());
+            selectedLayer=layer;layer.setStyle(highlightStyle());updateLotInfo(feature.properties);layer.bringToFront();
+            layer.bindPopup('<div style="font-family:Arial;font-size:14px;"><h4 style="margin:0;color:#5a3e2b;">Maklumat Lot</h4><hr style="margin:6px 0;"><b>No PA:</b> '+feature.properties["tsp — _1"]+'<br><b>No Lot:</b> '+feature.properties["NO_LOT"]+'<br><b>Keluasan:</b> '+parseFloat(feature.properties["AREA"]).toFixed(3)+' m²<br><b>Pemilik:</b> '+feature.properties["tsp — pe"]+'</div>').openPopup();
         },
-
-        mouseover: function(e) {
-            var props = feature.properties;
-            var tooltipContent =
-                '<b style="color:#5a3e2b;">📦 Lot</b><br>' +
-                '<b>No Lot:</b> ' + props["NO_LOT"] + '<br>' +
-                '<b>No PA:</b> ' + props["tsp — _1"] + '<br>' +
-                '<b>Pemilik:</b> ' + props["tsp — pe"] + '<br>' +
-                '<b>Keluasan:</b> ' + parseFloat(props["AREA"]).toFixed(3) + ' m²';
-
-            layer.bindTooltip(tooltipContent, {
-                sticky: true,
-                opacity: 1,
-                className: 'lot-tooltip'
-            }).openTooltip();
+        mouseover:function(e){
+            var p=feature.properties;
+            layer.bindTooltip('<b style="color:#5a3e2b;">📦 Lot</b><br><b>No Lot:</b> '+p["NO_LOT"]+'<br><b>No PA:</b> '+p["tsp — _1"]+'<br><b>Pemilik:</b> '+p["tsp — pe"]+'<br><b>Keluasan:</b> '+parseFloat(p["AREA"]).toFixed(3)+' m²',{sticky:true,opacity:1,className:'lot-tooltip'}).openTooltip();
         },
-
-        mouseout: function(e) {
-            layer.closeTooltip();
-            layer.unbindTooltip();
-        }
+        mouseout:function(e){layer.closeTooltip();layer.unbindTooltip();}
     });
 }
 
-var layer_LOTFINAL_0 = new L.geoJson(json_LOTFINAL_0, {
-    style: style_LOTFINAL_0,
-    onEachFeature: onEachFeature_LOTFINAL_0
-}).addTo(map);
+var layer_LOTFINAL_0=new L.geoJson(json_LOTFINAL_0,{style:style_LOTFINAL_0,onEachFeature:onEachFeature_LOTFINAL_0}).addTo(map);
 
-/* ================= TANDA SEMPADAN + POPUP + HOVER ================= */
-
-var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
-    pointToLayer: function(feature, latlng) {
-        return L.circleMarker(latlng, {
-            radius: 4,
-            color: '#232323',
-            fillColor: '#d5b43c',
-            fillOpacity: 1
-        });
-    },
-    onEachFeature: function(feature, layer) {
+var tandaLayer=new L.geoJson(json_TandaSempadanGabung_1,{
+    pointToLayer:function(feature,latlng){return L.circleMarker(latlng,{radius:4,color:'#232323',fillColor:'#d5b43c',fillOpacity:1});},
+    onEachFeature:function(feature,layer){
         layer.on({
-            click: function(e) {
-                var props = feature.properties;
-                var content = '<div style="font-family:Arial; font-size:13px;">';
-                content += '<h4 style="margin:0 0 6px 0; color:#5a3e2b;">🔶 Tanda Sempadan</h4>';
-                content += '<hr style="margin:4px 0 8px 0;">';
-                for (var key in props) {
-                    if (props[key] !== null && props[key] !== "" && props[key] !== undefined) {
-                        content += '<b>' + key + ':</b> ' + props[key] + '<br>';
-                    }
-                }
-                if (Object.keys(props).length === 0) {
-                    content += 'Tiada maklumat tambahan.';
-                }
-                content += '</div>';
-                layer.bindPopup(content).openPopup();
+            click:function(e){
+                var props=feature.properties,content='<div style="font-family:Arial;font-size:13px;"><h4 style="margin:0 0 6px 0;color:#5a3e2b;">🔶 Tanda Sempadan</h4><hr style="margin:4px 0 8px 0;">';
+                for(var key in props){if(props[key]!==null&&props[key]!==""&&props[key]!==undefined)content+='<b>'+key+':</b> '+props[key]+'<br>';}
+                if(Object.keys(props).length===0)content+='Tiada maklumat tambahan.';
+                content+='</div>';layer.bindPopup(content).openPopup();
             },
-
-            mouseover: function(e) {
-                var latlng = layer.getLatLng();
-                var barat  = latlng.lng.toFixed(6) + '° BARAT';
-                var utara  = latlng.lat.toFixed(6) + '° UTARA';
-                var tooltipContent =
-                    '<b style="color:#b8860b;">📍 Tanda Sempadan</b><br>' +
-                    '<b>BARAT:</b> ' + barat + '<br>' +
-                    '<b>UTARA:</b> ' + utara;
-                layer.bindTooltip(tooltipContent, {
-                    sticky: true,
-                    opacity: 1,
-                    className: 'tanda-tooltip'
-                }).openTooltip();
-            },
-
-            mouseout: function(e) {
-                layer.closeTooltip();
-                layer.unbindTooltip();
-            }
+            mouseover:function(e){var l=layer.getLatLng();layer.bindTooltip('<b style="color:#b8860b;">📍 Tanda Sempadan</b><br><b>BARAT:</b> '+l.lng.toFixed(6)+'° BARAT<br><b>UTARA:</b> '+l.lat.toFixed(6)+'° UTARA',{sticky:true,opacity:1,className:'tanda-tooltip'}).openTooltip();},
+            mouseout:function(e){layer.closeTooltip();layer.unbindTooltip();}
         });
     }
 }).addTo(map);
 
-/* ================================================
-   TAMBAHAN 1: LAYER LABEL NOMBOR LOT
-   ================================================ */
-
-var labelLayer = L.layerGroup();
-
-layer_LOTFINAL_0.eachLayer(function(lyr) {
-    var noLot  = lyr.feature.properties["NO_LOT"];
-    if (!noLot) return;
-    var center = lyr.getBounds().getCenter();
-    var marker = L.marker(center, {
-        icon: L.divIcon({
-            className: 'lot-label',
-            html: '<span>' + noLot + '</span>',
-            iconSize:   [0, 0],
-            iconAnchor: [0, 0]
-        }),
-        interactive: false,
-        keyboard:    false
-    });
-    labelLayer.addLayer(marker);
+var labelLayer=L.layerGroup();
+layer_LOTFINAL_0.eachLayer(function(lyr){
+    var noLot=lyr.feature.properties["NO_LOT"];if(!noLot)return;
+    var center=lyr.getBounds().getCenter();
+    labelLayer.addLayer(L.marker(center,{icon:L.divIcon({className:'lot-label',html:'<span>'+noLot+'</span>',iconSize:[0,0],iconAnchor:[0,0]}),interactive:false,keyboard:false}));
 });
 
-/* ================= PANEL FUNCTION ================= */
+/* PANELS */
+var gmPanel=document.getElementById("gmPanel");
+document.getElementById("gmLayersBtn").onclick=function(){gmPanel.style.display=gmPanel.style.display==="block"?"none":"block";};
+document.getElementById("streetRadio").onclick=function(){map.removeLayer(satellite);map.removeLayer(terrain);map.addLayer(street);};
+document.getElementById("satRadio").onclick=function(){map.removeLayer(street);map.removeLayer(terrain);map.addLayer(satellite);};
+document.getElementById("terrainRadio").onclick=function(){map.removeLayer(street);map.removeLayer(satellite);map.addLayer(terrain);};
+document.getElementById("trafficCheck").onchange=function(){this.checked?map.addLayer(traffic):map.removeLayer(traffic);};
+document.getElementById("transitCheck").onchange=function(){this.checked?map.addLayer(transit):map.removeLayer(transit);};
+document.getElementById("bikeCheck").onchange=function(){this.checked?map.addLayer(bicycling):map.removeLayer(bicycling);};
+document.getElementById("lotCheck").onchange=function(){this.checked?map.addLayer(layer_LOTFINAL_0):map.removeLayer(layer_LOTFINAL_0);};
+document.getElementById("tandaCheck").onchange=function(){this.checked?map.addLayer(tandaLayer):map.removeLayer(tandaLayer);};
+document.getElementById("labelCheck").onchange=function(){this.checked?map.addLayer(labelLayer):map.removeLayer(labelLayer);};
 
-var gmPanel = document.getElementById("gmPanel");
+var dashboard=document.getElementById("dashboard"),menuBtn=document.getElementById("menuBtn"),closeBtn=document.getElementById("closeDashboard");
+menuBtn.onclick=function(){dashboard.classList.add("active");menuBtn.style.display="none";};
+closeBtn.onclick=function(){dashboard.classList.remove("active");menuBtn.style.display="block";};
 
-document.getElementById("gmLayersBtn").onclick = function() {
-    gmPanel.style.display = gmPanel.style.display === "block" ? "none" : "block";
-};
+document.getElementById("totalLot").innerHTML=layer_LOTFINAL_0.getLayers().length;
 
-document.getElementById("streetRadio").onclick = function() {
-    map.removeLayer(satellite); map.removeLayer(terrain); map.addLayer(street);
-};
+document.getElementById("opacitySlider").oninput=function(){var v=this.value;layer_LOTFINAL_0.eachLayer(function(l){l.setStyle({fillOpacity:v});});};
 
-document.getElementById("satRadio").onclick = function() {
-    map.removeLayer(street); map.removeLayer(terrain); map.addLayer(satellite);
-};
-
-document.getElementById("terrainRadio").onclick = function() {
-    map.removeLayer(street); map.removeLayer(satellite); map.addLayer(terrain);
-};
-
-document.getElementById("trafficCheck").onchange = function() {
-    this.checked ? map.addLayer(traffic) : map.removeLayer(traffic);
-};
-
-document.getElementById("transitCheck").onchange = function() {
-    this.checked ? map.addLayer(transit) : map.removeLayer(transit);
-};
-
-document.getElementById("bikeCheck").onchange = function() {
-    this.checked ? map.addLayer(bicycling) : map.removeLayer(bicycling);
-};
-
-document.getElementById("lotCheck").onchange = function() {
-    this.checked ? map.addLayer(layer_LOTFINAL_0) : map.removeLayer(layer_LOTFINAL_0);
-};
-
-document.getElementById("tandaCheck").onchange = function() {
-    this.checked ? map.addLayer(tandaLayer) : map.removeLayer(tandaLayer);
-};
-
-/* TAMBAHAN: Toggle label No Lot */
-document.getElementById("labelCheck").onchange = function() {
-    this.checked ? map.addLayer(labelLayer) : map.removeLayer(labelLayer);
-};
-
-/* ================= DASHBOARD FUNCTION ================= */
-
-var dashboard = document.getElementById("dashboard");
-var menuBtn = document.getElementById("menuBtn");
-var closeBtn = document.getElementById("closeDashboard");
-
-menuBtn.onclick = function() {
-    dashboard.classList.add("active");
-    menuBtn.style.display = "none";
-};
-
-closeBtn.onclick = function() {
-    dashboard.classList.remove("active");
-    menuBtn.style.display = "block";
-};
-
-/* ================= TOTAL LOT ================= */
-
-document.getElementById("totalLot").innerHTML =
-    layer_LOTFINAL_0.getLayers().length;
-
-/* ================= LOT OPACITY ================= */
-
-document.getElementById("opacitySlider").oninput = function() {
-    var value = this.value;
-    layer_LOTFINAL_0.eachLayer(function(layer) {
-        layer.setStyle({ fillOpacity: value });
-    });
-};
-
-/* ================= LAND EXPLORER ================= */
-
-document.getElementById("findLot").onclick = function() {
-    var searchValue = document.getElementById("searchLot").value;
-    layer_LOTFINAL_0.eachLayer(function(layer) {
-        if (layer.feature.properties["NO_LOT"] == searchValue) {
-            map.fitBounds(layer.getBounds());
-            map.invalidateSize();
-            if (selectedLayer) {
-                selectedLayer.setStyle(style_LOTFINAL_0());
-            }
-            selectedLayer = layer;
-            layer.setStyle(highlightStyle());
-            updateLotInfo(layer.feature.properties);
+document.getElementById("findLot").onclick=function(){
+    var sv=document.getElementById("searchLot").value;
+    layer_LOTFINAL_0.eachLayer(function(layer){
+        if(layer.feature.properties["NO_LOT"]==sv){
+            map.fitBounds(layer.getBounds());map.invalidateSize();
+            if(selectedLayer)selectedLayer.setStyle(style_LOTFINAL_0());
+            selectedLayer=layer;layer.setStyle(highlightStyle());updateLotInfo(layer.feature.properties);
         }
     });
 };
 
-document.getElementById("resetLot").onclick = function() {
-    document.getElementById("searchLot").value = "";
-    layer_LOTFINAL_0.eachLayer(function(layer) {
-        layer.setStyle(style_LOTFINAL_0());
-    });
-    selectedLayer = null;
-    document.getElementById("lotInfo").innerHTML = "Tiada lot dipilih";
+document.getElementById("resetLot").onclick=function(){
+    document.getElementById("searchLot").value="";
+    layer_LOTFINAL_0.eachLayer(function(layer){layer.setStyle(style_LOTFINAL_0());});
+    selectedLayer=null;document.getElementById("lotInfo").innerHTML="Tiada lot dipilih";
 };
 
-/* ================= UPDATE INFO PANEL ================= */
-
-function updateLotInfo(properties) {
-    document.getElementById("lotInfo").innerHTML = `
-        <b>No PA:</b> ${properties["tsp — _1"]}<br>
-        <b>No Lot:</b> ${properties["NO_LOT"]}<br>
-        <b>Keluasan:</b> ${parseFloat(properties["AREA"]).toFixed(3)} m²<br>
-        <b>Pemilik:</b> ${properties["tsp — pe"]}
-    `;
+function updateLotInfo(p){
+    document.getElementById("lotInfo").innerHTML='<b>No PA:</b> '+p["tsp — _1"]+'<br><b>No Lot:</b> '+p["NO_LOT"]+'<br><b>Keluasan:</b> '+parseFloat(p["AREA"]).toFixed(3)+' m²<br><b>Pemilik:</b> '+p["tsp — pe"];
 }
 
-layer_LOTFINAL_0.eachLayer(function(layer) {
-    layer.on("click", function() {
-        updateLotInfo(layer.feature.properties);
-    });
-});
+layer_LOTFINAL_0.eachLayer(function(layer){layer.on("click",function(){updateLotInfo(layer.feature.properties);});});
 
-function getBase64Image(url, callback) {
-    var img = new Image();
-    img.crossOrigin = "Anonymous";
-    img.onload = function() {
-        var canvas = document.createElement("canvas");
-        canvas.width = img.width;
-        canvas.height = img.height;
-        var ctx = canvas.getContext("2d");
-        ctx.drawImage(img, 0, 0);
-        var dataURL = canvas.toDataURL("image/png");
-        callback(dataURL);
-    };
-    img.src = url;
+function getBase64Image(url,callback){
+    var img=new Image();img.crossOrigin="Anonymous";
+    img.onload=function(){var c=document.createElement("canvas");c.width=img.width;c.height=img.height;c.getContext("2d").drawImage(img,0,0);callback(c.toDataURL("image/png"));};
+    img.src=url;
 }
 
 /* ================================================
    MODAL PDF
    ================================================ */
+var pdfModal=document.getElementById("pdfModal"),inputNama=document.getElementById("inputNamaSemak");
 
-var pdfModal  = document.getElementById("pdfModal");
-var inputNama = document.getElementById("inputNamaSemak");
-
-document.getElementById("generatePDF").onclick = function() {
-    if (!selectedLayer) {
-        alert("Sila pilih lot dahulu.");
-        return;
-    }
-    inputNama.value = "";
-    inputNama.style.border = "";
-    inputNama.placeholder = "Contoh: MOHD AMIN BIN AHMAD";
-    pdfModal.classList.add("show");
-    setTimeout(function(){ inputNama.focus(); }, 300);
+document.getElementById("generatePDF").onclick=function(){
+    if(!selectedLayer){alert("Sila pilih lot dahulu.");return;}
+    inputNama.value="";inputNama.style.border="";inputNama.placeholder="Contoh: MOHD AMIN BIN AHMAD";
+    pdfModal.classList.add("show");setTimeout(function(){inputNama.focus();},300);
 };
 
-document.getElementById("btnBatalModal").addEventListener("click", function(e) {
-    e.stopPropagation();
-    pdfModal.classList.remove("show");
-});
-
-pdfModal.addEventListener("click", function(e) {
-    if (e.target === pdfModal) {
-        pdfModal.classList.remove("show");
-    }
-});
-
-document.getElementById("pdfModalBox").addEventListener("click", function(e) {
-    e.stopPropagation();
-});
-
-inputNama.addEventListener("keydown", function(e) {
-    if (e.key === "Enter") {
-        document.getElementById("btnHantarModal").click();
-    }
-});
+document.getElementById("btnBatalModal").addEventListener("click",function(e){e.stopPropagation();pdfModal.classList.remove("show");});
+pdfModal.addEventListener("click",function(e){if(e.target===pdfModal)pdfModal.classList.remove("show");});
+document.getElementById("pdfModalBox").addEventListener("click",function(e){e.stopPropagation();});
+inputNama.addEventListener("keydown",function(e){if(e.key==="Enter")document.getElementById("btnHantarModal").click();});
 
 /* ================================================
-   GENERATE PDF — PEMBETULAN UTAMA LOT LARI
+   GENERATE PDF — PENYELESAIAN MUKTAMAD
    ================================================
-   PUNCA MASALAH ASAL:
-   map.setView() adalah async. html2canvas capture
-   div #map mengikut saiz CSS penuh (absolute position),
-   tetapi Leaflet render tiles mengikut viewport visible.
-   Apabila screenshot diambil, koordinat pixel dalam
-   canvas tidak selari dengan koordinat Leaflet kerana
-   peta belum selesai render pada saiz yang betul.
+   ROOT CAUSE:
+   Selepas map.setView(), Leaflet update coordinate
+   system serta-merta (synchronous). TAPI tiles baru
+   diminta dari server secara async. html2canvas
+   snapshot div #map sebelum tiles baru selesai render.
+   Hasilnya: GeoJSON lot dirender mengikut koordinat
+   BARU (betul), tapi tiles latar belakang masih
+   tiles LAMA (salah posisi) — lot kelihatan "lari".
 
-   PENYELESAIAN:
-   1. Simpan zoom & center SEBELUM bergerak
-   2. Guna map.once('idle') atau gabungan moveend+tileload
-      untuk detect peta benar-benar siap
-   3. Kira pixel position lot dalam canvas menggunakan
-      map.latLngToContainerPoint() SELEPAS peta stabil
-   4. Bina canvas PDF sendiri — crop tepat pada kawasan
-      yang mengandungi lot di tengah, bukan bergantung
-      pada timing setTimeout semata-mata
+   PENYELESAIAN: Poll tile <img> elements dalam
+   .leaflet-tile-pane. Tunggu sehingga SEMUA tiles
+   dalam viewport ada complete===true DAN naturalWidth>0.
+   Tiada manipulation koordinat atau offset diperlukan —
+   Leaflet dan html2canvas sudah koordinat konsisten.
    ================================================ */
 
 document.getElementById("btnHantarModal").addEventListener("click", function(e) {
     e.stopPropagation();
 
     var namaSemak = inputNama.value.trim();
-
     if (!namaSemak) {
         inputNama.style.border = "2px solid red";
         inputNama.placeholder  = "⚠️ Nama wajib diisi!";
         inputNama.focus();
         return;
     }
-
     inputNama.style.border = "";
     pdfModal.classList.remove("show");
 
     getBase64Image("PUO.png", function(logoBase64) {
         getBase64Image("north.png", function(northBase64) {
 
-            var lotBounds = selectedLayer.getBounds();
-            var lotCenter = lotBounds.getCenter();
+            var lotCenter = selectedLayer.getBounds().getCenter();
 
-            /* ================================================
-               PEMBETULAN KRITIKAL:
-               Gunakan zoom 19 yang konsisten.
-               Panggil map.setView dengan animate:false supaya
-               pergerakan berlaku serta-merta tanpa animasi,
-               kemudian tunggu event 'moveend' DAN semua tiles
-               selesai dimuatkan sebelum screenshot.
-               ================================================ */
-            var targetZoom = 19;
-
-            // Tutup semua popup & tooltip dulu
+            /* Tutup semua popup */
             map.closePopup();
-            map.eachLayer(function(l) {
-                if (l.closeTooltip) l.closeTooltip();
-            });
 
-            // Gerak peta ke center lot
-            map.setView(lotCenter, targetZoom, { animate: false });
+            /* Gerak ke lot, zoom 19, TANPA animasi */
+            map.setView(lotCenter, 19, { animate: false });
 
-            /* ================================================
-               Fungsi untuk check sama ada semua tiles
-               dalam viewport sudah dimuatkan
-               ================================================ */
-            function waitForTiles(callback) {
-                var mapDiv = document.getElementById("map");
-                var pendingTiles = mapDiv.querySelectorAll(
-                    '.leaflet-tile-pane img.leaflet-tile:not(.leaflet-tile-loaded)'
-                );
+            /* ============================================
+               POLL: Tunggu tiles betul-betul siap.
+               
+               Cara kerja:
+               1. Selepas setView(), Leaflet request tiles
+                  baru — img elements akan ada dalam DOM
+                  tapi complete===false atau naturalWidth===0
+               2. Kita poll setiap 150ms
+               3. Bila SEMUA img dalam tile pane sudah
+                  complete===true && naturalWidth>0, baru
+                  kita proceed ke screenshot
+               4. Max wait 10 saat (fallback)
+               ============================================ */
 
-                if (pendingTiles.length === 0) {
-                    // Semua tiles dah loaded
-                    callback();
+            function tilesReady() {
+                var pane = document.querySelector('#map .leaflet-tile-pane');
+                if (!pane) return true;
+                var imgs = pane.querySelectorAll('img.leaflet-tile');
+                /* Kalau tiada tiles langsung, belum ready */
+                if (imgs.length === 0) return false;
+                for (var i = 0; i < imgs.length; i++) {
+                    if (!imgs[i].complete || imgs[i].naturalWidth === 0) return false;
+                }
+                return true;
+            }
+
+            var polls = 0, maxPolls = 67; /* max ~10 saat */
+
+            function waitThenCapture() {
+                polls++;
+                if (tilesReady() || polls >= maxPolls) {
+                    /* Tiles dah ready, bagi 250ms untuk
+                       compositing akhir sebelum screenshot */
+                    setTimeout(captureAndBuildPDF, 250);
                 } else {
-                    // Tunggu lagi
-                    setTimeout(function() {
-                        waitForTiles(callback);
-                    }, 200);
+                    setTimeout(waitThenCapture, 150);
                 }
             }
 
-            /* ================================================
-               Fungsi utama screenshot & jana PDF
-               Dipanggil SELEPAS peta stabil & tiles loaded
-               ================================================ */
-            function doCapture() {
+            /* Bagi Leaflet 400ms untuk mula request tiles
+               sebelum kita mula poll */
+            setTimeout(waitThenCapture, 400);
 
-                /* PEMBETULAN KRITIKAL:
-                   Verify lot masih betul-betul di tengah
-                   viewport SEBELUM screenshot.
-                   Kira pixel position lot dalam div #map. */
-                var currentLotPx = map.latLngToContainerPoint(lotCenter);
-                var mapSize      = map.getSize();
-
-                /* Jika lot terkeluar dari kawasan tengah
-                   viewport (margin 20%), setView semula
-                   dan tunggu sekali lagi */
-                var marginX = mapSize.x * 0.20;
-                var marginY = mapSize.y * 0.20;
-
-                var lotInViewport = (
-                    currentLotPx.x >= marginX &&
-                    currentLotPx.x <= (mapSize.x - marginX) &&
-                    currentLotPx.y >= marginY &&
-                    currentLotPx.y <= (mapSize.y - marginY)
-                );
-
-                if (!lotInViewport) {
-                    /* Lot masih lari — paksa setView semula */
-                    map.setView(lotCenter, targetZoom, { animate: false });
-                    setTimeout(function() {
-                        waitForTiles(function() {
-                            setTimeout(takeScreenshot, 500);
-                        });
-                    }, 500);
-                    return;
-                }
-
-                takeScreenshot();
-            }
-
-            /* ================================================
-               Fungsi screenshot & generate PDF
-               ================================================ */
-            function takeScreenshot() {
+            /* ============================================
+               CAPTURE & PDF
+               ============================================ */
+            function captureAndBuildPDF() {
 
                 /* Pastikan lot masih highlighted */
                 if (selectedLayer) {
@@ -2288,167 +1265,75 @@ document.getElementById("btnHantarModal").addEventListener("click", function(e) 
                     selectedLayer.bringToFront();
                 }
 
-                /* PEMBETULAN KRITIKAL:
-                   Rekod pixel position lot TEPAT sebelum
-                   html2canvas dipanggil — ini adalah
-                   koordinat yang akan kita gunakan untuk
-                   verify lot ada dalam canvas */
-                var lotPxBeforeCapture = map.latLngToContainerPoint(lotCenter);
-
                 html2canvas(document.getElementById("map"), {
-                    useCORS: true,
-                    scale: 4,
-                    /* PEMBETULAN: logging: false untuk elak
-                       rendering delay akibat console output */
-                    logging: false,
-                    /* PEMBETULAN: allowTaint false untuk
-                       pastikan semua tile dirender dengan betul */
+                    useCORS:    true,
+                    scale:      4,
+                    logging:    false,
                     allowTaint: false
                 }).then(function(canvas) {
 
-                    /* PEMBETULAN KRITIKAL:
-                       Verify semula pixel lot dalam canvas.
-                       canvas.width = mapDiv.width * scale (4)
-                       Jika lot pixel dalam canvas jauh dari
-                       tengah canvas, ada masalah offset. */
-                    var canvasW = canvas.width;
-                    var canvasH = canvas.height;
-                    var scale   = 4;
-
-                    var lotCanvasX = lotPxBeforeCapture.x * scale;
-                    var lotCanvasY = lotPxBeforeCapture.y * scale;
-
-                    /* Kira crop region: lot di tengah,
-                       saiz crop = saiz canvas penuh
-                       (kita ambil dari center lot) */
-                    var cropW = canvasW;
-                    var cropH = canvasH;
-
-                    /* Buat canvas baru untuk output akhir */
-                    var outputCanvas = document.createElement('canvas');
-                    outputCanvas.width  = cropW;
-                    outputCanvas.height = cropH;
-                    var ctx = outputCanvas.getContext('2d');
-
-                    /* Kira offset untuk pastikan lot
-                       berada TEPAT di tengah output canvas */
-                    var targetCenterX = cropW / 2;
-                    var targetCenterY = cropH / 2;
-
-                    var offsetX = targetCenterX - lotCanvasX;
-                    var offsetY = targetCenterY - lotCanvasY;
-
-                    /* Fill background hitam dulu */
-                    ctx.fillStyle = '#000';
-                    ctx.fillRect(0, 0, cropW, cropH);
-
-                    /* Draw canvas asal dengan offset
-                       supaya lot tepat di tengah */
-                    ctx.drawImage(canvas, offsetX, offsetY);
-
-                    /* Guna outputCanvas untuk PDF */
-                    var mapImg = outputCanvas.toDataURL("image/jpeg", 1.0);
+                    var mapImg = canvas.toDataURL("image/jpeg", 1.0);
+                    var prop   = selectedLayer.feature.properties;
 
                     const { jsPDF } = window.jspdf;
                     var pdf = new jsPDF("landscape", "mm", "a4");
-                    var prop = selectedLayer.feature.properties;
 
-                    pdf.setLineWidth(1.5);
-                    pdf.rect(5, 5, 287, 200);
-                    pdf.setLineWidth(0.8);
-                    pdf.rect(5, 5, 60, 200);
-                    pdf.rect(65, 5, 227, 165);
-                    pdf.rect(65, 170, 227, 35);
+                    pdf.setLineWidth(1.5); pdf.rect(5, 5, 287, 200);
+                    pdf.setLineWidth(0.8); pdf.rect(5, 5, 60, 200);
+                    pdf.rect(65, 5, 227, 165); pdf.rect(65, 170, 227, 35);
 
                     pdf.addImage(logoBase64, 'PNG', 15, 8, 40, 40);
 
-                    pdf.setFont("times", "bold");
-                    pdf.setFontSize(10);
-                    pdf.text("POLITEKNIK UNGKU OMAR", 35, 52, { align: "center" });
+                    pdf.setFont("times","bold"); pdf.setFontSize(10);
+                    pdf.text("POLITEKNIK UNGKU OMAR", 35, 52, {align:"center"});
 
-                    pdf.setFontSize(11);
-                    pdf.setFont("times", "bold");
+                    pdf.setFontSize(11); pdf.setFont("times","bold");
                     pdf.text("NEGERI JOHOR",   15, 68);
-                    pdf.setTextColor(200, 0, 0);
+                    pdf.setTextColor(200,0,0);
                     pdf.text("DAERAH TANGKAK",  15, 78);
-                    pdf.setTextColor(0, 0, 0);
+                    pdf.setTextColor(0,0,0);
                     pdf.text("MUKIM KESANG",    15, 88);
 
-                    pdf.setFontSize(11);
-                    pdf.text("INFORMASI LOT",  15, 108);
-                    pdf.setFont("times", "normal");
+                    pdf.setFontSize(11); pdf.text("INFORMASI LOT", 15, 108);
+                    pdf.setFont("times","normal");
 
-                    pdf.text("NO. LOT:",       15, 118);
-                    pdf.text(prop["NO_LOT"],   40, 118);
+                    pdf.text("NO. LOT:",      15, 118);
+                    pdf.text(prop["NO_LOT"],  40, 118);
 
-                    pdf.text("NAMA PEMILIK:",  15, 130);
-                    var owner     = prop["tsp — pe"] || "-";
-                    var ownerText = pdf.splitTextToSize(owner, 42);
-                    pdf.text(ownerText,        15, 137);
+                    pdf.text("NAMA PEMILIK:", 15, 130);
+                    var owner = prop["tsp — pe"] || "-";
+                    pdf.text(pdf.splitTextToSize(owner, 42), 15, 137);
 
-                    pdf.text("KELUASAN:",      15, 155);
-                    var luas = parseFloat(prop["AREA"]).toFixed(2);
-                    pdf.text(luas + " m²",     40, 155);
+                    pdf.text("KELUASAN:",     15, 155);
+                    pdf.text(parseFloat(prop["AREA"]).toFixed(2) + " m²", 40, 155);
 
                     var today = new Date().toLocaleDateString('en-GB');
                     pdf.text("TARIKH CETAKAN:", 15, 168);
                     pdf.text(today,              15, 174);
 
                     pdf.text("DISEMAK OLEH:",   15, 184);
-                    var semakText = pdf.splitTextToSize(namaSemak.toUpperCase(), 45);
-                    pdf.text(semakText,          15, 190);
+                    pdf.text(pdf.splitTextToSize(namaSemak.toUpperCase(), 45), 15, 190);
 
-                    pdf.setFont("times", "bold");
-                    pdf.setFontSize(22);
-                    pdf.text("PELAN AKUI", 178, 16, { align: "center" });
+                    pdf.setFont("times","bold"); pdf.setFontSize(22);
+                    pdf.text("PELAN AKUI", 178, 16, {align:"center"});
 
                     pdf.addImage(mapImg, 'JPEG', 68, 18, 221, 149);
                     pdf.addImage(northBase64, "PNG", 276, 20, 13, 13);
 
-                    pdf.setFontSize(26);
-                    pdf.setFont("times", "bold");
-                    var pa = prop["tsp — _1"] || "-";
-                    pdf.text("PA " + pa, 178, 188, { align: "center" });
+                    pdf.setFontSize(26); pdf.setFont("times","bold");
+                    pdf.text("PA " + (prop["tsp — _1"]||"-"), 178, 188, {align:"center"});
 
-                    pdf.setFontSize(7);
-                    pdf.setFont("times", "normal");
-                    pdf.text(
-                        "Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah",
-                        178, 203, { align: "center" }
-                    );
+                    pdf.setFontSize(7); pdf.setFont("times","normal");
+                    pdf.text("Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah", 178, 203, {align:"center"});
 
                     pdf.save("Pelan_Akui_Lot_" + prop["NO_LOT"] + ".pdf");
                 });
             }
-
-            /* ================================================
-               Tunggu moveend event dulu, kemudian
-               tunggu semua tiles loaded, baru screenshot
-               ================================================ */
-            map.once('moveend', function() {
-                /* Bagi masa tiles mula dimuatkan */
-                setTimeout(function() {
-                    waitForTiles(function() {
-                        /* Buffer tambahan 300ms untuk
-                           pastikan rendering selesai */
-                        setTimeout(doCapture, 300);
-                    });
-                }, 200);
-            });
-
-            /* Fallback: jika moveend tidak fire
-               dalam 2 saat (map dah kat posisi sama) */
-            setTimeout(function() {
-                waitForTiles(function() {
-                    setTimeout(doCapture, 300);
-                });
-            }, 2000);
 
         });
     });
 });
 
 </script>
-
 </body>
 </html>
