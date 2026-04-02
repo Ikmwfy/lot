@@ -2177,23 +2177,46 @@ document.getElementById("btnHantarModal").addEventListener("click", function(e) 
     getBase64Image("PUO.png", function(logoBase64) {
         getBase64Image("north.png", function(northBase64) {
 
-            /* ================================================
-               PEMBETULAN PDF: Guna setView ke centroid lot
-               dengan zoom tetap supaya lot berada di TENGAH
-               viewport semasa screenshot diambil.
-               fitBounds dengan padding besar menyebabkan
-               viewport lari — setView lebih tepat & konsisten.
-               ================================================ */
-            var lotCenter = selectedLayer.getBounds().getCenter();
-            var pdfZoom   = Math.max(map.getZoom(), 18);
+            var lotBounds = selectedLayer.getBounds();
+            var lotCenter = lotBounds.getCenter();
 
+            // Kira zoom yang sesuai supaya lot kelihatan jelas
+            var pdfZoom = 19;
+
+            // Paksa peta ke center lot dengan zoom tetap
             map.setView(lotCenter, pdfZoom, { animate: false });
-            map.invalidateSize();
 
-            setTimeout(function() {
-
+            // Tunggu peta selesai bergerak DAN tiles dimuatkan
+            function doScreenshot() {
                 map.closePopup();
 
+                // Pastikan lot yang dipilih masih highlighted
+                if (selectedLayer) {
+                    selectedLayer.setStyle(highlightStyle());
+                    selectedLayer.bringToFront();
+                }
+
+                // Semak semula center — pastikan lot masih di tengah viewport
+                var currentCenter = map.getCenter();
+                var lotPx = map.latLngToContainerPoint(lotCenter);
+                var mapSize = map.getSize();
+
+                // Jika lot tidak berada dalam kawasan tengah viewport, setView semula
+                var marginX = mapSize.x * 0.15;
+                var marginY = mapSize.y * 0.15;
+                if (
+                    lotPx.x < marginX || lotPx.x > mapSize.x - marginX ||
+                    lotPx.y < marginY || lotPx.y > mapSize.y - marginY
+                ) {
+                    map.setView(lotCenter, pdfZoom, { animate: false });
+                    setTimeout(doCapture, 1500);
+                    return;
+                }
+
+                doCapture();
+            }
+
+            function doCapture() {
                 html2canvas(document.getElementById("map"), {
                     useCORS: true,
                     scale: 4
@@ -2270,8 +2293,32 @@ document.getElementById("btnHantarModal").addEventListener("click", function(e) 
 
                     pdf.save("Pelan_Akui_Lot_" + prop["NO_LOT"] + ".pdf");
                 });
+            }
 
-            }, 2500);
+            // Guna event moveend+zoomend untuk pastikan peta dah stabil
+            var triggered = false;
+            function onMapIdle() {
+                if (triggered) return;
+                triggered = true;
+                map.off('moveend', onMapIdle);
+                map.off('zoomend', onMapIdle);
+                // Bagi masa tiles render
+                setTimeout(doScreenshot, 1800);
+            }
+
+            map.on('moveend', onMapIdle);
+            map.on('zoomend', onMapIdle);
+
+            // Fallback jika event tidak triggered
+            setTimeout(function() {
+                if (!triggered) {
+                    triggered = true;
+                    map.off('moveend', onMapIdle);
+                    map.off('zoomend', onMapIdle);
+                    setTimeout(doScreenshot, 1800);
+                }
+            }, 3000);
+
         });
     });
 });
