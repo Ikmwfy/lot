@@ -1959,9 +1959,6 @@ var tandaLayer = new L.geoJson(json_TandaSempadanGabung_1, {
 
 /* ================================================
    TAMBAHAN 1: LAYER LABEL NOMBOR LOT
-   Bina labelLayer dengan marker divIcon untuk
-   setiap lot. Boleh toggle ON/OFF dalam Layers panel.
-   Default: OFF (tidak dipaparkan)
    ================================================ */
 
 var labelLayer = L.layerGroup();
@@ -2157,7 +2154,27 @@ inputNama.addEventListener("keydown", function(e) {
     }
 });
 
-/* ================= GENERATE PDF A4 + LOGO ================= */
+/* ================================================
+   GENERATE PDF — PEMBETULAN UTAMA LOT LARI
+   ================================================
+   PUNCA MASALAH ASAL:
+   map.setView() adalah async. html2canvas capture
+   div #map mengikut saiz CSS penuh (absolute position),
+   tetapi Leaflet render tiles mengikut viewport visible.
+   Apabila screenshot diambil, koordinat pixel dalam
+   canvas tidak selari dengan koordinat Leaflet kerana
+   peta belum selesai render pada saiz yang betul.
+
+   PENYELESAIAN:
+   1. Simpan zoom & center SEBELUM bergerak
+   2. Guna map.once('idle') atau gabungan moveend+tileload
+      untuk detect peta benar-benar siap
+   3. Kira pixel position lot dalam canvas menggunakan
+      map.latLngToContainerPoint() SELEPAS peta stabil
+   4. Bina canvas PDF sendiri — crop tepat pada kawasan
+      yang mengandungi lot di tengah, bukan bergantung
+      pada timing setTimeout semata-mata
+   ================================================ */
 
 document.getElementById("btnHantarModal").addEventListener("click", function(e) {
     e.stopPropagation();
@@ -2177,32 +2194,164 @@ document.getElementById("btnHantarModal").addEventListener("click", function(e) 
     getBase64Image("PUO.png", function(logoBase64) {
         getBase64Image("north.png", function(northBase64) {
 
+            var lotBounds = selectedLayer.getBounds();
+            var lotCenter = lotBounds.getCenter();
+
             /* ================================================
-               PEMBETULAN PDF: Guna setView ke centroid lot
-               dengan zoom tetap supaya lot berada di TENGAH
-               viewport semasa screenshot diambil.
-               fitBounds dengan padding besar menyebabkan
-               viewport lari — setView lebih tepat & konsisten.
+               PEMBETULAN KRITIKAL:
+               Gunakan zoom 19 yang konsisten.
+               Panggil map.setView dengan animate:false supaya
+               pergerakan berlaku serta-merta tanpa animasi,
+               kemudian tunggu event 'moveend' DAN semua tiles
+               selesai dimuatkan sebelum screenshot.
                ================================================ */
-            var lotCenter = selectedLayer.getBounds().getCenter();
-            var pdfZoom   = Math.max(map.getZoom(), 18);
+            var targetZoom = 19;
 
-            map.setView(lotCenter, pdfZoom, { animate: false });
-            map.invalidateSize();
+            // Tutup semua popup & tooltip dulu
+            map.closePopup();
+            map.eachLayer(function(l) {
+                if (l.closeTooltip) l.closeTooltip();
+            });
 
-            setTimeout(function() {
+            // Gerak peta ke center lot
+            map.setView(lotCenter, targetZoom, { animate: false });
 
-                map.closePopup();
+            /* ================================================
+               Fungsi untuk check sama ada semua tiles
+               dalam viewport sudah dimuatkan
+               ================================================ */
+            function waitForTiles(callback) {
+                var mapDiv = document.getElementById("map");
+                var pendingTiles = mapDiv.querySelectorAll(
+                    '.leaflet-tile-pane img.leaflet-tile:not(.leaflet-tile-loaded)'
+                );
+
+                if (pendingTiles.length === 0) {
+                    // Semua tiles dah loaded
+                    callback();
+                } else {
+                    // Tunggu lagi
+                    setTimeout(function() {
+                        waitForTiles(callback);
+                    }, 200);
+                }
+            }
+
+            /* ================================================
+               Fungsi utama screenshot & jana PDF
+               Dipanggil SELEPAS peta stabil & tiles loaded
+               ================================================ */
+            function doCapture() {
+
+                /* PEMBETULAN KRITIKAL:
+                   Verify lot masih betul-betul di tengah
+                   viewport SEBELUM screenshot.
+                   Kira pixel position lot dalam div #map. */
+                var currentLotPx = map.latLngToContainerPoint(lotCenter);
+                var mapSize      = map.getSize();
+
+                /* Jika lot terkeluar dari kawasan tengah
+                   viewport (margin 20%), setView semula
+                   dan tunggu sekali lagi */
+                var marginX = mapSize.x * 0.20;
+                var marginY = mapSize.y * 0.20;
+
+                var lotInViewport = (
+                    currentLotPx.x >= marginX &&
+                    currentLotPx.x <= (mapSize.x - marginX) &&
+                    currentLotPx.y >= marginY &&
+                    currentLotPx.y <= (mapSize.y - marginY)
+                );
+
+                if (!lotInViewport) {
+                    /* Lot masih lari — paksa setView semula */
+                    map.setView(lotCenter, targetZoom, { animate: false });
+                    setTimeout(function() {
+                        waitForTiles(function() {
+                            setTimeout(takeScreenshot, 500);
+                        });
+                    }, 500);
+                    return;
+                }
+
+                takeScreenshot();
+            }
+
+            /* ================================================
+               Fungsi screenshot & generate PDF
+               ================================================ */
+            function takeScreenshot() {
+
+                /* Pastikan lot masih highlighted */
+                if (selectedLayer) {
+                    selectedLayer.setStyle(highlightStyle());
+                    selectedLayer.bringToFront();
+                }
+
+                /* PEMBETULAN KRITIKAL:
+                   Rekod pixel position lot TEPAT sebelum
+                   html2canvas dipanggil — ini adalah
+                   koordinat yang akan kita gunakan untuk
+                   verify lot ada dalam canvas */
+                var lotPxBeforeCapture = map.latLngToContainerPoint(lotCenter);
 
                 html2canvas(document.getElementById("map"), {
                     useCORS: true,
-                    scale: 4
+                    scale: 4,
+                    /* PEMBETULAN: logging: false untuk elak
+                       rendering delay akibat console output */
+                    logging: false,
+                    /* PEMBETULAN: allowTaint false untuk
+                       pastikan semua tile dirender dengan betul */
+                    allowTaint: false
                 }).then(function(canvas) {
+
+                    /* PEMBETULAN KRITIKAL:
+                       Verify semula pixel lot dalam canvas.
+                       canvas.width = mapDiv.width * scale (4)
+                       Jika lot pixel dalam canvas jauh dari
+                       tengah canvas, ada masalah offset. */
+                    var canvasW = canvas.width;
+                    var canvasH = canvas.height;
+                    var scale   = 4;
+
+                    var lotCanvasX = lotPxBeforeCapture.x * scale;
+                    var lotCanvasY = lotPxBeforeCapture.y * scale;
+
+                    /* Kira crop region: lot di tengah,
+                       saiz crop = saiz canvas penuh
+                       (kita ambil dari center lot) */
+                    var cropW = canvasW;
+                    var cropH = canvasH;
+
+                    /* Buat canvas baru untuk output akhir */
+                    var outputCanvas = document.createElement('canvas');
+                    outputCanvas.width  = cropW;
+                    outputCanvas.height = cropH;
+                    var ctx = outputCanvas.getContext('2d');
+
+                    /* Kira offset untuk pastikan lot
+                       berada TEPAT di tengah output canvas */
+                    var targetCenterX = cropW / 2;
+                    var targetCenterY = cropH / 2;
+
+                    var offsetX = targetCenterX - lotCanvasX;
+                    var offsetY = targetCenterY - lotCanvasY;
+
+                    /* Fill background hitam dulu */
+                    ctx.fillStyle = '#000';
+                    ctx.fillRect(0, 0, cropW, cropH);
+
+                    /* Draw canvas asal dengan offset
+                       supaya lot tepat di tengah */
+                    ctx.drawImage(canvas, offsetX, offsetY);
+
+                    /* Guna outputCanvas untuk PDF */
+                    var mapImg = outputCanvas.toDataURL("image/jpeg", 1.0);
 
                     const { jsPDF } = window.jspdf;
                     var pdf = new jsPDF("landscape", "mm", "a4");
-                    var mapImg = canvas.toDataURL("image/jpeg", 1.0);
-                    var prop   = selectedLayer.feature.properties;
+                    var prop = selectedLayer.feature.properties;
 
                     pdf.setLineWidth(1.5);
                     pdf.rect(5, 5, 287, 200);
@@ -2270,8 +2419,31 @@ document.getElementById("btnHantarModal").addEventListener("click", function(e) 
 
                     pdf.save("Pelan_Akui_Lot_" + prop["NO_LOT"] + ".pdf");
                 });
+            }
 
-            }, 2500);
+            /* ================================================
+               Tunggu moveend event dulu, kemudian
+               tunggu semua tiles loaded, baru screenshot
+               ================================================ */
+            map.once('moveend', function() {
+                /* Bagi masa tiles mula dimuatkan */
+                setTimeout(function() {
+                    waitForTiles(function() {
+                        /* Buffer tambahan 300ms untuk
+                           pastikan rendering selesai */
+                        setTimeout(doCapture, 300);
+                    });
+                }, 200);
+            });
+
+            /* Fallback: jika moveend tidak fire
+               dalam 2 saat (map dah kat posisi sama) */
+            setTimeout(function() {
+                waitForTiles(function() {
+                    setTimeout(doCapture, 300);
+                });
+            }, 2000);
+
         });
     });
 });
