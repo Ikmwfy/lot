@@ -1315,7 +1315,7 @@ document.getElementById("btnHantarModal").addEventListener("click", function(e) 
                     pdf.text(pdf.splitTextToSize(namaSemak.toUpperCase(), 45), 15, 190);
 
                     pdf.setFont("times","bold"); pdf.setFontSize(22);
-                    pdf.text("PELAN AKUI", 178, 16, {align:"center"});
+                    pdf.text("PETA", 178, 16, {align:"center"});
 
                     pdf.addImage(mapImg, 'JPEG', 68, 18, 221, 149);
                     pdf.addImage(northBase64, "PNG", 276, 20, 13, 13);
@@ -1326,7 +1326,7 @@ document.getElementById("btnHantarModal").addEventListener("click", function(e) 
                     pdf.setFontSize(7); pdf.setFont("times","normal");
                     pdf.text("Dokumen ini dijana secara digital melalui Sistem Maklumat Lot Tanah", 178, 203, {align:"center"});
 
-                    pdf.save("Pelan_Akui_Lot_" + prop["NO_LOT"] + ".pdf");
+                    pdf.save("Peta Lot " + prop["NO_LOT"] + ".pdf");
                 });
             }
 
